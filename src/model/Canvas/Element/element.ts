@@ -44,9 +44,9 @@ export function deleteSelectElement(oldElement: Element, card: Card): Card {
     }
 }
 
-export function updateSelectElement(elementId: number | undefined, card: Card): Element | null {
+export function getSelectElement(card: Card): Element | null {
     const newSelectElement: Element | undefined = card.canvas.elements.find(element => {
-        element.id === elementId
+        element.id === card.canvas.selectElement?.id
     })
     if (newSelectElement !== undefined) {
         return newSelectElement

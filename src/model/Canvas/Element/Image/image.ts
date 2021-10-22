@@ -1,5 +1,5 @@
 import type { Card, Size } from '../../../Card/card'
-import { updateSelectElement } from '../element'
+import { getSelectElement } from '../element'
 
 export function addImage(card: Card): Card {
     return {
@@ -27,7 +27,7 @@ export function addImage(card: Card): Card {
 }
 
 export function resizeImage(newSize: Size, card: Card): Card {
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
+    const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
         canvas: {
@@ -50,7 +50,7 @@ export function resizeImage(newSize: Size, card: Card): Card {
         ...newCard,
         canvas: {
             ...newCard.canvas,
-            selectElement: updateSelectElement(oldElement?.id, card)
+            selectElement: getSelectElement(card)
         }
     }
 }

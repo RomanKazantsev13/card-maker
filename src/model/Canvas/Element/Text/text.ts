@@ -1,5 +1,5 @@
 import type { Card, Size } from "../../../Card/card"
-import { updateSelectElement } from "../element"
+import { getSelectElement } from "../element"
 
 export function addText(card: Card): Card {
     return {
@@ -26,7 +26,7 @@ export function addText(card: Card): Card {
 }
 
 export function resizeText(newSize: Size, card: Card): Card {
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
+    const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
         canvas: {
@@ -49,13 +49,13 @@ export function resizeText(newSize: Size, card: Card): Card {
         ...newCard,
         canvas: {
             ...newCard.canvas,
-            selectElement: updateSelectElement(oldElement?.id, card)
+            selectElement: getSelectElement(card)
         }
     }
 }
 
 export function setSizeText(newSize: number, card: Card): Card {
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
+    const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
         canvas: {
@@ -78,13 +78,13 @@ export function setSizeText(newSize: number, card: Card): Card {
         ...newCard,
         canvas: {
             ...newCard.canvas,
-            selectElement: updateSelectElement(oldElement?.id, card)
+            selectElement: getSelectElement(card)
         }
     }
 }
 
 export function setFontText(newFont: string, card: Card): Card {
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
+    const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
         canvas: {
@@ -107,7 +107,7 @@ export function setFontText(newFont: string, card: Card): Card {
         ...newCard,
         canvas: {
             ...newCard.canvas,
-            selectElement: updateSelectElement(oldElement?.id, card)
+            selectElement: getSelectElement(card)
         }
     }
 }
@@ -136,13 +136,13 @@ export function setColorText(newColor: string, card: Card): Card {
         ...newCard,
         canvas: {
             ...newCard.canvas,
-            selectElement: updateSelectElement(oldElement?.id, card)
+            selectElement: getSelectElement(card)
         }
     }
 }
 
 export function changeText(newText: string, card: Card): Card {
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
+    const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
         canvas: {
@@ -165,7 +165,7 @@ export function changeText(newText: string, card: Card): Card {
         ...newCard,
         canvas: {
             ...newCard.canvas,
-            selectElement: updateSelectElement(oldElement?.id, card)
+            selectElement: getSelectElement(card)
         }
     }
 }

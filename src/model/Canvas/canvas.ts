@@ -12,7 +12,7 @@ export function setSizeCanvas(newSize: Size, card: Card): Card {
     }
 }
 
-export function deleteCanvas(): Card {
+export function resetCanvas(): Card {
     //уточнить у пользователя действительно ли он хочет удалить Canvas
     return initializationCard(templates)
 }

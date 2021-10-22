@@ -1,5 +1,5 @@
 import type { Card, Point } from '../../../../Card/card'
-import { updateSelectElement } from '../../element'
+import { getSelectElement } from '../../element'
 import { isFigure } from '../figure'
 
 export function addTriangle(card: Card): Card {
@@ -28,7 +28,7 @@ export function addTriangle(card: Card): Card {
 }
 
 export function changeFirstPoint(mousePoint: Point, card: Card): Card {
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
+    const oldElement =getSelectElement(card)
     const newCard = {
         ...card,
         canvas: {
@@ -54,13 +54,13 @@ export function changeFirstPoint(mousePoint: Point, card: Card): Card {
         ...newCard,
         canvas: {
             ...newCard.canvas,
-            selectElement: updateSelectElement(oldElement?.id, card)
+            selectElement: getSelectElement(card)
         }
     }
 }
 
 export function changeSecondPoint(mousePoint: Point, card: Card): Card {
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
+    const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
         canvas: {
@@ -86,13 +86,13 @@ export function changeSecondPoint(mousePoint: Point, card: Card): Card {
         ...newCard,
         canvas: {
             ...newCard.canvas,
-            selectElement: updateSelectElement(oldElement?.id, card)
+            selectElement: getSelectElement(card)
         }
     }
 }
 
 export function changeThirdPoint(mousePoint: Point, card: Card): Card {
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
+    const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
         canvas: {
@@ -118,7 +118,7 @@ export function changeThirdPoint(mousePoint: Point, card: Card): Card {
         ...newCard,
         canvas: {
             ...newCard.canvas,
-            selectElement: updateSelectElement(oldElement?.id, card)
+            selectElement: getSelectElement(card)
         }
     }
 }
