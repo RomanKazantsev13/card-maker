@@ -1,7 +1,9 @@
 import type { Card, Size } from "../../../Card/card"
+import { madeChange } from "../../../Card/History/history"
 import { getSelectElement } from "../element"
 
 export function addText(card: Card): Card {
+    madeChange(card)
     return {
         ...card,
         canvas: {
@@ -26,6 +28,7 @@ export function addText(card: Card): Card {
 }
 
 export function resizeText(newSize: Size, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
@@ -55,6 +58,7 @@ export function resizeText(newSize: Size, card: Card): Card {
 }
 
 export function setSizeText(newSize: number, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
@@ -84,6 +88,7 @@ export function setSizeText(newSize: number, card: Card): Card {
 }
 
 export function setFontText(newFont: string, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
@@ -113,6 +118,7 @@ export function setFontText(newFont: string, card: Card): Card {
 }
 
 export function setColorText(newColor: string, card: Card): Card {
+    madeChange(card)
     const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
     const newCard = {
         ...card,
@@ -142,6 +148,7 @@ export function setColorText(newColor: string, card: Card): Card {
 }
 
 export function changeText(newText: string, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,

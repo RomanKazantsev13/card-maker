@@ -1,8 +1,10 @@
 import type { Element } from './Element/element'
 import { Card, initializationCard } from '../Card/card'
-import { templates } from '../Card/Templates/templates'
+import { Template } from '../Card/Templates/templates'
+import { madeChange } from '../Card/History/history'
 
 export function setSizeCanvas(newSize: Size, card: Card): Card {
+    madeChange(card)
     return {
         ...card,
         canvas: {
@@ -12,12 +14,14 @@ export function setSizeCanvas(newSize: Size, card: Card): Card {
     }
 }
 
-export function resetCanvas(): Card {
+export function resetCanvas(templates: Array<Template>, card: Card): Card {
+    madeChange(card)
     //уточнить у пользователя действительно ли он хочет удалить Canvas
     return initializationCard(templates)
 }
 
 export function setBackgroundColor(color: string, card: Card): Card {
+    madeChange(card)
     return {
         ...card,
         canvas: {
@@ -28,6 +32,7 @@ export function setBackgroundColor(color: string, card: Card): Card {
 }
 
 export function setBackgroundImage(url: string, card: Card): Card {
+    madeChange(card)
     return {
         ...card,
         canvas: {

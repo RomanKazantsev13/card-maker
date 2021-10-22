@@ -3,8 +3,10 @@ import type { Rectangle } from './Rectangle/rectangle'
 import type { Circle } from './Circle/circle'
 import type { Card } from '../../../Card/card'
 import { getSelectElement } from '../element'
+import { madeChange } from '../../../Card/History/history'
 
 export function setColorFigure(newColor: string, card: Card): Card {
+    madeChange(card)
     const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
     const newCard = {
         ...card,

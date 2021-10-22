@@ -1,7 +1,9 @@
 import type { Card, Size } from '../../../Card/card'
+import { madeChange } from '../../../Card/History/history'
 import { getSelectElement } from '../element'
 
 export function addImage(card: Card): Card {
+    madeChange(card)
     return {
         ...card,
         canvas: {
@@ -27,6 +29,7 @@ export function addImage(card: Card): Card {
 }
 
 export function resizeImage(newSize: Size, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,

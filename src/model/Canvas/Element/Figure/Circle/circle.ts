@@ -1,8 +1,10 @@
 import type { Card, Point } from "../../../../Card/card"
+import { madeChange } from "../../../../Card/History/history"
 import { getSelectElement } from "../../element"
 import { isFigure } from "../figure"
 
 export function addCircle(card: Card): Card {
+    madeChange(card)
     return {
         ...card,
         canvas: {
@@ -26,6 +28,7 @@ export function addCircle(card: Card): Card {
 }
 
 export function setRadiusCircle(mousePoint: Point, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,

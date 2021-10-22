@@ -1,8 +1,10 @@
 import type { Card, Point } from '../../../../Card/card'
+import { madeChange } from '../../../../Card/History/history'
 import { getSelectElement } from '../../element'
 import { isFigure } from '../figure'
 
 export function addTriangle(card: Card): Card {
+    madeChange(card)
     return {
         ...card,
         canvas: {
@@ -28,6 +30,7 @@ export function addTriangle(card: Card): Card {
 }
 
 export function changeFirstPoint(mousePoint: Point, card: Card): Card {
+    madeChange(card)
     const oldElement =getSelectElement(card)
     const newCard = {
         ...card,
@@ -60,6 +63,7 @@ export function changeFirstPoint(mousePoint: Point, card: Card): Card {
 }
 
 export function changeSecondPoint(mousePoint: Point, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
@@ -92,6 +96,7 @@ export function changeSecondPoint(mousePoint: Point, card: Card): Card {
 }
 
 export function changeThirdPoint(mousePoint: Point, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,

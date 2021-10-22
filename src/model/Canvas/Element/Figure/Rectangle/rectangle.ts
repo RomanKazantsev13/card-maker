@@ -1,8 +1,10 @@
 import type { Card, Point, Size } from '../../../../Card/card'
+import { madeChange } from '../../../../Card/History/history'
 import { getSelectElement } from '../../element'
 import { isFigure } from '../figure'
 
 export function addRectangle(card: Card): Card {
+    madeChange(card)
     return {
         ...card,
         canvas: {
@@ -29,6 +31,7 @@ export function addRectangle(card: Card): Card {
 }
 
 export function resizeRectangle(mousePoint: Point, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
@@ -63,6 +66,7 @@ export function resizeRectangle(mousePoint: Point, card: Card): Card {
 }
 
 export function setWidthRectangle(mousePoint: Point, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
@@ -97,6 +101,7 @@ export function setWidthRectangle(mousePoint: Point, card: Card): Card {
 }
 
 export function setHeightRectangle(mousePoint: Point, card: Card): Card {
+    madeChange(card)
     const oldElement = getSelectElement(card)
     const newCard = {
         ...card,

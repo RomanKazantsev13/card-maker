@@ -2,6 +2,7 @@ import type { Card, Point } from '../../Card/card'
 import type { Text } from './Text/text'
 import type { Image } from './Image/image'
 import type { Figure } from './Figure/figure'
+import { madeChange } from '../../Card/History/history'
 
 // export function selectElement(card: Card): Card {}
 // let mousePoint: Point
@@ -12,8 +13,8 @@ import type { Figure } from './Figure/figure'
 // иначе проходимся дальше по массиву
 
 export function moveSelectElement(mousePoint: Point, card: Card): Card {
+    madeChange(card)
     let element: Element | null = card.canvas.selectElement
-
     if (card.canvas.selectElement !== null) {
         element = {
             ...card.canvas.selectElement,
@@ -30,6 +31,7 @@ export function moveSelectElement(mousePoint: Point, card: Card): Card {
 }
 
 export function deleteSelectElement(oldElement: Element, card: Card): Card {
+    madeChange(card)
     const newElements = card.canvas.elements.filter(element => {
         if (element !== oldElement) {
             return element
@@ -45,6 +47,7 @@ export function deleteSelectElement(oldElement: Element, card: Card): Card {
 }
 
 export function getSelectElement(card: Card): Element | null {
+    madeChange(card)
     const newSelectElement: Element | undefined = card.canvas.elements.find(element => {
         element.id === card.canvas.selectElement?.id
     })
