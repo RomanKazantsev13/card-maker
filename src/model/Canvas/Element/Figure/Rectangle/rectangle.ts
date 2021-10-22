@@ -2,6 +2,7 @@ import type { Card, Point, Size } from '../../../../Card/card'
 import { madeChange } from '../../../../Card/History/history'
 import { getSelectElement } from '../../element'
 import { isFigure } from '../figure'
+import { uuid } from 'uuidv4';
 
 export function addRectangle(card: Card): Card {
     madeChange(card)
@@ -9,12 +10,11 @@ export function addRectangle(card: Card): Card {
         ...card,
         canvas: {
             ...card.canvas,
-            currentId: card.canvas.currentId + 1,
             elements: [
                 ...card.canvas.elements,
                 {
                     centre: { x: 50, y: 50 },
-                    id: card.canvas.currentId,
+                    id: uuid(),
                     object: {
                         color: '#888',
                         object: {

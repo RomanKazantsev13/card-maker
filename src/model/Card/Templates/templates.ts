@@ -21,13 +21,14 @@ export function applyTemplate(templateName: string, card: Card): Card {
     }
 }
 
-export function addTemplate(newCanvas: Canvas, templateName: string, card: Card): Card {
+export function addTemplate(newCanvas: Canvas, templateName: string, card: Card): void {
     // добавить проверку на пустой холст  
-    return {
+    card = {
         ...card,
         allTemplates: {
             ...card.allTemplates,
             customTemplates: [
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 ...card.allTemplates.customTemplates,
                 {
                     name: templateName,
@@ -39,13 +40,13 @@ export function addTemplate(newCanvas: Canvas, templateName: string, card: Card)
     }
 }
 
-export function deleteTemplate(templateName: string, card: Card): Card {
+export function deleteTemplate(templateName: string, card: Card): void {
     const newCustomTemplate = card.allTemplates.customTemplates.filter(template => {
         if (template.name !== templateName) {
             return template
         }
     })
-    return {
+    card = {
         ...card,
         allTemplates: {
             ...card.allTemplates,

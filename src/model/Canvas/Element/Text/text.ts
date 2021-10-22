@@ -1,6 +1,7 @@
 import type { Card, Size } from "../../../Card/card"
 import { madeChange } from "../../../Card/History/history"
 import { getSelectElement } from "../element"
+import { uuid } from 'uuidv4';
 
 export function addText(card: Card): Card {
     madeChange(card)
@@ -8,12 +9,11 @@ export function addText(card: Card): Card {
         ...card,
         canvas: {
             ...card.canvas,
-            currentId: card.canvas.currentId + 1,
             elements: [
                 ...card.canvas.elements,
                 {
                     centre: { x: 50, y: 50 },
-                    id: card.canvas.currentId,
+                    id: uuid(),
                     object: {
                         size: { width: 75, height: 40 },
                         sizeText: 10,

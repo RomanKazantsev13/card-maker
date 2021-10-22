@@ -61,7 +61,7 @@ export function getSelectElement(card: Card): Element | null {
 
 export type Element = {
     centre: Point,
-    id: number,
+    id: string,
     object: Text | Image | Figure
 }
 

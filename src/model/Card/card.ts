@@ -10,7 +10,6 @@ export function initializationCard(newTemplates: Array<Template>): Card {
             customTemplates: [] as Template[]
         },
         canvas: {
-            currentId: 0,
             size: { width: 800, height: 600 },
             selectElement: null,
             background: '#FFF',
@@ -19,12 +18,10 @@ export function initializationCard(newTemplates: Array<Template>): Card {
         history: {
             undo: {
                 size: 0,
-                maxSize: 20,
                 storage: [] as Canvas[]
             },
             redo: {
                 size: 0,
-                maxSize: 20,
                 storage: [] as Canvas[]
             }
         }

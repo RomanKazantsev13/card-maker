@@ -44,7 +44,6 @@ export function setBackgroundImage(url: string, card: Card): Card {
 
 
 export type Canvas = {
-    currentId: number,
     size: Size,
     selectElement: Element | null,
     background: string,

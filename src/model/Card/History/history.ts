@@ -1,10 +1,10 @@
 import type { Canvas } from './../../Canvas/canvas'
 import type { Card } from '../card'
 
-
+const maxStackValue = 20
 
 function pushStack(stack: Stack, card: Card): void {
-    if (stack.size > stack.maxSize) {
+    if (stack.size > maxStackValue) {
         delete stack.storage[0]
         for (let i = 1; i <= stack.size; i++) {
             stack.storage[i - 1] = stack.storage[i]
@@ -34,7 +34,6 @@ export function madeChange(card: Card): void {
     pushStack(card.history.undo, card)
     card.history.redo = {
         size: 0,
-        maxSize: 20,
         storage: [] as Canvas[]
     }
 }
@@ -51,6 +50,5 @@ export function undoRollback(card: Card): Card {
 
 export type Stack = {
     size: number,
-    maxSize: number
     storage: Array<Canvas>
 }
