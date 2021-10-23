@@ -1,4 +1,3 @@
-import type { Stack } from './History/history'
 import type { Canvas } from '../Canvas/canvas'
 import type { Template } from './Templates/templates'
 import type { Element } from './../Canvas/Element/element'
@@ -16,14 +15,9 @@ export function initializationCard(newTemplates: Array<Template>): Card {
             elements: [] as Element[]
         },
         history: {
-            undo: {
-                size: 0,
-                storage: [] as Canvas[]
-            },
-            redo: {
-                size: 0,
-                storage: [] as Canvas[]
-            }
+            undo: [] as Canvas[],
+            redo: [] as Canvas[]
+
         }
     }
 }
@@ -36,8 +30,8 @@ export type Card = {
     },
     canvas: Canvas,
     history: {
-        undo: Stack,
-        redo: Stack
+        undo: Array<Canvas>,
+        redo: Array<Canvas>
     }
 }
 
