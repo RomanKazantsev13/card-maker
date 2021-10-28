@@ -14,18 +14,14 @@ import { madeChange } from '../../Card/History/history'
 
 export function moveSelectElement(mousePoint: Point, card: Card): Card {
     madeChange(card)
-    let element: Element | null = card.canvas.selectElement
-    if (card.canvas.selectElement !== null) {
-        element = {
-            ...card.canvas.selectElement,
-            centre: mousePoint
-        }
-    }
     return {
         ...card,
         canvas: {
             ...card.canvas,
-            selectElement: element
+            selectElement: {
+                ...card.canvas.selectElement,
+                centre: mousePoint
+            } || null
         }
     }
 }
@@ -51,12 +47,9 @@ export function getSelectElement(card: Card): Element | null {
     const newSelectElement: Element | undefined = card.canvas.elements.find(element => {
         element.id === card.canvas.selectElement?.id
     })
-    if (newSelectElement !== undefined) {
-        return newSelectElement
-    } else {
-        return null
-    }
-
+    return newSelectElement !== undefined
+        ? newSelectElement
+        : null
 }
 
 export type Element = {

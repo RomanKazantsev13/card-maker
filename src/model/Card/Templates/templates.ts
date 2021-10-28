@@ -4,17 +4,9 @@ import type { Card } from './../card'
 export let templates: Array<Template>
 
 export function applyTemplate(templateName: string, card: Card): Card {
-    let newCanvas: Canvas = card.canvas
-    for (let i = 0; i < (card.allTemplates.customTemplates).length - 1; i++) {
-        if (card.allTemplates.customTemplates[i].name == templateName) {
-            newCanvas = card.allTemplates.customTemplates[i].canvas
-        }
-    }
-    for (let i = 0; i < (card.allTemplates.templates).length - 1; i++) {
-        if (card.allTemplates.templates[i].name == templateName) {
-            newCanvas = card.allTemplates.templates[i].canvas
-        }
-    }
+    const newCanvas: Canvas = card.allTemplates.customTemplates.find(template => template.name == templateName).canvas 
+        || card.allTemplates.templates.find(template => template.name == templateName).canvas 
+        || undefined
     return {
         ...card,
         canvas: newCanvas
