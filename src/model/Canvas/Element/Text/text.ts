@@ -35,7 +35,7 @@ export function resizeText(newSize: Size, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if (element == oldElement) {
+                if (element === oldElement) {
                     return {
                         ...element,
                         object: {
@@ -65,7 +65,7 @@ export function setSizeText(newSize: number, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if (element == oldElement) {
+                if (element === oldElement) {
                     return {
                         ...element,
                         object: {
@@ -95,7 +95,7 @@ export function setFontText(newFont: string, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if (element == oldElement) {
+                if (element === oldElement) {
                     return {
                         ...element,
                         object: {
@@ -119,13 +119,13 @@ export function setFontText(newFont: string, card: Card): Card {
 
 export function setColorText(newColor: string, card: Card): Card {
     madeChange(card)
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
+    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id === element.id)
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if (element == oldElement) {
+                if (element === oldElement) {
                     return {
                         ...element,
                         object: {
@@ -155,7 +155,7 @@ export function changeText(newText: string, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if (element == oldElement) {
+                if (element === oldElement) {
                     return {
                         ...element,
                         object: {

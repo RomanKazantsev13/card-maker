@@ -17,7 +17,7 @@ export function addTriangle(card: Card): Card {
                     id: uuid(),
                     object: {
                         color: '#888',
-                        object: {
+                        object: { 
                             firstPoint: { x: 50, y: 50 },
                             secondPoint: { x: 50, y: 150 },
                             thirdPoint: { x: 200, y: 150 }
@@ -37,7 +37,7 @@ export function changeFirstPoint(mousePoint: Point, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if ((element == oldElement) && (isFigure(element.object))) {
+                if ((element === oldElement) && (isFigure(element.object))) {
                     return {
                         ...element,
                         object: {
@@ -70,7 +70,7 @@ export function changeSecondPoint(mousePoint: Point, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if ((element == oldElement) && (isFigure(element.object))) {
+                if ((element === oldElement) && (isFigure(element.object))) {
                     return {
                         ...element,
                         object: {
@@ -103,7 +103,7 @@ export function changeThirdPoint(mousePoint: Point, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if ((element == oldElement) && (isFigure(element.object))) {
+                if ((element === oldElement) && (isFigure(element.object))) {
                     return {
                         ...element,
                         object: {
@@ -128,7 +128,7 @@ export function changeThirdPoint(mousePoint: Point, card: Card): Card {
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function isTriangle(element: any): element is Triangle {
     return element.object.object.firstPoint !== undefined && element.object.object.secondPoint !== undefined && element.object.object.thirdPoint
 }

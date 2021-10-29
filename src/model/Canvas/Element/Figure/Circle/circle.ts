@@ -35,7 +35,7 @@ export function setRadiusCircle(mousePoint: Point, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if ((element == oldElement) && (isFigure(element.object)) && (isCircle(element.object.object))) {
+                if ((element === oldElement) && (isFigure(element.object)) && (isCircle(element.object.object))) {
                     return {
                         ...element,
                         object: {

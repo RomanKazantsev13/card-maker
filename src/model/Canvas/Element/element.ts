@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import type { Card, Point } from '../../Card/card'
 import type { Text } from './Text/text'
 import type { Image } from './Image/image'
@@ -18,10 +20,12 @@ export function moveSelectElement(mousePoint: Point, card: Card): Card {
         ...card,
         canvas: {
             ...card.canvas,
-            selectElement: {
+            selectElement: card.canvas.selectElement !== null
+            ? {
                 ...card.canvas.selectElement,
                 centre: mousePoint
-            } || null
+            }
+            : null
         }
     }
 }
@@ -44,12 +48,13 @@ export function deleteSelectElement(oldElement: Element, card: Card): Card {
 
 export function getSelectElement(card: Card): Element | null {
     madeChange(card)
-    const newSelectElement: Element | undefined = card.canvas.elements.find(element => {
-        element.id === card.canvas.selectElement?.id
-    })
-    return newSelectElement !== undefined
-        ? newSelectElement
-        : null
+    const newSelectElement: Element | undefined = 
+        card.canvas.selectElement !== null
+            ? card.canvas.elements.find(element => {
+                element.id === card.canvas.selectElement?.id
+            })
+            : undefined
+    return newSelectElement ||  null
 }
 
 export type Element = {

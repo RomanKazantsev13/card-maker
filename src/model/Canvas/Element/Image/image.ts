@@ -36,7 +36,7 @@ export function resizeImage(newSize: Size, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if (element == oldElement) {
+                if (element === oldElement) {
                     return {
                         ...element,
                         object: {

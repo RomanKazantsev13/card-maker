@@ -7,13 +7,13 @@ import { madeChange } from '../../../Card/History/history'
 
 export function setColorFigure(newColor: string, card: Card): Card {
     madeChange(card)
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id == element.id)
+    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id === element.id)
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if (element == oldElement) {
+                if (element === oldElement) {
                     return {
                         ...element,
                         object: {

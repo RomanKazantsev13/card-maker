@@ -38,7 +38,7 @@ export function resizeRectangle(mousePoint: Point, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if ((element == oldElement) && (isFigure(element.object)) && (isRectangle(element.object.object))) {
+                if ((element === oldElement) && (isFigure(element.object)) && (isRectangle(element.object.object))) {
                     return {
                         ...element,
                         object: {
@@ -73,7 +73,7 @@ export function setWidthRectangle(mousePoint: Point, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if ((element == oldElement) && (isFigure(element.object)) && (isRectangle(element.object.object))) {
+                if ((element === oldElement) && (isFigure(element.object)) && (isRectangle(element.object.object))) {
                     return {
                         ...element,
                         object: {
@@ -108,7 +108,7 @@ export function setHeightRectangle(mousePoint: Point, card: Card): Card {
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if ((element == oldElement) && (isFigure(element.object)) && (isRectangle(element.object.object))) {
+                if ((element === oldElement) && (isFigure(element.object)) && (isRectangle(element.object.object))) {
                     return {
                         ...element,
                         object: {
