@@ -1,12 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
-import { Canvas as CanvasType } from '../../model/Canvas/canvas'
+import { Canvas as CanvasT } from '../../model/Canvas/canvas'
 import { Canvas } from '../Workspace/Canvas/Canvas'
-import styles from './PrimaryPanel.module.css'
+import styles from './Workspace.module.css'
 
-export function Workspace() {
+interface CanvasType {
+    canvas: CanvasT,
+}
+
+export function Workspace(props: CanvasType) {
     return (
-        <div>
+        <div className={styles.workspace} >
            <Canvas  /> {/* size={props.size} background={props.background} */}
         </div>
     )

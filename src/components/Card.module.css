@@ -1,11 +1,17 @@
-.size 
+.card_size 
 {
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 14vh);
 }
 
 .layout 
 {
     display: flex;
     flex-wrap: wrap;
+    height: calc(100vh - 55px);
+}
+
+.workspace
+{
+    transition: 0.3s;
 }

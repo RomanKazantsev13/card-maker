@@ -1,0 +1,8 @@
+.workspace 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 105px);
+    background: rgb(28, 29, 38);
+}

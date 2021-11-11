@@ -12,7 +12,7 @@ interface CanvasType {
 
 export function Canvas() {
     return (
-        <div>
+        <div style={{width: 800, height: 600, background: '#FFF', zoom: 0.8}} >
             {/* size={props.size} background={props.background}  */}
         </div>
     )

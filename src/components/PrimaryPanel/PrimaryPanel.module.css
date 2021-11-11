@@ -1,6 +1,8 @@
 .panel
 {
-    width: 80px;
-    height: (100vh - 80px);
+    height: calc(100vh - 55px);
     background-color: #242631;
+    border-right: 1px solid #353948;
+    transition: 0.3s;
+    z-index: 10;
 }
