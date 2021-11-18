@@ -21,11 +21,11 @@ export function moveSelectElement(mousePoint: Point, card: Card): Card {
         canvas: {
             ...card.canvas,
             selectElement: card.canvas.selectElement !== null
-            ? {
-                ...card.canvas.selectElement,
-                centre: mousePoint
-            }
-            : null
+                ? {
+                    ...card.canvas.selectElement,
+                    centre: mousePoint
+                }
+                : null
         }
     }
 }
@@ -48,13 +48,13 @@ export function deleteSelectElement(oldElement: Element, card: Card): Card {
 
 export function getSelectElement(card: Card): Element | null {
     madeChange(card)
-    const newSelectElement: Element | undefined = 
+    const newSelectElement: Element | undefined =
         card.canvas.selectElement !== null
             ? card.canvas.elements.find(element => {
                 element.id === card.canvas.selectElement?.id
             })
             : undefined
-    return newSelectElement ||  null
+    return newSelectElement || null
 }
 
 export type Element = {

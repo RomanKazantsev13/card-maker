@@ -17,7 +17,7 @@ export function addTriangle(card: Card): Card {
                     id: uuid(),
                     object: {
                         color: '#888',
-                        object: { 
+                        object: {
                             firstPoint: { x: 50, y: 50 },
                             secondPoint: { x: 50, y: 150 },
                             thirdPoint: { x: 200, y: 150 }
@@ -31,7 +31,7 @@ export function addTriangle(card: Card): Card {
 
 export function changeFirstPoint(mousePoint: Point, card: Card): Card {
     madeChange(card)
-    const oldElement =getSelectElement(card)
+    const oldElement = getSelectElement(card)
     const newCard = {
         ...card,
         canvas: {

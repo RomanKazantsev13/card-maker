@@ -1,0 +1,7 @@
+.editor
+{   
+    width: 270px;
+    transition: 0.3s; 
+    background-color: #242631;
+    border-right: 1px solid #353948;
+}

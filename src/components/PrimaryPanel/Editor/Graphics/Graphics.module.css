@@ -1,0 +1,55 @@
+.header
+{
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 15px;
+    margin-left: 27px;
+    color: #f1f1f1;
+}
+
+.button
+{
+    width: 50px;
+    height: 50px;
+}
+
+.button:hover
+{
+    cursor: pointer;
+}
+
+.graphics_layout
+{
+    display: flex;
+}
+
+.button_layout
+{
+    display: flex;
+    width: 56px;
+    height: 56px;
+    margin: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.button_layout:hover
+{
+    background-color: #353948;
+}
+
+.svg
+{
+    width: 50px;
+    height: 50px;
+}
+
+.ellipse_back
+{
+    border-radius: 50%;
+}
+
+.triangle_back:hover
+{
+    background: linear-gradient(to right bottom, transparent 46%, #353948 50%) left / 50% 100% no-repeat, linear-gradient(to left bottom, transparent 46%, #353948 50%) right / 50% 100% no-repeat;
+}

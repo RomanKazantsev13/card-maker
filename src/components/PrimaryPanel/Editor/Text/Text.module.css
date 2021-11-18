@@ -1,0 +1,32 @@
+.header
+{
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 15px;
+    margin-left: 27px;
+    color: #f1f1f1;
+}
+
+.button
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-left: 25px;
+    width: 220px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #8a9dff;
+}
+
+.button:hover
+{
+    background-color: #647dff;
+}
+
+.text
+{
+    color: #000;
+    margin-top: 3px;
+}

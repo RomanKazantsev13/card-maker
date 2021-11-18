@@ -6,12 +6,16 @@ import styles from './Workspace.module.css'
 
 interface CanvasType {
     canvas: CanvasT,
+    width: string,
+    color: string
 }
 
 export function Workspace(props: CanvasType) {
     return (
-        <div className={styles.workspace} >
-           <Canvas  /> {/* size={props.size} background={props.background} */}
+        <div 
+            className={styles.workspace} 
+            style={{width: props.width}}>
+           <Canvas  color={props.color}/> {/* size={props.size} background={props.background} */}
         </div>
     )
 }

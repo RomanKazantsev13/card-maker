@@ -5,8 +5,8 @@ import type { Card } from './../card'
 export let templates: Array<Template>
 
 export function applyTemplate(templateName: string, card: Card): Card {
-    const newCanvas: Canvas | undefined = card.allTemplates.customTemplates.find(template => template.name === templateName)?.canvas 
-        || card.allTemplates.templates.find(template => template.name === templateName)?.canvas 
+    const newCanvas: Canvas | undefined = card.allTemplates.customTemplates.find(template => template.name === templateName)?.canvas
+        || card.allTemplates.templates.find(template => template.name === templateName)?.canvas
         || undefined
     return {
         ...card,
