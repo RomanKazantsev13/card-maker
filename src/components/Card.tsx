@@ -24,10 +24,8 @@ interface CardType {
     }
 }
 
-interface IEditor {
-    name: string,
-    value: boolean
-}
+// css вынести в .css
+// в компоненте оставить данные расчитываемые через пропсы
 
 export function Card(props: CardType) {
     const [color, setColor] = useState('#FFF')

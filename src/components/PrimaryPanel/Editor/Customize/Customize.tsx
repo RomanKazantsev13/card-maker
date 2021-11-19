@@ -1,7 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import useComponentVisible from '../../../../customHooks/useComponentVisible';
 import { ColorPicker } from '../../../Workspace/ColorPicker/ColorPicker'
+import { ButtonColor } from './ButtonColor';
 import styles from './Customize.module.css'
+
+const colors: Array<string> = [
+    'rgb(255, 255, 255)',
+    'rgb(155, 155, 155)',
+    'rgb(74, 74, 74)',
+    'rgb(0, 0, 0)',
+    'rgb(167, 12, 44)',
+    'rgb(218, 154, 21)',
+    'rgb(248, 231, 29)',
+    'rgb(71, 130, 26)',
+    'rgb(73, 144, 226)',
+]
 
 export function Customize(props: {
     backPicker: {
@@ -10,6 +23,14 @@ export function Customize(props: {
     },
 }) {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
+
+    let ButtonsColor: Array<ReactElement> = []
+
+    for (let i = 0; i < colors.length; i++) {
+        ButtonsColor.push(
+            <ButtonColor color={colors[i]} setColor={props.backPicker.setColor} />
+        )
+    }
 
     return (
         <div>
@@ -23,52 +44,18 @@ export function Customize(props: {
                 <div className={styles.colors__layout}>
                     <div
                         className={styles.color}
-                        style={{ backgroundColor: 'rgb(255, 255, 255', position: 'relative' }}
-                        onClick={() => { setIsComponentVisible(true) }} >
+                        style={{ backgroundColor: props.backPicker.color, position: 'relative' }}
+                        onClick={() => { setIsComponentVisible(true) }} 
+                    >
                         <span className={styles.color_triangle}></span>
                     </div>
-                    <div
-                        className={styles.color}
-                        style={{ backgroundColor: 'rgb(255, 255, 255)' }}
-                        onClick={() => props.backPicker.setColor('rgb(255, 255, 255)')}></div>
-                    <div
-                        className={styles.color}
-                        style={{ backgroundColor: 'rgb(155, 155, 155)' }}
-                        onClick={() => props.backPicker.setColor('rgb(155, 155, 155)')}></div>
-                    <div
-                        className={styles.color}
-                        style={{ backgroundColor: 'rgb(74, 74, 74)' }}
-                        onClick={() => props.backPicker.setColor('rgb(74, 74, 74)')}></div>
-                    <div
-                        className={styles.color}
-                        style={{ backgroundColor: 'rgb(0, 0, 0)' }}
-                        onClick={() => props.backPicker.setColor('rgb(0, 0, 0)')}></div>
-                    <div
-                        className={styles.color}
-                        style={{ backgroundColor: 'rgb(167, 12, 44)' }}
-                        onClick={() => props.backPicker.setColor('rgb(167, 12, 44)')}></div>
-                    <div
-                        className={styles.color}
-                        style={{ backgroundColor: 'rgb(218, 154, 21)' }}
-                        onClick={() => props.backPicker.setColor('rgb(218, 154, 21)')}></div>
-                    <div
-                        className={styles.color}
-                        style={{ backgroundColor: 'rgb(248, 231, 29)' }}
-                        onClick={() => props.backPicker.setColor('rgb(248, 231, 29)')}></div>
-                    <div
-                        className={styles.color}
-                        style={{ backgroundColor: 'rgb(71, 130, 26)' }}
-                        onClick={() => props.backPicker.setColor('rgb(71, 130, 26)')}></div>
-                    <div
-                        className={styles.color}
-                        style={{ backgroundColor: 'rgb(73, 144, 226)' }}
-                        onClick={() => props.backPicker.setColor('rgb(73, 144, 226)')}></div>
+                    {ButtonsColor}
                 </div>
-                <div ref={ref} className={(()=> {
+                <div ref={ref} className={(() => {
                     if (isComponentVisible) {
                         return styles.pickerWrap
                     }
-                    return 
+                    return
                 })()} >
                     {isComponentVisible && <ColorPicker backPicker={{ color: props.backPicker.color, setColor: props.backPicker.setColor }} />}
                 </div>

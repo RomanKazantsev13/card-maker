@@ -10,6 +10,8 @@ interface CanvasType {
     background: string
 }
 
+// при большем размере -> скрол
+
 export function Canvas(props: {
     color: string
 }) {

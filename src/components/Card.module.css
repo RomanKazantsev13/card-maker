@@ -1,7 +1,7 @@
 .card_size 
 {
     width: 100%;
-    height: calc(100vh - 14vh);
+    height: 100vh;
 }
 
 .layout 
