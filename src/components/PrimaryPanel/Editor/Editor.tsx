@@ -19,6 +19,7 @@ export function Editor(props: {
         setColor: (color: string) => void
     },
 }) {
+
     const State = (() => {
         if (props.viewEditor.state == 'Image Manager') {
             return <Image />

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import useComponentVisible from '../../../customHooks/useComponentVisible'
 import styles from './Button.module.css'
 import { ButtonList } from './ButtonList'
 
@@ -9,24 +10,26 @@ export function Button(props: {
     children: React.ReactNode,
     functional: string,
     height: string,
-}) {    
-    const [clickButton, setClickButton] = useState(false)
+}) {
+    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
 
     return (
         <div onClick={() => {
-            if (clickButton) {
-                setClickButton(false)
+            if (isComponentVisible) {
+                setIsComponentVisible(false)
             } else {
-                setClickButton(true)
+                setIsComponentVisible(true)
             }
         }}>
             <div className={styles.button}>
                 <div className={styles.text}>{props.name}</div>
                 <img className={styles.image} src="images/arrow_down.png" />
             </div>
-            <ButtonList click={clickButton} functional={props.functional} height={props.height}>
-                {props.children}
-            </ButtonList>
+            <div ref={ref}>
+                <ButtonList click={isComponentVisible} functional={props.functional} height={props.height}>
+                    {props.children}
+                </ButtonList>
+            </div>
         </div>
     )
 }

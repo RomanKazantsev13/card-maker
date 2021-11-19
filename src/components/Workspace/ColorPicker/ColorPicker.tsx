@@ -22,7 +22,7 @@ export function ColorPicker(props: {
     }
 
     return (
-        <div className={styles.pickerWrap}>
+        <div>
             <div className={styles.header}>Picker</div>
             <ChromePicker
                 color={props.backPicker.color}

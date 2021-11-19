@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import useComponentVisible from '../../../../customHooks/useComponentVisible';
 import { ColorPicker } from '../../../Workspace/ColorPicker/ColorPicker'
 import styles from './Customize.module.css'
@@ -9,7 +9,7 @@ export function Customize(props: {
         setColor: (color: string) => void
     },
 }) {
-    const { ref, isComponentVisible } = useComponentVisible(false);
+    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
 
     return (
         <div>
@@ -21,9 +21,10 @@ export function Customize(props: {
             <div className={styles.colors}>
                 <div className={styles.color_text}>Background Color</div>
                 <div className={styles.colors__layout}>
-                    <div className={styles.color} style={{ backgroundColor: 'rgb(255, 255, 255', position: 'relative' }} onClick={() => {
-                        useComponentVisible(true)
-                    }}>
+                    <div
+                        className={styles.color}
+                        style={{ backgroundColor: 'rgb(255, 255, 255', position: 'relative' }}
+                        onClick={() => { setIsComponentVisible(true) }} >
                         <span className={styles.color_triangle}></span>
                     </div>
                     <div
@@ -63,7 +64,12 @@ export function Customize(props: {
                         style={{ backgroundColor: 'rgb(73, 144, 226)' }}
                         onClick={() => props.backPicker.setColor('rgb(73, 144, 226)')}></div>
                 </div>
-                <div ref={ref}>
+                <div ref={ref} className={(()=> {
+                    if (isComponentVisible) {
+                        return styles.pickerWrap
+                    }
+                    return 
+                })()} >
                     {isComponentVisible && <ColorPicker backPicker={{ color: props.backPicker.color, setColor: props.backPicker.setColor }} />}
                 </div>
             </div>
