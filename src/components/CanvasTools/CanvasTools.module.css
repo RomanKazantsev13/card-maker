@@ -1,6 +1,33 @@
 .canvasTools
 {
+    display: flex;
+    justify-content: space-between;
     height: 50px;    
     background-color: #242631;
     border-top: 1px solid #353948;
+}
+
+.layers
+{
+    left: 65px;
+}
+
+.history
+{
+    right: 10px;
+}
+
+.toolButtons
+{
+    display: flex;
+}
+
+.viewOn
+{
+    display: block;
+}
+
+.viewOff
+{
+    display: none;
 }

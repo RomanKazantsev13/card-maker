@@ -14,7 +14,7 @@ export function Button(props: {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
 
     return (
-        <div onClick={() => {
+        <div ref={ref} onClick={() => {
             if (isComponentVisible) {
                 setIsComponentVisible(false)
             } else {
@@ -25,7 +25,7 @@ export function Button(props: {
                 <div className={styles.text}>{props.name}</div>
                 <img className={styles.image} src="images/arrow_down.png" />
             </div>
-            <div ref={ref}>
+            <div>
                 <ButtonList click={isComponentVisible} functional={props.functional} height={props.height}>
                     {props.children}
                 </ButtonList>

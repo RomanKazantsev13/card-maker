@@ -1,0 +1,106 @@
+.wrap
+{
+    display: flex;
+    transition: 0.5s;
+    margin: 10px;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    background: #2e313f;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrap:hover
+{
+    background: #353948;
+}
+
+.viewOff
+{
+    display : none;
+}
+
+.viewOn
+{
+    display: block;
+}
+
+.image
+{
+    width: 17px;
+    height: 17px;
+}
+
+.unblock:hover
+{
+    cursor: pointer;
+}
+
+.block
+{
+    opacity: 0.35;
+}
+
+.block:hover 
+{
+    cursor: no-drop;
+}
+
+.comment
+{
+    position: relative;
+    top: -75px;
+}
+
+p 
+{
+    z-index: 20;
+    position: relative;
+    border-radius: 5px;
+    background: #2a2c3b ;
+    border: 1px solid #2a2c3b;
+}
+
+p:after, p:before 
+{
+    top: 80%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+    
+p:after 
+{
+    border-color: rgba(255, 255, 255, 0);
+    border-top-color: #2a2c3b;
+    border-width: 0;
+    left: 50%;
+    margin-left: -18px;
+}
+
+p:before 
+{
+    border-color: rgba(125, 145, 133, 0);
+    border-top-color: #2a2c3b;
+    border-width: 11px;
+    left: 65%;
+    margin-left: -19px;
+}
+
+.textWrap
+{
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px 2px 10px rgba(0,0,0,.8);
+}
+
+.text
+{
+    padding-bottom: 3px;
+    color: #f1f1f1;
+    font-size: 13px;
+}

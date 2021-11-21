@@ -14,8 +14,10 @@ export default function useComponentVisible(initialIsVisible: boolean) {
     };
 
     useEffect(() => {
+        console.log('add', ref)
         document.addEventListener('click', handleClickOutside, true)
         return () => {
+            console.log('remove', ref)
             document.removeEventListener('click', handleClickOutside, true)
         };
     });
