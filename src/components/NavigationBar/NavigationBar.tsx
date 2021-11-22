@@ -30,6 +30,7 @@ export function NavigationBar(props: {
         displayButtonText: string,
         widthButton: string,
     },
+    setViewSave: (view: boolean) => void,
 }) {
 
     return (
@@ -59,7 +60,7 @@ export function NavigationBar(props: {
                 </Button>
 
                 <Button name={'Save'} functional={'Save as Image'} height={'69px'}>
-                    <div className={styles.list_element}>
+                    <div className={styles.list_element} onClick={() => {props.setViewSave(true)}} >
                         <img className={styles.list_image} src="images/computer.png" />
                         <div className={styles.list_text}>Computer</div>
                     </div>

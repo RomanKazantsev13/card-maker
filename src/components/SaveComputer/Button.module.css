@@ -1,0 +1,22 @@
+.wrap
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 30px;
+    margin-right: 8px;
+    border-radius: 4px;
+}
+
+.text
+{
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.wrap:hover
+{
+    cursor: pointer;
+}

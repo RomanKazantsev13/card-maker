@@ -17,11 +17,11 @@ const layers = [
     { image: "images/triangle.png", name: "Shape 1" },
     { image: "images/square.png", name: "Shape 2" },
     { image: "images/circle.png", name: "Shape 3" },
-    { image: "images/text.png", name: "Text 1" },
+    { image: "images/text__hover.png", name: "Text 1" },
     { image: "images/image.png", name: "Image 2" },
     { image: "images/square.png", name: "Shape 4" },
     { image: "images/circle.png", name: "Shape 5" },
-    { image: "images/text.png", name: "Text 2" },
+    { image: "images/text__hover.png", name: "Text 2" },
     { image: "images/image.png", name: "Image 3" },
 ]
 
@@ -30,7 +30,7 @@ const history = [
     { image: "images/triangle.png", name: "Add Triangle" },
     { image: "images/square.png", name: "Add Rectangle" },
     { image: "images/circle.png", name: "Add Ellipse" },
-    { image: "images/text.png", name: "Add Text" },
+    { image: "images/text__hover.png", name: "Add Text" },
     { image: "images/image.png", name: "Move Image" },
 ]
 
