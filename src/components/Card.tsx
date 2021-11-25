@@ -10,6 +10,8 @@ import { PrimaryPanel } from './PrimaryPanel/PrimaryPanel'
 import { Workspace } from './Workspace/Workspace'
 import { Editor } from './PrimaryPanel/Editor/Editor'
 import { SaveComputer } from './SaveComputer/SaveComputer'
+import { ResizeTemplate } from './ResizeTemplate/ResizeTemplate'
+import { ResetCanvas } from './ResetCanvas/ResetCanvas'
 
 interface CardType {
     model: {
@@ -29,8 +31,9 @@ interface CardType {
 // в компоненте оставить данные расчитываемые через пропсы
 
 export function Card(props: CardType) {
-    const [color, setColor] = useState('#FFF')
     const [viewSave, setViewSave] = useState(false)
+    const [viewResize, setViewResize] = useState(false)
+    const [viewReset, setViewReset] = useState(false)
     const [viewEditor, setViewEditor] = useState({
         view: false,
         state: ''
@@ -76,6 +79,7 @@ export function Card(props: CardType) {
                 setHoverPanel={setHoverPanel}
                 setViewEditor={setViewEditor}
                 setViewSave={setViewSave}
+                setViewReset={setViewReset}
                 hoverPanel={hoverPanel}
             />
             <div className={styles.layout}>
@@ -105,10 +109,10 @@ export function Card(props: CardType) {
                     }}>
                         <Editor
                             viewEditor={viewEditor}
-                            backPicker={{ color: color, setColor: setColor }}
+                            setViewResize={setViewResize}
+                            setViewEditor={setViewEditor}
                         />
                         <Workspace
-                            color={color}
                             canvas={props.model.canvas}
                             width={(() => {
                                 if (viewEditor.view) {
@@ -117,16 +121,18 @@ export function Card(props: CardType) {
                                 return '100%'
                             })()} />
                     </div>
-                    <CanvasTools canvas={props.model.canvas} history={props.model.history} />
+                    <CanvasTools canvas={props.model.canvas} history={props.model.history} setViewReset={setViewReset} />
                 </div>
             </div>
             <div className={styles.shadow + ' ' + ( () => {
-                if (viewSave) {
+                if (viewSave || viewResize || viewReset) {
                     return styles.viewOn
                 }
                 return styles.viewOff
             })()}></div>
             <SaveComputer view={viewSave} setView={setViewSave} />
+            <ResizeTemplate view={viewResize} setView={setViewResize} />
+            <ResetCanvas view={viewReset} setView={setViewReset} />
         </div>
     )
 }

@@ -31,6 +31,7 @@ export function NavigationBar(props: {
         widthButton: string,
     },
     setViewSave: (view: boolean) => void,
+    setViewReset: (view: boolean) => void,
 }) {
 
     return (
@@ -39,7 +40,7 @@ export function NavigationBar(props: {
             <div className={styles.button__layout}>
 
                 <Button name={'Open'} functional={'New Design'} height={'102px'}>
-                    <div className={styles.list_element}>
+                    <div className={styles.list_element} onClick={() => {props.setViewReset(true)}}>
                         <img className={styles.list_image} src="images/blankCanvas.png" />
                         <div className={styles.list_text}>Blank Canvas</div>
                     </div>

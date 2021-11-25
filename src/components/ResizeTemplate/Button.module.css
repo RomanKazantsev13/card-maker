@@ -1,0 +1,25 @@
+.wrap
+{
+    display: flex;
+    justify-content: space-between;
+    background-color: #2e313f;
+    width: calc(100% - 20px);
+    height: 30px;
+    margin: 0 auto;
+    margin-top: 3px;
+    border-radius: 4px;
+}
+
+.name, .size
+{
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 14px;
+    line-height: 28px;
+    color: #f1f1f1;
+}
+
+.viewOff
+{
+    display: none;
+}

@@ -48,7 +48,7 @@ export function SaveComputer(props: {
             <div className={styles.content_layout}>
                 <div className={styles.header}>Save to Computer</div>
                 <label className={styles.subHeader}>Filename</label>
-                <input className={styles.input} type="text" maxLength={100} required placeholder="Ha-ha-ha" />
+                <input className={styles.input} type="text" maxLength={100} required placeholder="Назови меня!" />
                 <label className={styles.subHeader}>Format</label>
                 <div className={styles.format}>
                     <div className={styles.buttonWrap + ' ' + styles.buttonJPG + ' ' + isJpg()} onClick={() => { setFormat('JPG') }}>

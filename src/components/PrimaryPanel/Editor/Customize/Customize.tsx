@@ -17,25 +17,25 @@ const colors: Array<string> = [
 ]
 
 export function Customize(props: {
-    backPicker: {
-        color: string,
-        setColor: (color: string) => void
-    },
+    setViewResize: (viewResize: boolean) => void,
 }) {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
+    const [color, setColor] = useState('#FFF')
 
     let ButtonsColor: Array<ReactElement> = []
 
     for (let i = 0; i < colors.length; i++) {
         ButtonsColor.push(
-            <ButtonColor color={colors[i]} setColor={props.backPicker.setColor} />
+            <ButtonColor color={colors[i]} setColor={setColor} />
         )
     }
 
     return (
         <div>
             <div className={styles.header}>Cuztomize</div>
-            <div className={styles.button}>
+            <div className={styles.button} onClick={() => {
+                props.setViewResize(true)
+            }}>
                 <div className={styles.text}>Resize Template</div>
             </div>
             <div className={styles.size}>width × height px</div>
@@ -44,7 +44,7 @@ export function Customize(props: {
                 <div className={styles.colors__layout}>
                     <div
                         className={styles.color}
-                        style={{ backgroundColor: props.backPicker.color, position: 'relative' }}
+                        style={{ backgroundColor: color, position: 'relative' }}
                         onClick={() => { setIsComponentVisible(true) }} 
                     >
                         <span className={styles.color_triangle}></span>
@@ -57,7 +57,7 @@ export function Customize(props: {
                     }
                     return
                 })()} >
-                    {isComponentVisible && <ColorPicker backPicker={{ color: props.backPicker.color, setColor: props.backPicker.setColor }} />}
+                    {isComponentVisible && <ColorPicker backPicker={{ color: color, setColor: setColor }} />}
                 </div>
             </div>
         </div>

@@ -1,0 +1,24 @@
+.wrap
+{
+    display: flex;
+    align-items: center;
+    width: 240px;
+    height: 36px;
+    margin: 0 auto;
+    margin-top: 3px;
+    background: #2e313f;
+    border-radius: 8px;
+}
+
+.selected
+{
+    background: #36365f;
+}
+
+.text
+{
+    margin-left: 10px;
+    color: #f1f1f1;
+    font-size: 18px;
+    line-height: 18px;
+}

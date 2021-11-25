@@ -1,0 +1,43 @@
+.viewOn
+{
+    display: block;
+}
+
+.viewOff
+{
+    display: none;
+}
+
+.wrap
+{
+    position: absolute;
+    z-index: 31;
+    width: 400px;
+    height: 200px;
+    top: calc(50% - 100px);
+    left: calc(50% - 200px);  
+    background-color: #2e313f;
+    border-radius: 8px;  
+}
+
+.content_layout
+{
+    padding: 32px;
+}
+
+.text
+{
+    padding-bottom: 12px;
+    color: #adb1cc;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.button_layout
+{
+    padding-top: 14px;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    border-top: 2px solid #353948;
+}

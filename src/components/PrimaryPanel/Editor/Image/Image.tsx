@@ -5,13 +5,10 @@ export function Image() {
     return (
         <div>
             <div className={styles.header}>Image Manager</div>
-            <div className={styles.button}>
+            <label htmlFor="file" className={styles.button}>
                 <div className={styles.text}>Computer</div>
-            </div>
-            <input
-                id="file"
-                style={{ display: 'none' }}
-            />
+            </label>
+            <input id="file" type="file" className={styles.input} accept=".jpg,.jpeg,.png"/>
             <div className={styles.button}>
                 <div className={styles.text}>Pixels</div>
             </div>

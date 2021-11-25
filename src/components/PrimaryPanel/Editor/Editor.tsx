@@ -5,6 +5,9 @@ import { Customize } from './Customize/Customize'
 import { Templates } from './Templates/Templates'
 import { Graphics } from './Graphics/Graphics'
 import { Text } from './Text/Text'
+import { FigureProperties } from './FigureProperties/FigurePropeties'
+import { TextProperties } from './TextProperties/TextProperties'
+import { FontChoose } from './FontChoose/FontChoose'
 
 
 
@@ -14,27 +17,38 @@ export function Editor(props: {
         view: boolean,
         state: string,
     },
-    backPicker: {
-        color: string,
-        setColor: (color: string) => void
-    },
+    setViewResize: (viewResize: boolean) => void,
+    setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
 }) {
+    
+    const [font, setFont] = useState('Arial')
 
     const State = (() => {
         if (props.viewEditor.state == 'Image Manager') {
             return <Image />
         }
         if (props.viewEditor.state == 'Customize') {
-            return <Customize backPicker={{color: props.backPicker.color, setColor: props.backPicker.setColor}}/>
+            return <Customize 
+                        setViewResize={props.setViewResize}
+                    />
         }
         if (props.viewEditor.state == 'Templates') {
             return <Templates />
         }
         if (props.viewEditor.state == 'Graphics') {
-            return <Graphics />
+            return <Graphics setViewEditor={props.setViewEditor} />
         }
         if (props.viewEditor.state == 'Text') {
-            return <Text />
+            return <Text setViewEditor={props.setViewEditor} />
+        }
+        if (props.viewEditor.state == 'Figure Properties') {
+            return <FigureProperties setViewEditor={props.setViewEditor} />
+        }
+        if (props.viewEditor.state == 'Text Properties') {
+            return <TextProperties setViewEditor={props.setViewEditor} font={font} />
+        }
+        if (props.viewEditor.state == 'FontChoose') {
+            return <FontChoose setViewEditor={props.setViewEditor} font={font} setFont={setFont} />
         }
     })()
     return (

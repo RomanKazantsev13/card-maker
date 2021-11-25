@@ -19,10 +19,6 @@ export function Button(props: {
         setBackground(props.background[1])
     };
 
-    addEventListener('keypress', (e) => {
-        console.log(e.which)
-    });
-
     return (
         <div className={styles.wrap} style={{background: background}} onMouseOver={mouseOverHandler} onMouseOut={mouseOutHandler} onClick={() => {
             props.onclick(false)

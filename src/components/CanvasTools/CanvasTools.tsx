@@ -10,6 +10,7 @@ interface CanvasTools {
         undo: Array<Canvas>,
         redo: Array<Canvas>
     },
+    setViewReset: (view: boolean) => void,
 }
 
 const layers = [
@@ -56,23 +57,25 @@ export function CanvasTools(props: CanvasTools) {
             }} />
             <Panel style={styles.layers} name={'Layers'} elements={layers} view={viewLayers} setView={setViewLayers} />
             <div className={styles.toolButtons}>
-                <ToolsButton block={false} image={"images/reset.png"} name={"Reset"} onclick={() => {}} />
-                <ToolsButton block={true} image={"images/undo.png"} name={"Undo"} onclick={() => {}}  />
-                <ToolsButton block={true} image={"images/redo.png"} name={"Redo"} onclick={() => {}}  />
-                <ToolsButton block={(
-                () => {
-                    if (history.length == 0) {
-                        return true
-                    }
-                    return false
-                }
-            )()} image={"images/history.png"} name={"History"} onclick={() => {
-                    if (viewHistory == styles.viewOff) {
-                        setViewHistory(styles.viewOn)
-                        return
-                    }
-                    setViewHistory(styles.viewOff)
-                }} />
+                <ToolsButton block={false} image={"images/reset.png"} name={"Reset"} onclick={() => {props.setViewReset(true)}} />
+                <ToolsButton block={true} image={"images/undo.png"} name={"Undo"} onclick={() => { }} />
+                <ToolsButton block={true} image={"images/redo.png"} name={"Redo"} onclick={() => { }} />
+                <ToolsButton
+                    block={(
+                        () => {
+                            if (history.length == 0) {
+                                return true
+                            }
+                            return false
+                        })()}
+                    image={"images/history.png"} name={"History"}
+                    onclick={() => {
+                        if (viewHistory == styles.viewOff) {
+                            setViewHistory(styles.viewOn)
+                            return
+                        }
+                        setViewHistory(styles.viewOff)
+                    }} />
                 <Panel style={styles.history} name={'History'} elements={history} view={viewHistory} setView={setViewHistory} />
             </div>
         </div>

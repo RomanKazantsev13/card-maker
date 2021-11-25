@@ -7,7 +7,6 @@ import styles from './Workspace.module.css'
 interface CanvasType {
     canvas: CanvasT,
     width: string,
-    color: string
 }
 
 export function Workspace(props: CanvasType) {
@@ -15,7 +14,7 @@ export function Workspace(props: CanvasType) {
         <div 
             className={styles.workspace} 
             style={{width: props.width}}>
-           <Canvas  color={props.color}/> {/* size={props.size} background={props.background} */}
+           <Canvas /> {/* size={props.size} background={props.background} */}
         </div>
     )
 }
