@@ -119,12 +119,13 @@ export function Card(props: CardType) {
                                     return 'calc(100% - 270px)'
                                 }
                                 return '100%'
-                            })()} />
+                            })()}
+                        />
                     </div>
                     <CanvasTools canvas={props.model.canvas} history={props.model.history} setViewReset={setViewReset} />
                 </div>
             </div>
-            <div className={styles.shadow + ' ' + ( () => {
+            <div className={styles.shadow + ' ' + (() => {
                 if (viewSave || viewResize || viewReset) {
                     return styles.viewOn
                 }

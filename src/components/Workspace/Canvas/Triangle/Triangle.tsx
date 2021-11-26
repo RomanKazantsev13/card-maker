@@ -16,7 +16,7 @@ export function Triangle(props: {
                 props.points.third.x + ' ' + props.points.third.y
             }
             fill={props.color}
-            onClick={() => {alert("click tria " + props.color)}}
+            onClick={() => {}}
         />
     )
 }

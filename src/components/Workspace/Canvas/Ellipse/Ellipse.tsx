@@ -12,7 +12,7 @@ export function Ellipse(props: {
             rx={props.radius.rx} 
             ry={props.radius.ry} 
             fill={props.color}
-            onClick={() => {alert("click ell " + props.color)}}
+            onClick={() => {}}
         />
     )
 }

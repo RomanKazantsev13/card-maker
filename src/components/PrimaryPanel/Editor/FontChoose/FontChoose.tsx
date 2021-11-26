@@ -132,6 +132,7 @@ export function FontChoose(props: {
             </div>
             <div className={styles.header_font}>Selected Font</div>
             <ButtonFont font={props.font} selectFont={props.font} setFont={props.setFont} />
+
             <div className={styles.header_font}>All Fonts</div>
             <div className={styles.fonts}>
                 {fonts_elem}

@@ -35,6 +35,9 @@ const history = [
     { image: "images/image.png", name: "Move Image" },
 ]
 
+const undo = []
+const redo = []
+
 export function CanvasTools(props: CanvasTools) {
 
     const [viewLayers, setViewLayers] = useState(styles.viewOff)
@@ -57,9 +60,23 @@ export function CanvasTools(props: CanvasTools) {
             }} />
             <Panel style={styles.layers} name={'Layers'} elements={layers} view={viewLayers} setView={setViewLayers} />
             <div className={styles.toolButtons}>
-                <ToolsButton block={false} image={"images/reset.png"} name={"Reset"} onclick={() => {props.setViewReset(true)}} />
-                <ToolsButton block={true} image={"images/undo.png"} name={"Undo"} onclick={() => { }} />
-                <ToolsButton block={true} image={"images/redo.png"} name={"Redo"} onclick={() => { }} />
+                <ToolsButton block={false} image={"images/reset.png"} name={"Reset"} onclick={() => { props.setViewReset(true) }} />
+                <ToolsButton
+                    block={(() => {
+                        if (undo.length == 0) {
+                            return true
+                        }
+                        return false
+                    })()}
+                    image={"images/undo.png"} name={"Undo"} onclick={() => { }} />
+                <ToolsButton
+                    block={(() => {
+                        if (redo.length == 0) {
+                            return true
+                        }
+                        return false
+                    })()}
+                    image={"images/redo.png"} name={"Redo"} onclick={() => { }} />
                 <ToolsButton
                     block={(
                         () => {

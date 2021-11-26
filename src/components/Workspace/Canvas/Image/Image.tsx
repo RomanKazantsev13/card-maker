@@ -12,6 +12,6 @@ export function Image(props: {
             y={props.centre.y} 
             width={props.size.width} 
             height={props.size.height}
-            onClick={() => {alert("click image " + props.url)}}
+            onClick={() => {}}
         />
 )}

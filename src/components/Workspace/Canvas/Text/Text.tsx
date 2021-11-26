@@ -12,7 +12,7 @@ export function Text(props: {
             x={props.center.x} 
             y={props.center.y} 
             style={{fontFamily: props.fontFamily, fontSize: props.fontSize, fill: props.color}}
-            onClick={() => {alert("click text " + props.stroka)}}
+            onClick={() => {}}
         >
             {props.stroka}
         </text>

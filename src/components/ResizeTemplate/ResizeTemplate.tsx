@@ -72,7 +72,9 @@ export function ResizeTemplate(props: {
     }
 
     function handleChangeHeight(event: React.ChangeEvent<HTMLInputElement>) {
+        
         setHeight(Number(event.target.value));
+
     }
 
     return (
@@ -117,14 +119,14 @@ export function ResizeTemplate(props: {
                             <div className={styles.size_header}>Width </div>
                             <div className={styles.px_w}>px</div>
                         </div>
-                        <input className={styles.size_value} maxLength={5} type="number" value={width} onChange={handleChangeWidth} />
+                        <input className={styles.size_value} maxLength={5} type="text" value={width} onChange={handleChangeWidth} />
                     </div>
                     <div className={styles.size}>
                         <div className={styles.px_layout}>
                             <div className={styles.size_header}>Height</div>
                             <div className={styles.px_h}>px</div>
                         </div>
-                        <input className={styles.size_value} maxLength={5} type="number" value={height} onChange={handleChangeHeight} />
+                        <input className={styles.size_value} maxLength={5} type="text" value={height} onChange={handleChangeHeight} />
                     </div>
                 </div>
                 <div className={styles.buttonLayout}>

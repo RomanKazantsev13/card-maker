@@ -17,7 +17,7 @@ export function Rectangle(props: {
             width={props.size.width}
             height={props.size.height}
             fill={props.color}
-            onClick={() => { alert("click rect " + props.color) }}
+            onClick={() => {}}
         />
     )
 }

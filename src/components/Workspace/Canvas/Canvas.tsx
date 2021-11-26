@@ -23,7 +23,7 @@ export function Canvas() {
             <svg style={{width: 800, height: 600}}>
                 <Rectangle centre={{ x: 100, y: 200 }} size={{ width: 200, height: 200 }} color={'green'} />
                 <Rectangle centre={{ x: 250, y: 500 }} size={{ width: 200, height: 200 }} color={'yellow'} />
-                <Image url={'images/bin.png'} centre={{x: 20, y: 40}} size={{width: 50, height: 50}} />
+                <Image url={'images/text.png'} centre={{x: 20, y: 40}} size={{width: 50, height: 50}} />
                 <Ellipse centre={{x: 300, y: 400}} radius={{rx: 50, ry: 70}} color={'blue'} />
                 <Triangle points={{first: {x: 100, y: 100}, second: {x: 100, y: 150}, third: {x: 150, y: 150}}} color={'red'} />
                 <Text stroka={'example'} center={{x: 400, y: 400}} fontFamily={'Comic Sans MS'} fontSize={15} color={'black'} />
