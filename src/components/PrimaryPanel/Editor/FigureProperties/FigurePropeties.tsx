@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import useComponentVisible from '../../../../customHooks/useComponentVisible'
-import { ColorPicker } from '../../../Workspace/ColorPicker/ColorPicker'
+import { Figure } from '../../../../model/Canvas/Element/Figure/figure'
+import { ColorPicker } from '../../../ColorPicker/ColorPicker'
 import styles from './FigureProperties.module.css'
 
 export function FigureProperties(props: {
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
+    element: Figure,
 }) {
-    const [color, setColor] = useState('#FFF')
+    const [color, setColor] = useState(props.element.color)
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
     return (
         <div>

@@ -1,25 +1,28 @@
 import type { Canvas } from '../Canvas/canvas'
 import type { Template } from './Templates/templates'
 import type { Element } from './../Canvas/Element/element'
+import { madeChange, Stack } from './History/history'
 
 export function initializationCard(newTemplates: Array<Template>): Card {
-    return {
+    const card = {
         allTemplates: {
             templates: newTemplates,
-            customTemplates: [] as Template[]
+            customTemplates: []
         },
         canvas: {
             size: { width: 800, height: 600 },
             selectElement: null,
             background: '#FFF',
-            elements: [] as Element[]
+            elements: []
         },
         history: {
-            undo: [] as Canvas[],
-            redo: [] as Canvas[]
+            undo: [],
+            redo: []
 
         }
     }
+    madeChange(card, 'New Template', 'images/square.png')
+    return card
 }
 
 
@@ -30,8 +33,8 @@ export type Card = {
     },
     canvas: Canvas,
     history: {
-        undo: Array<Canvas>,
-        redo: Array<Canvas>
+        undo: Array<Stack>,
+        redo: Array<Stack>
     }
 }
 

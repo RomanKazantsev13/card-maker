@@ -6,6 +6,10 @@ import styles from './SaveComputer.module.css'
 export function SaveComputer(props: {
     view: boolean,
     setView: (view: boolean) => void,
+    size: {
+        width: number,
+        height: number
+    },
 }) {
 
     const [format, setFormat] = useState('JPG')
@@ -59,7 +63,7 @@ export function SaveComputer(props: {
                     </div>
                 </div>
                 <label className={styles.subHeader}>Dimensions</label>
-                <div className={styles.canvasSize}>width × height px</div>
+                <div className={styles.canvasSize}>{props.size.width} × {props.size.height} px</div>
                 <div className={styles.buttonLayout}>
                     <Button name={"Cancel"} background={["#353948", "#484d61"]} color={"#f1f1f1"} onclick={props.setView} />
                     <Button name={"Save"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => { }} />

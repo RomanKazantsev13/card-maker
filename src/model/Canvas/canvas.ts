@@ -3,43 +3,44 @@ import { Card, initializationCard } from '../Card/card'
 import { Template } from '../Card/Templates/templates'
 import { madeChange } from '../Card/History/history'
 
-export function setSizeCanvas(newSize: Size, card: Card): Card {
-    madeChange(card)
-    return {
+export function setSizeCanvas(card: Card, newSize: Size): Card {
+    const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
             size: newSize
         }
     }
+    madeChange(newCard, 'Resize Template', 'images/square.png')
+    return newCard
 }
 
-export function resetCanvas(templates: Array<Template>, card: Card): Card {
-    madeChange(card)
-    //уточнить у пользователя действительно ли он хочет удалить Canvas
+export function resetCanvas(templates: Array<Template>): Card {
     return initializationCard(templates)
 }
 
-export function setBackgroundColor(color: string, card: Card): Card {
-    madeChange(card)
-    return {
+export function setBackgroundColor(card: Card, color: string): Card {
+    const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
             background: color
         }
     }
+    madeChange(newCard, 'Background Color', 'images/square.png')
+    return newCard
 }
 
-export function setBackgroundImage(url: string, card: Card): Card {
-    madeChange(card)
-    return {
+export function setBackgroundImage(card: Card, url: string): Card {
+    const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
             background: url
         }
     }
+    madeChange(newCard, 'Background Image', 'images/image.png')
+    return newCard
 }
 
 

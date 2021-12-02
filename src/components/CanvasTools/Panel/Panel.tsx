@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
+import { panelItem } from '../CanvasTools'
 import styles from './Panel.module.css'
 
 
 export function Panel(props: {
     name: string,
-    elements: Array<{ image: string, name: string }>,
+    elements: Array<panelItem>,
     style: string,
     view: string,
     setView: (view: string) => void,
@@ -12,7 +13,7 @@ export function Panel(props: {
     let PanelElements: Array<JSX.Element> = []
     for (let i = props.elements.length - 1; i >= 0; i--) {
         PanelElements.push(
-            <div className={styles.elementWrap}>
+            <div className={styles.elementWrap} style={props.elements[i].style}>
                 <img className={styles.panelImage} src={props.elements[i].image} />
                 <div className={styles.PanleText}>{props.elements[i].name}</div>
             </div>

@@ -11,10 +11,6 @@ interface IEditor {
 }
 
 export function PrimaryPanel(props: {
-    templates: {
-        templates: Array<Template>,
-        customTemplates: Array<Template>
-    },
     handler: {
         mouseOver: (event: React.MouseEvent<HTMLDivElement>) => void,
         mouseOut: (event: React.MouseEvent<HTMLDivElement>) => void,
@@ -60,7 +56,8 @@ export function PrimaryPanel(props: {
                     state: props.viewEditor.state
                 }} 
                 setHoverPanel={props.setHoverPanel}
-                setViewEditor={props.setViewEditor}/>
+                setViewEditor={props.setViewEditor}
+            />
             <Button 
                 name={'Customize'} 
                 imageName={'customize'} 
@@ -70,7 +67,8 @@ export function PrimaryPanel(props: {
                     state: props.viewEditor.state
                 }} 
                 setHoverPanel={props.setHoverPanel} 
-                setViewEditor={props.setViewEditor}/>
+                setViewEditor={props.setViewEditor}
+            />
             <Button 
                 name={'Templates'} 
                 imageName={'template'} 
@@ -80,7 +78,8 @@ export function PrimaryPanel(props: {
                     state: props.viewEditor.state
                 }} 
                 setHoverPanel={props.setHoverPanel}
-                setViewEditor={props.setViewEditor}/>
+                setViewEditor={props.setViewEditor}
+            />
             <Button 
                 name={'Graphics'} 
                 imageName={'figures'}
@@ -90,7 +89,8 @@ export function PrimaryPanel(props: {
                     state: props.viewEditor.state
                 }} 
                 setHoverPanel={props.setHoverPanel}
-                setViewEditor={props.setViewEditor}/>
+                setViewEditor={props.setViewEditor}
+            />
             <Button 
                 name={'Text'} 
                 imageName={'text'} 
@@ -100,7 +100,8 @@ export function PrimaryPanel(props: {
                     state: props.viewEditor.state
                 }} 
                 setHoverPanel={props.setHoverPanel}
-                setViewEditor={props.setViewEditor}/>
+                setViewEditor={props.setViewEditor}
+            />
         </div>
     )
 }

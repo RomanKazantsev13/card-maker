@@ -1,10 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import { Card } from './components/Card';
-import { card } from './model/model'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import { Card } from './components/Card'
+import { addEditorChangeHandler, getEditor } from './editor'
 
-ReactDOM.render(
-  <Card model={card}/>,
-  document.getElementById('root')
-);
+function render() {
+  ReactDOM.render(
+    <Card card={getEditor()} />,
+    document.getElementById('root')
+  )
+}
+
+addEditorChangeHandler(render)
+render()

@@ -25,10 +25,14 @@ const fonts = [
 export function ResizeTemplate(props: {
     view: boolean,
     setView: (view: boolean) => void,
+    size: {
+        width: number,
+        height: number
+    },
 }) {
 
-    const [width, setWidth] = useState(800)
-    const [height, setHeight] = useState(600)
+    const [width, setWidth] = useState(props.size.width)
+    const [height, setHeight] = useState(props.size.height)
     const [viewList, setViewList] = useState(styles.viewOff)
 
     const font = fonts.find(font => (font.size_height == height && font.size_width == width))
@@ -60,22 +64,27 @@ export function ResizeTemplate(props: {
     }, []);
 
     useEffect(() => {
-        document.addEventListener("keydown", escFunction, false);
+        document.addEventListener("keydown", escFunction, false)
 
         return () => {
-            document.removeEventListener("keydown", escFunction, false);
-        };
-    }, []);
+            document.removeEventListener("keydown", escFunction, false)
+        }
+    }, [])
 
+    const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     function handleChangeWidth(event: React.ChangeEvent<HTMLInputElement>) {
-        setWidth(Number(event.target.value));
+        if (digits.includes(event.target.value.slice(-1))) {
+            setWidth(Number(event.target.value))
+        }
     }
 
     function handleChangeHeight(event: React.ChangeEvent<HTMLInputElement>) {
-        
-        setHeight(Number(event.target.value));
-
+        if (digits.includes(event.target.value.slice(-1))) {
+            setHeight(Number(event.target.value))
+        }
     }
+
+
 
     return (
         <div className={styles.wrap + ' ' + (() => {
@@ -119,7 +128,13 @@ export function ResizeTemplate(props: {
                             <div className={styles.size_header}>Width </div>
                             <div className={styles.px_w}>px</div>
                         </div>
-                        <input className={styles.size_value} maxLength={5} type="text" value={width} onChange={handleChangeWidth} />
+                        <input 
+                            className={styles.size_value} 
+                            maxLength={5} 
+                            type="text" 
+                            value={width}
+                            onChange={handleChangeWidth}
+                            />
                     </div>
                     <div className={styles.size}>
                         <div className={styles.px_layout}>

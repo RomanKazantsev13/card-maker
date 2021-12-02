@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import useComponentVisible from '../../../../customHooks/useComponentVisible';
-import { ColorPicker } from '../../../Workspace/ColorPicker/ColorPicker'
+import { ColorPicker } from '../../../ColorPicker/ColorPicker'
 import { ButtonColor } from './ButtonColor';
 import styles from './Customize.module.css'
 
@@ -18,9 +18,16 @@ const colors: Array<string> = [
 
 export function Customize(props: {
     setViewResize: (viewResize: boolean) => void,
+    canvas: {
+        size: {
+            height: number,
+            width: number,
+        },
+        background: string,
+    },
 }) {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
-    const [color, setColor] = useState('#FFF')
+    const [color, setColor] = useState(props.canvas.background)
 
     let ButtonsColor: Array<ReactElement> = []
 
@@ -38,7 +45,7 @@ export function Customize(props: {
             }}>
                 <div className={styles.text}>Resize Template</div>
             </div>
-            <div className={styles.size}>width × height px</div>
+            <div className={styles.size}>{props.canvas.size.width} × {props.canvas.size.height} px</div>
             <div className={styles.colors}>
                 <div className={styles.color_text}>Background Color</div>
                 <div className={styles.colors__layout}>

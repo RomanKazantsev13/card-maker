@@ -1,23 +1,24 @@
-import { Canvas } from "./Canvas/canvas";
-import { Element } from "./Canvas/Element/element";
+import { Canvas, setBackgroundColor, setSizeCanvas } from "./Canvas/canvas";
+import { Element, getSelectElement, setSelectElement } from "./Canvas/Element/element";
+import { addEllipse } from "./Canvas/Element/Figure/Ellipse/ellipse";
+import { setColorFigure } from "./Canvas/Element/Figure/figure";
+import { addRectangle } from "./Canvas/Element/Figure/Rectangle/rectangle";
+import { addTriangle } from "./Canvas/Element/Figure/Triangle/triangle";
+import { addImage } from "./Canvas/Element/Image/image";
+import { addText } from "./Canvas/Element/Text/text";
+import { initializationCard } from "./Card/card";
+import { redo, undo } from "./Card/History/history";
 import { Template } from "./Card/Templates/templates";
 
-export let card = {
-    allTemplates: {
-      templates: [] as Template[],
-      customTemplates: [] as Template[],
-    },
-    history: {
-        undo: [] as Canvas[],
-        redo: [] as Canvas[],
-    },
-    canvas: {
-        size: {
-            height: 600,
-            width: 800,
-        },
-        selectElement: null,
-        background: '#FFF',
-        elements: [] as Element[]
-    }
-}
+let card = initializationCard([])
+card = addTriangle(card)
+card = addRectangle(card)
+card = addEllipse(card)
+card = addImage(card, 'images/bin.png')
+card = addText(card)
+card = setBackgroundColor(card, '#fe5fe7')
+
+card = setSelectElement(card, card.canvas.elements[2])
+
+
+export { card }

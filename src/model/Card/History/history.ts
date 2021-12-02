@@ -1,36 +1,49 @@
 import type { Canvas } from './../../Canvas/canvas'
 import type { Card } from '../card'
 
-const maxStackValue = 20
+const maxStackValue = 4
 
-function pushStack(stack: Array<Canvas>, canvas: Canvas): void {
+function pushStack(stack: Array<Stack>, data: { canvas: Canvas, name: string, image: string }): void {
     if (stack.length > maxStackValue) {
-        stack.pop()
+        stack.shift()
     }
-    stack.unshift(canvas)
+    stack.push({
+        canvas: data.canvas,
+        name: data.name,
+        image: data.image,
+    })
 }
 
-function popStack(stack: Array<Canvas>, card: Card): Card {
+
+export function madeChange(card: Card, name: string, image: string): void {
+    pushStack(card.history.undo, { canvas: card.canvas, name: name, image: image })
+    card.history.redo = []
+}
+
+export function undo(card: Card): Card {
+    const data = card.history.undo.pop()
+    if (data !== undefined) {
+        pushStack(card.history.redo, data)
+    }
     return {
         ...card,
-        canvas: stack.shift() || card.canvas
+        canvas: card.history.undo[card.history.undo.length - 1].canvas
     }
 }
 
-
-
-export function madeChange(card: Card): void {
-    pushStack(card.history.undo, card.canvas)
-    card.history.redo = [] as Canvas[]
+export function redo(card: Card): Card {
+    const data = card.history.redo.pop()
+    if (data !== undefined) {
+        pushStack(card.history.undo, data)
+    }
+    return {
+        ...card,
+        canvas: card.history.undo[card.history.undo.length - 1].canvas
+    }
 }
 
-export function redoRollback(card: Card): Card {
-    pushStack(card.history.redo, card.canvas)
-    return popStack(card.history.undo, card)
+export type Stack = {
+    canvas: Canvas,
+    name: string,
+    image: string,
 }
-
-export function undoRollback(card: Card): Card {
-    pushStack(card.history.undo, card.canvas)
-    return popStack(card.history.redo, card)
-}
-

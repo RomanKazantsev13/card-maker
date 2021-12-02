@@ -47,6 +47,12 @@
     height: 240px;;
 }
 
+.elementWrap:hover
+{
+    background: #353948;
+    cursor: pointer;
+}
+
 .elementsWrap::-webkit-scrollbar 
 {
     width: 12px;               /* ширина scrollbar */
@@ -80,7 +86,7 @@
     height: 35px;
     border-radius: 6px;;
     display: flex;
-    background: #353948;
+    background: #2e313f;
 }
 
 .PanleText

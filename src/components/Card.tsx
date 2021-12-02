@@ -12,17 +12,18 @@ import { Editor } from './PrimaryPanel/Editor/Editor'
 import { SaveComputer } from './SaveComputer/SaveComputer'
 import { ResizeTemplate } from './ResizeTemplate/ResizeTemplate'
 import { ResetCanvas } from './ResetCanvas/ResetCanvas'
+import { Stack } from '../model/Card/History/history'
 
 interface CardType {
-    model: {
+    card: {
         allTemplates: {
             templates: Array<Template>,
             customTemplates: Array<Template>
         },
         canvas: Canvas,
         history: {
-            undo: Array<Canvas>,
-            redo: Array<Canvas>
+            undo: Array<Stack>,
+            redo: Array<Stack>
         }
     }
 }
@@ -84,7 +85,6 @@ export function Card(props: CardType) {
             />
             <div className={styles.layout}>
                 <PrimaryPanel
-                    templates={props.model.allTemplates}
                     handler={{
                         mouseOver: mouseOverHandler,
                         mouseOut: mouseOutHandler
@@ -111,9 +111,10 @@ export function Card(props: CardType) {
                             viewEditor={viewEditor}
                             setViewResize={setViewResize}
                             setViewEditor={setViewEditor}
+                            canvas={{size: props.card.canvas.size, background: props.card.canvas.background, selectElement: props.card.canvas.selectElement}}
                         />
                         <Workspace
-                            canvas={props.model.canvas}
+                            canvas={props.card.canvas}
                             width={(() => {
                                 if (viewEditor.view) {
                                     return 'calc(100% - 270px)'
@@ -122,7 +123,7 @@ export function Card(props: CardType) {
                             })()}
                         />
                     </div>
-                    <CanvasTools canvas={props.model.canvas} history={props.model.history} setViewReset={setViewReset} />
+                    <CanvasTools canvas={props.card.canvas} history={props.card.history} setViewReset={setViewReset} />
                 </div>
             </div>
             <div className={styles.shadow + ' ' + (() => {
@@ -131,8 +132,8 @@ export function Card(props: CardType) {
                 }
                 return styles.viewOff
             })()}></div>
-            <SaveComputer view={viewSave} setView={setViewSave} />
-            <ResizeTemplate view={viewResize} setView={setViewResize} />
+            <SaveComputer view={viewSave} setView={setViewSave} size={props.card.canvas.size} />
+            <ResizeTemplate view={viewResize} setView={setViewResize} size={props.card.canvas.size} />
             <ResetCanvas view={viewReset} setView={setViewReset} />
         </div>
     )

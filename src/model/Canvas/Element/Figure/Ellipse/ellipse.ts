@@ -1,10 +1,10 @@
-import type { Card, Point, Size } from '../../../../Card/card'
-import { madeChange } from '../../../../Card/History/history'
-import { getSelectElement } from '../../element'
-import { isFigure } from '../figure'
+import type { Card, Point } from "../../../../Card/card"
+import { madeChange } from "../../../../Card/History/history"
+import { getSelectElement } from "../../element"
+import { isFigure } from "../figure"
 import { uuid } from 'uuidv4';
 
-export function addRectangle(card: Card): Card {
+export function addEllipse(card: Card): Card {
     const newCard = {
         ...card,
         canvas: {
@@ -17,37 +17,33 @@ export function addRectangle(card: Card): Card {
                     object: {
                         color: '#888',
                         figure: {
-                            size: {
-                                width: 100,
-                                height: 75
-                            }
+                            rx: 30,
+                            ry: 50
                         }
                     }
                 }
             ]
         }
     }
-    madeChange(newCard, 'New Shape', 'images/square.png')
+    madeChange(newCard, 'New Shape', 'images/circle.png')
     return newCard
 }
 
-export function setWidthRectangle(card: Card, mousePoint: Point): Card {
+export function setEllipseRx(card: Card, mousePoint: Point): Card {
     const oldElement = getSelectElement(card)
     const changeCard = {
         ...card,
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if ((element === oldElement) && (isFigure(element.object)) && (isRectangle(element.object.figure))) {
+                if ((element === oldElement) && (isFigure(element.object)) && (isEllipse(element.object.figure))) {
                     return {
                         ...element,
                         object: {
                             ...element.object,
                             figure: {
-                                size: {
-                                    ...element.object.figure.size,
-                                    width: element.object.figure.size.width + mousePoint.x
-                                }
+                                ...element.object.figure,
+                                rx: element.object.figure.rx + mousePoint.x
                             }
                         }
                     }
@@ -63,27 +59,25 @@ export function setWidthRectangle(card: Card, mousePoint: Point): Card {
             selectElement: getSelectElement(card)
         }
     }
-    madeChange(newCard, 'Resize Graphic', 'images/square.png')
+    madeChange(newCard, 'Resize Graphic', 'images/circle.png')
     return newCard
 }
 
-export function setHeightRectangle(card: Card, mousePoint: Point): Card {
+export function setEllipseRy(card: Card, mousePoint: Point): Card {
     const oldElement = getSelectElement(card)
     const changeCard = {
         ...card,
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
-                if ((element === oldElement) && (isFigure(element.object)) && (isRectangle(element.object.figure))) {
+                if ((element === oldElement) && (isFigure(element.object)) && (isEllipse(element.object.figure))) {
                     return {
                         ...element,
                         object: {
                             ...element.object,
                             figure: {
-                                size: {
-                                    ...element.object.figure.size,
-                                    height: element.object.figure.size.height + mousePoint.y
-                                }
+                                ...element.object.figure,
+                                ry: element.object.figure.ry + mousePoint.y
                             }
                         }
                     }
@@ -99,15 +93,15 @@ export function setHeightRectangle(card: Card, mousePoint: Point): Card {
             selectElement: getSelectElement(card)
         }
     }
-    madeChange(newCard, 'Resize Graphic', 'images/square.png')
+    madeChange(newCard, 'Resize Graphic', 'images/circle.png')
     return newCard
 }
 
-export function isRectangle(object: any): object is Rectangle {
-     return (object.figure as Rectangle).size !== undefined
+export function isEllipse(object: any): object is Ellipse {
+    return (object.figure as Ellipse).rx !== undefined && (object.figure as Ellipse).ry !== undefined
 }
 
-export type Rectangle = {
-    size: Size
+export type Ellipse = {
+    rx: number,
+    ry: number
 }
-

@@ -3,42 +3,101 @@ import { Canvas } from '../../model/Canvas/canvas'
 import styles from './CanvasTools.module.css'
 import { ToolsButton } from './ToolsButton'
 import { Panel } from './Panel/Panel'
+import { Stack } from '../../model/Card/History/history'
+import { Figure, isFigure } from '../../model/Canvas/Element/Figure/figure'
+import { isTriangle } from '../../model/Canvas/Element/Figure/Triangle/triangle'
+import { isRectangle } from '../../model/Canvas/Element/Figure/Rectangle/rectangle'
+import { isEllipse } from '../../model/Canvas/Element/Figure/Ellipse/ellipse'
+import {    isImage } from '../../model/Canvas/Element/Image/image'
+import { isText } from '../../model/Canvas/Element/Text/text'
 
 interface CanvasTools {
     canvas: Canvas,
     history: {
-        undo: Array<Canvas>,
-        redo: Array<Canvas>
+        undo: Array<Stack>,
+        redo: Array<Stack>
     },
     setViewReset: (view: boolean) => void,
 }
 
-const layers = [
-    { image: "images/image.png", name: "Image 1" },
-    { image: "images/triangle.png", name: "Shape 1" },
-    { image: "images/square.png", name: "Shape 2" },
-    { image: "images/circle.png", name: "Shape 3" },
-    { image: "images/text__hover.png", name: "Text 1" },
-    { image: "images/image.png", name: "Image 2" },
-    { image: "images/square.png", name: "Shape 4" },
-    { image: "images/circle.png", name: "Shape 5" },
-    { image: "images/text__hover.png", name: "Text 2" },
-    { image: "images/image.png", name: "Image 3" },
-]
-
-const history = [
-    { image: "images/square.png", name: "New Template" },
-    { image: "images/triangle.png", name: "Add Triangle" },
-    { image: "images/square.png", name: "Add Rectangle" },
-    { image: "images/circle.png", name: "Add Ellipse" },
-    { image: "images/text__hover.png", name: "Add Text" },
-    { image: "images/image.png", name: "Move Image" },
-]
-
-const undo = []
-const redo = []
+export type panelItem = {
+    image: string,
+    name: string,
+    style: React.CSSProperties
+}
 
 export function CanvasTools(props: CanvasTools) {
+
+    const history: Array<panelItem> = (() => {
+        let undo: Array<panelItem> = []
+        let redo: Array<panelItem> = []
+        for (let i = props.history.undo.length - 1; i >= 0; i--) {
+            undo.push({
+                image: props.history.undo[i].image,
+                name: props.history.undo[i].name,
+                style: { background: '2e313f' }
+            })
+        }
+
+        undo[0].style = { background: '#36365f' }
+
+        for (let i = 0; i < props.history.redo.length; i++) {
+            redo.push({
+                image: props.history.redo[i].image,
+                name: props.history.redo[i].name,
+                style: { opacity: 0.3 }
+            })
+        }
+        return redo.concat(undo)
+    })()
+
+    const layers: Array<panelItem> = (() => {
+        let elements: Array<panelItem> = []
+        let shapeCount: number = 0
+        let imageCount: number = 0
+        let textCount: number = 0
+        for (let i = 0; i < props.canvas.elements.length; i++) {
+            let style: React.CSSProperties
+            if (props.canvas.elements[i] === props.canvas.selectElement) {
+                style = {background: '#36365f'}
+            } else {
+                style = {background: '#2e313f'}
+            }
+            const object = props.canvas.elements[i].object
+            if (isFigure(object)) {
+                const figure: Figure = object
+                if (isTriangle(figure)) {
+                    shapeCount++
+                    elements.push(
+                        {name: 'Shape ' + shapeCount, image: 'images/triangle.png', style: style}
+                    )
+                }
+                if (isRectangle(figure)) {
+                    shapeCount++
+                    elements.push(
+                            {name: 'Shape ' + shapeCount, image: 'images/square.png', style: style}
+                    )
+                }
+                if (isEllipse(figure)) {
+                    shapeCount++
+                    elements.push(
+                            {name: 'Shape ' + shapeCount, image: 'images/circle.png', style: style}
+                    )
+                }
+            } else if (isImage(object)) {
+                imageCount++
+                elements.push(
+                    {name: 'Image ' + imageCount, image: 'images/image.png', style: style}
+                )
+            } else if (isText(object)) {
+                textCount++
+                elements.push(
+                    {name: 'Text ' + textCount, image: 'images/text__hover.png', style: style}
+                )
+            }
+        }
+        return elements.reverse()
+    })()
 
     const [viewLayers, setViewLayers] = useState(styles.viewOff)
     const [viewHistory, setViewHistory] = useState(styles.viewOff)
@@ -63,7 +122,7 @@ export function CanvasTools(props: CanvasTools) {
                 <ToolsButton block={false} image={"images/reset.png"} name={"Reset"} onclick={() => { props.setViewReset(true) }} />
                 <ToolsButton
                     block={(() => {
-                        if (undo.length == 0) {
+                        if (props.history.undo.length <= 1) {
                             return true
                         }
                         return false
@@ -71,7 +130,7 @@ export function CanvasTools(props: CanvasTools) {
                     image={"images/undo.png"} name={"Undo"} onclick={() => { }} />
                 <ToolsButton
                     block={(() => {
-                        if (redo.length == 0) {
+                        if (props.history.redo.length == 0) {
                             return true
                         }
                         return false

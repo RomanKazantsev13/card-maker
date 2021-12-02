@@ -1,32 +1,116 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Canvas.module.css'
-import { Ellipse } from './Ellipse/Ellipse'
-import { Image } from './Image/Image'
-import { Rectangle } from './Rectangle/Rectangle'
-import { Text } from './Text/Text'
-import { Triangle } from './Triangle/Triangle'
 
-interface CanvasType {
-    size: {
-        width: number,
-        height: number
-    },
-    background: string
+import { Canvas as CanvasType } from './../../../model/Canvas/canvas'
+import { SelectElement } from './SelectElement/SelectElement'
+import { Ellipse } from './Ellipse'
+import { Image } from './Image'
+import { Rectangle } from './Rectangle'
+import { Text } from './Text'
+import { Triangle } from './Triangle'
+import { isTriangle, Triangle as TriangleType } from '../../../model/Canvas/Element/Figure/Triangle/triangle'
+import { isRectangle, Rectangle as RectangleType } from '../../../model/Canvas/Element/Figure/Rectangle/rectangle'
+import { Ellipse as EllipseType, isEllipse } from '../../../model/Canvas/Element/Figure/Ellipse/ellipse'
+import { Image as ImageType, isImage } from '../../../model/Canvas/Element/Image/image'
+import { isText, Text as TextType } from '../../../model/Canvas/Element/Text/text'
+import { Figure, isFigure } from '../../../model/Canvas/Element/Figure/figure'
+
+interface CanvasT {
+    canvas: CanvasType
 }
 
 // при большем размере -> скрол
 
-export function Canvas() {
+
+
+export function Canvas(props: CanvasT) {
+    const [value, setValue] = useState({
+        size: { width: 0, height: 0 },
+        centre: { x: 0, y: 0 }
+    })
+
+
+    const elements = []
+    for (let i = 0; i < props.canvas.elements.length; i++) {
+        const object = props.canvas.elements[i].object
+        if (isFigure(object)) {
+            const figure: Figure = object
+            if (isTriangle(figure)) {
+                const triangle: any = figure.figure
+                elements.push(
+                    <Triangle
+                        points={{
+                            first: { x: triangle.firstPoint.x, y: triangle.firstPoint.y },
+                            second: { x: triangle.secondPoint.x, y: triangle.secondPoint.y },
+                            third: { x: triangle.thirdPoint.x, y: triangle.thirdPoint.y }
+                        }}
+                        color={'red'}
+                        setValue={setValue}
+                        element={props.canvas.elements[i]}
+                    />
+                )
+            }
+            if (isRectangle(figure)) {
+                const rectangle: any = figure.figure
+                elements.push(
+                    <Rectangle
+                        centre={{ x: props.canvas.elements[i].centre.x, y: props.canvas.elements[i].centre.y }}
+                        size={{ width: rectangle.size.width, height: rectangle.size.height }}
+                        color={figure.color}
+                        setValue={setValue}
+                        element={props.canvas.elements[i]}
+                    />
+                )
+            }
+            if (isEllipse(figure)) {
+                const ellipse: any = figure.figure
+                elements.push(
+                    <Ellipse
+                        centre={{ x: props.canvas.elements[i].centre.x, y: props.canvas.elements[i].centre.y }}
+                        radius={{ rx: ellipse.rx, ry: ellipse.ry }}
+                        color={figure.color}
+                        setValue={setValue}
+                        element={props.canvas.elements[i]}
+                    />
+                )
+            }
+        } else if (isImage(object)) {
+            const image: ImageType = object
+            elements.push(
+                <Image
+                    url={image.url}
+                    centre={{ x: props.canvas.elements[i].centre.x, y: props.canvas.elements[i].centre.y }}
+                    size={{ width: image.size.width, height: image.size.width }}
+                    setValue={setValue}
+                    element={props.canvas.elements[i]}
+                />
+            )
+        } else if (isText(object)) {
+            const text: TextType = object
+            elements.push(
+                <Text
+                    stroka={text.str}
+                    center={{ x: props.canvas.elements[i].centre.x, y: props.canvas.elements[i].centre.y }}
+                    fontFamily={text.font}
+                    fontSize={text.sizeText}
+                    color={text.color}
+                    setValue={setValue}
+                    element={props.canvas.elements[i]}
+                />
+            )
+        }
+    }
+
     return (
-        <div style={{ width: 800, height: 600, background: '#FFF', zoom: 0.8, overflow: 'hidden'}} >
-            <svg style={{width: 800, height: 600}}>
-                <Rectangle centre={{ x: 100, y: 200 }} size={{ width: 200, height: 200 }} color={'green'} />
-                <Rectangle centre={{ x: 250, y: 500 }} size={{ width: 200, height: 200 }} color={'yellow'} />
-                <Image url={'images/text.png'} centre={{x: 20, y: 40}} size={{width: 50, height: 50}} />
-                <Ellipse centre={{x: 300, y: 400}} radius={{rx: 50, ry: 70}} color={'blue'} />
-                <Triangle points={{first: {x: 100, y: 100}, second: {x: 100, y: 150}, third: {x: 150, y: 150}}} color={'red'} />
-                <Text stroka={'example'} center={{x: 400, y: 400}} fontFamily={'Comic Sans MS'} fontSize={15} color={'black'} />
+        <div style={{ width: props.canvas.size.width, height: props.canvas.size.height, background: props.canvas.background, zoom: 0.8, overflow: 'hidden' }} >
+            <svg style={{ width: props.canvas.size.width, height: props.canvas.size.height }}>
+                {elements}
+                <SelectElement
+                    centre={{ x: value.centre.x, y: value.centre.y }}
+                    size={{ width: value.size.width, height: value.size.height }}
+                    selectElement={props.canvas.selectElement}
+                />
             </svg>
         </div>
     )

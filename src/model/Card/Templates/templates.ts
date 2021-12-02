@@ -4,7 +4,7 @@ import type { Card } from './../card'
 
 export let templates: Array<Template>
 
-export function applyTemplate(templateName: string, card: Card): Card {
+export function applyTemplate(card: Card, templateName: string): Card {
     const newCanvas: Canvas | undefined = card.allTemplates.customTemplates.find(template => template.name === templateName)?.canvas
         || card.allTemplates.templates.find(template => template.name === templateName)?.canvas
         || undefined
@@ -14,7 +14,7 @@ export function applyTemplate(templateName: string, card: Card): Card {
     }
 }
 
-export function addTemplate(newCanvas: Canvas, templateName: string, card: Card): Card {
+export function addTemplate(card: Card, template: {newCanvas: Canvas, templateName: string}): Card {
     // добавить проверку на пустой холст  
     return {
         ...card,
@@ -23,8 +23,8 @@ export function addTemplate(newCanvas: Canvas, templateName: string, card: Card)
             customTemplates: [
                 ...card.allTemplates.customTemplates,
                 {
-                    name: templateName,
-                    canvas: newCanvas
+                    name: template.templateName,
+                    canvas: template.newCanvas
                 }
             ]
 
@@ -32,7 +32,7 @@ export function addTemplate(newCanvas: Canvas, templateName: string, card: Card)
     }
 }
 
-export function deleteTemplate(templateName: string, card: Card): Card {
+export function deleteTemplate(card: Card, templateName: string): Card {
     const newCustomTemplate = card.allTemplates.customTemplates.filter(template => {
         if (template.name !== templateName) {
             return template

@@ -1,14 +1,13 @@
 import type { Triangle } from './Triangle/triangle'
 import type { Rectangle } from './Rectangle/rectangle'
-import type { Circle } from './Circle/circle'
+import type { Ellipse } from './Ellipse/ellipse'
 import type { Card } from '../../../Card/card'
 import { getSelectElement } from '../element'
 import { madeChange } from '../../../Card/History/history'
 
-export function setColorFigure(newColor: string, card: Card): Card {
-    madeChange(card)
-    const oldElement = card.canvas.elements.find(element => card.canvas.selectElement?.id === element.id)
-    const newCard = {
+export function setColorFigure(card: Card, newColor: string): Card {
+    const oldElement = getSelectElement(card)
+    const changeCard = { 
         ...card,
         canvas: {
             ...card.canvas,
@@ -26,21 +25,22 @@ export function setColorFigure(newColor: string, card: Card): Card {
             })
         }
     }
-    return {
-        ...newCard,
+    const newCard = {
+        ...changeCard,
         canvas: {
-            ...newCard.canvas,
+            ...changeCard.canvas,
             selectElement: getSelectElement(card)
         }
     }
+    madeChange(newCard, 'Fill Color', 'images/square.png')
+    return newCard
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isFigure(element: any): element is Figure {
-    return element.object.color !== undefined && element.object.object !== undefined
+    return (element as Figure).color !== undefined && (element as Figure).figure !== undefined
 }
 
 export type Figure = {
     color: string,
-    object: Triangle | Rectangle | Circle
+    figure: Triangle | Rectangle | Ellipse
 }

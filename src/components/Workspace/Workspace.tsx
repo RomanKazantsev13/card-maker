@@ -14,7 +14,7 @@ export function Workspace(props: CanvasType) {
         <div 
             className={styles.workspace} 
             style={{width: props.width}}>
-           <Canvas /> {/* size={props.size} background={props.background} */}
+           <Canvas canvas={props.canvas} /> 
         </div>
     )
 }

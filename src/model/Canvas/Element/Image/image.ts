@@ -3,9 +3,8 @@ import { madeChange } from '../../../Card/History/history'
 import { getSelectElement } from '../element'
 import { uuid } from 'uuidv4';
 
-export function addImage(card: Card): Card {
-    madeChange(card)
-    return {
+export function addImage(card: Card, newUrl: string): Card {
+    const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -20,18 +19,19 @@ export function addImage(card: Card): Card {
                         // показать часть картинки
                         // отмена
                         size: { width: 200, height: 350 },
-                        url: 'Тут надо как-то импортить картинку уже!'
+                        url: newUrl
                     }
                 }
             ]
         }
     }
+    madeChange(newCard, 'Add Image', 'images/image.png')
+    return newCard
 }
 
-export function resizeImage(newSize: Size, card: Card): Card {
-    madeChange(card)
+export function resizeImage(card: Card, newSize: Size): Card {
     const oldElement = getSelectElement(card)
-    const newCard = {
+    const changeCard = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -49,13 +49,19 @@ export function resizeImage(newSize: Size, card: Card): Card {
             })
         }
     }
-    return {
-        ...newCard,
+    const newCard = {
+        ...changeCard,
         canvas: {
-            ...newCard.canvas,
+            ...changeCard.canvas,
             selectElement: getSelectElement(card)
         }
     }
+    madeChange(newCard, 'Resize Image', 'images/image.png')
+    return newCard
+}
+
+export function isImage(element: any): element is Image {
+    return (element as Image).url !== undefined && (element as Image).size.width !== undefined && (element as Image).size.height !== undefined
 }
 
 export type Image = {
