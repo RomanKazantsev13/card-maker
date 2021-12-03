@@ -1,5 +1,4 @@
-import React from 'react'
-import useComponentVisible from '../../../customHooks/useComponentVisible'
+import React, { useEffect } from 'react'
 import { dispatch } from '../../../editor'
 import { Element, setSelectElement } from '../../../model/Canvas/Element/element'
 
@@ -17,15 +16,9 @@ export function Triangle(props: {
     }) => void,
     element: Element,
 }) {
-    const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
-    if (isComponentVisible) {
-        dispatch(setSelectElement, props.element)
-    } else {
-        dispatch(setSelectElement, null)
-    }
+
     return (
         <polygon
-            ref={ref}
             points={
                 props.points.first.x + ' ' + props.points.first.y + ',' +
                 props.points.second.x + ' ' + props.points.second.y + ',' +
@@ -37,7 +30,7 @@ export function Triangle(props: {
                     size: { width: props.points.third.x - props.points.first.x, height: props.points.first.y - props.points.second.y },
                     centre: { x: props.points.first.x, y: props.points.second.y }
                 })
-                setIsComponentVisible(true)
+                dispatch(setSelectElement, props.element)
             }}
         />
     )

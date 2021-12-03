@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
 import useComponentVisible from '../../../../customHooks/useComponentVisible';
+import { setBackgroundColor } from '../../../../model/Canvas/canvas';
 import { ColorPicker } from '../../../ColorPicker/ColorPicker'
 import { ButtonColor } from './ButtonColor';
 import styles from './Customize.module.css'
@@ -64,7 +65,7 @@ export function Customize(props: {
                     }
                     return
                 })()} >
-                    {isComponentVisible && <ColorPicker backPicker={{ color: color, setColor: setColor }} />}
+                    {isComponentVisible && <ColorPicker backPicker={{ color: color, setColor: setColor }} function={setBackgroundColor} />}
                 </div>
             </div>
         </div>

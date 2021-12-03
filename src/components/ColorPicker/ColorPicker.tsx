@@ -1,5 +1,6 @@
 import React from 'react'
 import { ChromePicker } from 'react-color'
+import { dispatch } from '../../editor'
 import styles from './ColorPicker.module.css'
 
 export function ColorPicker(props: {
@@ -7,6 +8,7 @@ export function ColorPicker(props: {
         color: string,
         setColor: (color: string) => void
     },
+    function: any,
 }) {
 
     const chromePickerStyles = {
@@ -26,7 +28,10 @@ export function ColorPicker(props: {
             <div className={styles.header}>Picker</div>
             <ChromePicker
                 color={props.backPicker.color}
-                onChange={(updateColor: any) => props.backPicker.setColor(updateColor.hex)}
+                onChange={(updateColor: any) => {
+                    props.backPicker.setColor(updateColor.hex)
+                    dispatch(props.function, updateColor.hex)
+                }}
                 styles={chromePickerStyles}
             />
         </div>

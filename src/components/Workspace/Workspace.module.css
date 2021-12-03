@@ -1,8 +1,25 @@
 .workspace 
 {
     display: flex;
-    align-items: center;
-    justify-content: center;
     height: calc(100vh - 105px);
     background: rgb(28, 29, 38);
+    overflow: auto;
+}
+
+.workspace::-webkit-scrollbar 
+{
+    width: 12px; 
+    height: 12px;;              /* ширина scrollbar */
+}
+  
+.workspace::-webkit-scrollbar-track 
+{
+    background: #242631;        /* цвет дорожки */
+}
+  
+.workspace::-webkit-scrollbar-thumb 
+{
+    background-color: #adb1cc;    /* цвет плашки */
+    border-radius: 20px;       /* закругления плашки */
+    border: 3px solid #242631;  /* padding вокруг плашки */
 }

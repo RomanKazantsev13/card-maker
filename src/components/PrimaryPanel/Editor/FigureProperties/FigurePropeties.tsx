@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import useComponentVisible from '../../../../customHooks/useComponentVisible'
-import { Figure } from '../../../../model/Canvas/Element/Figure/figure'
+import { Figure, setColorFigure } from '../../../../model/Canvas/Element/Figure/figure'
 import { ColorPicker } from '../../../ColorPicker/ColorPicker'
 import styles from './FigureProperties.module.css'
 
@@ -41,7 +41,7 @@ export function FigureProperties(props: {
                 }
                 return
             })()} >
-                {isComponentVisible && <ColorPicker backPicker={{ color: color, setColor: setColor }} />}
+                {isComponentVisible && <ColorPicker backPicker={{ color: color, setColor: setColor }} function={setColorFigure} />}
             </div>
         </div>
     )

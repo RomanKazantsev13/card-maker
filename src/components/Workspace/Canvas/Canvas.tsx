@@ -15,6 +15,8 @@ import { Ellipse as EllipseType, isEllipse } from '../../../model/Canvas/Element
 import { Image as ImageType, isImage } from '../../../model/Canvas/Element/Image/image'
 import { isText, Text as TextType } from '../../../model/Canvas/Element/Text/text'
 import { Figure, isFigure } from '../../../model/Canvas/Element/Figure/figure'
+import { dispatch } from '../../../editor'
+import { setSelectElement } from '../../../model/Canvas/Element/element'
 
 interface CanvasT {
     canvas: CanvasType
@@ -103,7 +105,14 @@ export function Canvas(props: CanvasT) {
     }
 
     return (
-        <div style={{ width: props.canvas.size.width, height: props.canvas.size.height, background: props.canvas.background, zoom: 0.8, overflow: 'hidden' }} >
+        <div style={{ 
+            width: props.canvas.size.width, 
+            height: props.canvas.size.height, 
+            background: props.canvas.background, 
+            zoom: 0.8
+         }}
+            className={styles.canvas}
+        >
             <svg style={{ width: props.canvas.size.width, height: props.canvas.size.height }}>
                 {elements}
                 <SelectElement

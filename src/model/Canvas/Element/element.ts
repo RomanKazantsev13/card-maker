@@ -4,9 +4,9 @@ import type { Image } from './Image/image'
 import type { Figure } from './Figure/figure'
 import { madeChange } from '../../Card/History/history'
 
-export function deleteSelectElement(card: Card, oldElement: Element): Card {
+export function deleteSelectElement(card: Card): Card {
     const newElements = card.canvas.elements.filter(element => {
-        if (element !== oldElement) {
+        if (element !== card.canvas.selectElement) {
             return element
         }
     })

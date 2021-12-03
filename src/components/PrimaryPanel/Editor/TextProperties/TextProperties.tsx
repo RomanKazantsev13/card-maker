@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import useComponentVisible from '../../../../customHooks/useComponentVisible'
-import { Text } from '../../../../model/Canvas/Element/Text/text'
+import { dispatch } from '../../../../editor'
+import { deleteSelectElement } from '../../../../model/Canvas/Element/element'
+import { setColorText, Text } from '../../../../model/Canvas/Element/Text/text'
 import { Point } from '../../../../model/Card/card'
 import { ColorPicker } from '../../../ColorPicker/ColorPicker'
 import styles from './TextProperties.module.css'
@@ -49,7 +51,7 @@ export function TextProperties(props: {
                 >
                     <span className={styles.color_triangle}></span>
                 </div>
-                <div className={styles.button_wrap}>
+                <div className={styles.button_wrap} onClick={() => dispatch(deleteSelectElement) }>
                     <img className={styles.button} src="images/bin.png" />
                 </div>
             </div>
@@ -59,7 +61,7 @@ export function TextProperties(props: {
                 }
                 return
             })()} >
-                {isComponentVisible && <ColorPicker backPicker={{ color: color, setColor: setColor }} />}
+                {isComponentVisible && <ColorPicker backPicker={{ color: color, setColor: setColor }} function={setColorText} />}
             </div>
         </div>
     )

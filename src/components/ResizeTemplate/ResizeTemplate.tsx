@@ -1,24 +1,26 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { dispatch } from '../../editor';
+import { setSizeCanvas } from '../../model/Canvas/canvas';
 import { Button as SaveButton } from '../SaveComputer/Button';
 import { Button } from './Button';
 import styles from './ResizeTemplate.module.css'
 
 const fonts = [
-    { name: "Presentation (4:3)",           size_width: 1024, size_height: 768, },
-    { name: "Presentation (16:9)",          size_width: 1920, size_height: 1080, },
-    { name: "Social Media Story",           size_width: 1080, size_height: 1920, },
-    { name: "Instagram Post",               size_width: 1080, size_height: 1080, },
-    { name: "Facebook Post",                size_width: 1200, size_height: 1200, },
-    { name: "Facebook Cover / Page Cover",  size_width: 1702, size_height: 630, },
-    { name: "Facebook Event Cover",         size_width: 1920, size_height: 1080, },
-    { name: "YouTube Channel Art",          size_width: 2560, size_height: 1440, },
-    { name: "YouTube Thumbnail",            size_width: 1280, size_height: 720, },
-    { name: "Twitter Post",                 size_width: 1200, size_height: 675, },
-    { name: "Twitter Header",               size_width: 1500, size_height: 500, },
-    { name: "Pinterest Pin",                size_width: 1000, size_height: 1500, },
-    { name: "Etsy Big Banner",              size_width: 3360, size_height: 840, },
-    { name: "Etsy Mini Banner",             size_width: 3360, size_height: 448, },
-    { name: "Etsy Order Receipt Banner",    size_width: 760,  size_height: 100, },
+    { name: "Presentation (4:3)", size_width: 1024, size_height: 768, },
+    { name: "Presentation (16:9)", size_width: 1920, size_height: 1080, },
+    { name: "Social Media Story", size_width: 1080, size_height: 1920, },
+    { name: "Instagram Post", size_width: 1080, size_height: 1080, },
+    { name: "Facebook Post", size_width: 1200, size_height: 1200, },
+    { name: "Facebook Cover / Page Cover", size_width: 1702, size_height: 630, },
+    { name: "Facebook Event Cover", size_width: 1920, size_height: 1080, },
+    { name: "YouTube Channel Art", size_width: 2560, size_height: 1440, },
+    { name: "YouTube Thumbnail", size_width: 1280, size_height: 720, },
+    { name: "Twitter Post", size_width: 1200, size_height: 675, },
+    { name: "Twitter Header", size_width: 1500, size_height: 500, },
+    { name: "Pinterest Pin", size_width: 1000, size_height: 1500, },
+    { name: "Etsy Big Banner", size_width: 3360, size_height: 840, },
+    { name: "Etsy Mini Banner", size_width: 3360, size_height: 448, },
+    { name: "Etsy Order Receipt Banner", size_width: 760, size_height: 100, },
 ]
 
 
@@ -47,11 +49,11 @@ export function ResizeTemplate(props: {
 
     for (let i = 0; i < fonts.length; i++) {
         buttons.push(
-            <Button 
-                name={fonts[i].name} 
-                width={fonts[i].size_width} 
-                height={fonts[i].size_height} 
-                setSize={{setWidth, setHeight}} 
+            <Button
+                name={fonts[i].name}
+                width={fonts[i].size_width}
+                height={fonts[i].size_height}
+                setSize={{ setWidth, setHeight }}
                 setViewList={setViewList}
             />
         )
@@ -109,7 +111,7 @@ export function ResizeTemplate(props: {
                         <div className={styles.font_name}>
                             {font_name}
                         </div>
-                        <div className={styles.size_layout }>
+                        <div className={styles.size_layout}>
                             <div className={styles.font_size}>
                                 {width} × {height} px
                             </div>
@@ -128,13 +130,13 @@ export function ResizeTemplate(props: {
                             <div className={styles.size_header}>Width </div>
                             <div className={styles.px_w}>px</div>
                         </div>
-                        <input 
-                            className={styles.size_value} 
-                            maxLength={5} 
-                            type="text" 
+                        <input
+                            className={styles.size_value}
+                            maxLength={5}
+                            type="text"
                             value={width}
                             onChange={handleChangeWidth}
-                            />
+                        />
                     </div>
                     <div className={styles.size}>
                         <div className={styles.px_layout}>
@@ -146,7 +148,10 @@ export function ResizeTemplate(props: {
                 </div>
                 <div className={styles.buttonLayout}>
                     <SaveButton name={"Cancel"} background={["#353948", "#484d61"]} color={"#f1f1f1"} onclick={props.setView} />
-                    <SaveButton name={"Resize"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => { }} />
+                    <SaveButton name={"Resize"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => {
+                        dispatch(setSizeCanvas, { width: width, height: height })
+                        props.setView(false)
+                    }} />
                 </div>
             </div>
         </div>

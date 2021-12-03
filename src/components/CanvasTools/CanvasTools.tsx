@@ -3,13 +3,14 @@ import { Canvas } from '../../model/Canvas/canvas'
 import styles from './CanvasTools.module.css'
 import { ToolsButton } from './ToolsButton'
 import { Panel } from './Panel/Panel'
-import { Stack } from '../../model/Card/History/history'
+import { redo, Stack, undo } from '../../model/Card/History/history'
 import { Figure, isFigure } from '../../model/Canvas/Element/Figure/figure'
 import { isTriangle } from '../../model/Canvas/Element/Figure/Triangle/triangle'
 import { isRectangle } from '../../model/Canvas/Element/Figure/Rectangle/rectangle'
 import { isEllipse } from '../../model/Canvas/Element/Figure/Ellipse/ellipse'
 import {    isImage } from '../../model/Canvas/Element/Image/image'
 import { isText } from '../../model/Canvas/Element/Text/text'
+import { dispatch } from '../../editor'
 
 interface CanvasTools {
     canvas: Canvas,
@@ -127,7 +128,7 @@ export function CanvasTools(props: CanvasTools) {
                         }
                         return false
                     })()}
-                    image={"images/undo.png"} name={"Undo"} onclick={() => { }} />
+                    image={"images/undo.png"} name={"Undo"} onclick={() => {dispatch(undo)}} />
                 <ToolsButton
                     block={(() => {
                         if (props.history.redo.length == 0) {
@@ -135,7 +136,7 @@ export function CanvasTools(props: CanvasTools) {
                         }
                         return false
                     })()}
-                    image={"images/redo.png"} name={"Redo"} onclick={() => { }} />
+                    image={"images/redo.png"} name={"Redo"} onclick={() => {dispatch(redo)}} />
                 <ToolsButton
                     block={(
                         () => {
