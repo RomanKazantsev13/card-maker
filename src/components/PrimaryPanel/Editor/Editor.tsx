@@ -60,7 +60,12 @@ export function Editor(props: {
         }
         if (props.viewEditor.state == 'Text Properties') {
             if (props.canvas.selectElement !== null && isText(props.canvas.selectElement.object)) {
-                return <TextProperties setViewEditor={props.setViewEditor} font={props.canvas.selectElement.object.font} element={props.canvas.selectElement.object} />
+                return <TextProperties 
+                    setViewEditor={props.setViewEditor} 
+                    font={props.canvas.selectElement.object.font} 
+                    element={props.canvas.selectElement.object} 
+                    selectElement={props.canvas.selectElement}
+                />
             }
         }
         if (props.viewEditor.state == 'FontChoose') {

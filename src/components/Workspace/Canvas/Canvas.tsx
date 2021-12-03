@@ -47,7 +47,7 @@ export function Canvas(props: CanvasT) {
                             second: { x: triangle.secondPoint.x, y: triangle.secondPoint.y },
                             third: { x: triangle.thirdPoint.x, y: triangle.thirdPoint.y }
                         }}
-                        color={'red'}
+                        color={figure.color}
                         setValue={setValue}
                         element={props.canvas.elements[i]}
                     />

@@ -1,28 +1,29 @@
 import React, { useState } from 'react'
 import useComponentVisible from '../../../../customHooks/useComponentVisible'
 import { dispatch } from '../../../../editor'
-import { deleteSelectElement } from '../../../../model/Canvas/Element/element'
-import { setColorText, Text } from '../../../../model/Canvas/Element/Text/text'
+import { deleteSelectElement, Element } from '../../../../model/Canvas/Element/element'
+import { isText, resizeText, setColorText, setFontText, setSizeText, Text } from '../../../../model/Canvas/Element/Text/text'
 import { Point } from '../../../../model/Card/card'
 import { ColorPicker } from '../../../ColorPicker/ColorPicker'
+import { SelectElement } from '../../../Workspace/Canvas/SelectElement/SelectElement'
 import styles from './TextProperties.module.css'
 
 export function TextProperties(props: {
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     font: string,
-    element: Text
+    element: Text,
+    selectElement: Element,
 }) {
     const [color, setColor] = useState(props.element.color)
-    const [fontSize, setFontSize] = useState(props.element.sizeText)
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
 
     const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     function handleChangeFontSize(event: React.ChangeEvent<HTMLInputElement>) {
         if (digits.includes(event.target.value.slice(-1))) {
             if (Number(event.target.value) < 1) {
-                setFontSize(1)
+                dispatch(setSizeText, 1)
             } else {
-                setFontSize(Number(event.target.value))
+                dispatch(setSizeText, Number(event.target.value))
             }
         }
     }
@@ -43,7 +44,13 @@ export function TextProperties(props: {
             </div>
             <div className={styles.layout}>
                 <div className={styles.px}>px</div>
-                <input className={styles.size_value} maxLength={5} type="text" value={fontSize} onChange={handleChangeFontSize} />
+                <input className={styles.size_value} maxLength={5} type="text" value={
+                   (() => {
+                       if (props.selectElement !== null && isText(props.selectElement.object)) {
+                            return props.selectElement.object.sizeText
+                       }
+                   })()
+                } onChange={handleChangeFontSize} />
                 <div
                     className={styles.color}
                     style={{ backgroundColor: color, position: 'relative' }}

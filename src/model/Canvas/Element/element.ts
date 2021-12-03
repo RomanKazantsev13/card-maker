@@ -14,6 +14,7 @@ export function deleteSelectElement(card: Card): Card {
         ...card,
         canvas: {
             ...card.canvas,
+            selectElement: null,
             elements: newElements
         }
     }

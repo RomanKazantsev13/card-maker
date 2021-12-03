@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import useComponentVisible from '../../../../customHooks/useComponentVisible'
+import { dispatch } from '../../../../editor'
+import { deleteSelectElement } from '../../../../model/Canvas/Element/element'
 import { Figure, setColorFigure } from '../../../../model/Canvas/Element/Figure/figure'
 import { ColorPicker } from '../../../ColorPicker/ColorPicker'
 import styles from './FigureProperties.module.css'
@@ -32,7 +34,9 @@ export function FigureProperties(props: {
                     </div>
                 </div>
             </div>
-            <div className={styles.button_wrap}>
+            <div className={styles.button_wrap} onClick={() => {
+                dispatch(deleteSelectElement)
+            }}>
                 <img className={styles.button} src="images/bin.png" />
             </div>
             <div ref={ref} className={(() => {
