@@ -1,27 +1,29 @@
 import type { Card, Point } from "../../../../Card/card"
 import { madeChange } from "../../../../Card/History/history"
-import { getSelectElement } from "../../element"
+import { Element, getSelectElement } from "../../element"
 import { isFigure } from "../figure"
 import { uuid } from 'uuidv4';
 
 export function addEllipse(card: Card): Card {
+    const element: Element = {
+        centre: { x: 50, y: 50 },
+        id: uuid(),
+        object: {
+            color: '#888',
+            figure: {
+                rx: 30,
+                ry: 50
+            }
+        }
+    }
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
+            selectElement: element,
             elements: [
                 ...card.canvas.elements,
-                {
-                    centre: { x: 50, y: 50 },
-                    id: uuid(),
-                    object: {
-                        color: '#888',
-                        figure: {
-                            rx: 30,
-                            ry: 50
-                        }
-                    }
-                }
+                element
             ]
         }
     }
@@ -98,7 +100,7 @@ export function setEllipseRy(card: Card, mousePoint: Point): Card {
 }
 
 export function isEllipse(object: any): object is Ellipse {
-    return (object.figure as Ellipse).rx !== undefined && (object.figure as Ellipse).ry !== undefined
+    return (object as Ellipse).rx !== undefined && (object as Ellipse).ry !== undefined
 }
 
 export type Ellipse = {

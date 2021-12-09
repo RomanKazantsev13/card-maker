@@ -1,27 +1,29 @@
 import type { Card, Size } from '../../../Card/card'
 import { madeChange } from '../../../Card/History/history'
-import { getSelectElement } from '../element'
+import { Element, getSelectElement } from '../element'
 import { uuid } from 'uuidv4';
 
-export function addImage(card: Card, newUrl: string): Card {
+export function addImage(card: Card, image: {url: string, size: Size}): Card {
+    const element: Element = {
+        centre: { x: 50, y: 50 },
+        id: uuid(),
+        object: {
+            // узнать о размере, если размер больше холста, вывести сообщение:
+            // увеличить холст
+            // показать часть картинки
+            // отмена
+            size: { width: image.size.width, height: image.size.height},
+            url: image.url
+        }
+    }
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
+            selectElement: element,
             elements: [
                 ...card.canvas.elements,
-                {
-                    centre: { x: 50, y: 50 },
-                    id: uuid(),
-                    object: {
-                        // узнать о размере, если размер больше холста, вывести сообщение:
-                        // увеличить холст
-                        // показать часть картинки
-                        // отмена
-                        size: { width: 200, height: 350 },
-                        url: newUrl
-                    }
-                }
+                element
             ]
         }
     }

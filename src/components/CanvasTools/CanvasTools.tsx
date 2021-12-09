@@ -67,19 +67,19 @@ export function CanvasTools(props: CanvasTools) {
             const object = props.canvas.elements[i].object
             if (isFigure(object)) {
                 const figure: Figure = object
-                if (isTriangle(figure)) {
+                if (isTriangle(figure.figure)) {
                     shapeCount++
                     elements.push(
                         {name: 'Shape ' + shapeCount, image: 'images/triangle.png', style: style}
                     )
                 }
-                if (isRectangle(figure)) {
+                if (isRectangle(figure.figure)) {
                     shapeCount++
                     elements.push(
                             {name: 'Shape ' + shapeCount, image: 'images/square.png', style: style}
                     )
                 }
-                if (isEllipse(figure)) {
+                if (isEllipse(figure.figure)) {
                     shapeCount++
                     elements.push(
                             {name: 'Shape ' + shapeCount, image: 'images/circle.png', style: style}

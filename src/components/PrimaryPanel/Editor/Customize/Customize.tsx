@@ -28,13 +28,12 @@ export function Customize(props: {
     },
 }) {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
-    const [color, setColor] = useState(props.canvas.background)
 
     let ButtonsColor: Array<ReactElement> = []
 
     for (let i = 0; i < colors.length; i++) {
         ButtonsColor.push(
-            <ButtonColor color={colors[i]} setColor={setColor} />
+            <ButtonColor color={colors[i]} />
         )
     }
 
@@ -52,7 +51,7 @@ export function Customize(props: {
                 <div className={styles.colors__layout}>
                     <div
                         className={styles.color}
-                        style={{ backgroundColor: color, position: 'relative' }}
+                        style={{ backgroundColor: props.canvas.background, position: 'relative' }}
                         onClick={() => { setIsComponentVisible(true) }} 
                     >
                         <span className={styles.color_triangle}></span>
@@ -65,7 +64,7 @@ export function Customize(props: {
                     }
                     return
                 })()} >
-                    {isComponentVisible && <ColorPicker backPicker={{ color: color, setColor: setColor }} function={setBackgroundColor} />}
+                    {isComponentVisible && <ColorPicker color={props.canvas.background} function={setBackgroundColor} />}
                 </div>
             </div>
         </div>

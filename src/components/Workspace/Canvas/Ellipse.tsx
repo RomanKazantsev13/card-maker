@@ -1,17 +1,17 @@
 import React from 'react'
-import { dispatch } from '../../../editor'
 import { Element, setSelectElement } from '../../../model/Canvas/Element/element'
 
-export function Ellipse(props: {
+import { dispatch } from '../../../editor'
+
+interface EllipsePropsType {
     centre: { x: number, y: number },
     radius: { rx: number, ry: number },
     color: string,
-    setValue: (value: {
-        size: { width: number, height: number },
-        centre: { x: number, y: number }
-    }) => void,
     element: Element,
-}) {
+    setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
+}
+
+export function Ellipse(props: EllipsePropsType) {
     return (
         <ellipse
             cx={props.centre.x}
@@ -20,10 +20,7 @@ export function Ellipse(props: {
             ry={props.radius.ry}
             fill={props.color}
             onClick={() => {
-                props.setValue({
-                    size: { width: 2 * props.radius.rx, height: 2 * props.radius.ry },
-                    centre: { x: props.centre.x - props.radius.rx, y: props.centre.y - props.radius.ry }
-                })
+                props.setViewEditor({view: true, state: 'Figure Properties'})
                 dispatch(setSelectElement, props.element)
             }}
         />

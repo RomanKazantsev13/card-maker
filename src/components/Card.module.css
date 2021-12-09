@@ -4,14 +4,14 @@
     height: calc(100vh - 16vh);
 }
 
-.layout 
+.card__content
 {
     display: flex;
     flex-wrap: wrap;
     height: calc(100vh - 55px);
 }
 
-.workspace
+.card__workspace
 {
     transition: 0.3s;
 }
@@ -33,7 +33,11 @@
     display: none;
 }
 
-.viewOn
+.viewOn, .block
 {
     display: block;
+}
+
+.flex {
+    display: flex;
 }

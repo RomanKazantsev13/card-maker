@@ -1,28 +1,30 @@
 import type { Card, Point } from '../../../../Card/card'
 import { madeChange } from '../../../../Card/History/history'
-import { getSelectElement } from '../../element'
+import { Element, getSelectElement } from '../../element'
 import { isFigure } from '../figure'
 import { uuid } from 'uuidv4';
 
 export function addTriangle(card: Card): Card {
+    const element: Element = {
+        centre: { x: 50, y: 50 },
+        id: uuid(),
+        object: {
+            color: '#888',
+            figure: {
+                firstPoint: { x: 100, y: 200 },
+                secondPoint: { x: 150, y: 100 },
+                thirdPoint: { x: 200, y: 200 }
+            }
+        }
+    }
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
+            selectElement: element,
             elements: [
                 ...card.canvas.elements,
-                {
-                    centre: { x: 50, y: 50 },
-                    id: uuid(),
-                    object: {
-                        color: '#888',
-                        figure: {
-                            firstPoint: { x: 100, y: 200 },
-                            secondPoint: { x: 150, y: 100 },
-                            thirdPoint: { x: 200, y: 200 }
-                        }
-                    }
-                }
+                element
             ]
         }
     }
@@ -133,7 +135,7 @@ export function changeThirdPoint(card: Card, mousePoint: Point): Card {
 }
 
 export function isTriangle(object: any): object is Triangle {
-    return (object.figure as Triangle).firstPoint !== undefined && (object.figure as Triangle).secondPoint !== undefined && (object.figure as Triangle).thirdPoint !== undefined
+    return (object as Triangle).firstPoint !== undefined && (object as Triangle).secondPoint !== undefined && (object as Triangle).thirdPoint !== undefined
 }
 
 export type Triangle = {

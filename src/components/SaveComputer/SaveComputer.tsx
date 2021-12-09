@@ -2,28 +2,27 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { Button } from './Button'
 import styles from './SaveComputer.module.css'
 
-
-export function SaveComputer(props: {
+interface SaveComputerPropsType {
     view: boolean,
     setView: (view: boolean) => void,
     size: {
         width: number,
         height: number
     },
-}) {
+}
 
+export function SaveComputer(props: SaveComputerPropsType) {
     const [format, setFormat] = useState('JPG')
 
     const isJpg = () => {
         if (format == 'JPG') {
-            return styles.selected
+            return styles.format_selected
         }
         return ''
     }
-
     const isPng = () => {
         if (format == 'PNG') {
-            return styles.selected
+            return styles.format_selected
         }
         return ''
     }
@@ -43,7 +42,7 @@ export function SaveComputer(props: {
     }, []);
 
     return (
-        <div className={styles.wrap + ' ' + (() => {
+        <div className={styles.modal_window + ' ' + (() => {
             if (props.view) {
                 return styles.viewOn
             }
@@ -55,16 +54,16 @@ export function SaveComputer(props: {
                 <input className={styles.input} type="text" maxLength={100} required placeholder="Назови меня!" />
                 <label className={styles.subHeader}>Format</label>
                 <div className={styles.format}>
-                    <div className={styles.buttonWrap + ' ' + styles.buttonJPG + ' ' + isJpg()} onClick={() => { setFormat('JPG') }}>
+                    <div className={styles.format__buttonWrap + ' ' + styles.format_buttonJPG + ' ' + isJpg()} onClick={() => { setFormat('JPG') }}>
                         <div>JPG</div>
                     </div>
-                    <div className={styles.buttonWrap + ' ' + styles.buttonPNG + ' ' + isPng()} onClick={() => { setFormat('PNG') }}>
+                    <div className={styles.format__buttonWrap + ' ' + styles.format__buttonPNG + ' ' + isPng()} onClick={() => { setFormat('PNG') }}>
                         <div>PNG</div>
                     </div>
                 </div>
                 <label className={styles.subHeader}>Dimensions</label>
                 <div className={styles.canvasSize}>{props.size.width} × {props.size.height} px</div>
-                <div className={styles.buttonLayout}>
+                <div className={styles.button_layout}>
                     <Button name={"Cancel"} background={["#353948", "#484d61"]} color={"#f1f1f1"} onclick={props.setView} />
                     <Button name={"Save"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => { }} />
                 </div>

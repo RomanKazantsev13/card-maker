@@ -1,0 +1,127 @@
+.border
+{
+    z-index: 5;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: 1px dashed#000;
+}
+
+.point 
+{
+    position: absolute;
+    border-radius: 50%;
+    background: #000;
+}
+
+.pointTopLeft 
+{
+    width: 13px;
+    height: 13px;
+    top: 5px;
+    left: 5px;
+}
+
+.pointTopLeft:hover
+{
+    cursor: nw-resize;
+}
+
+.pointBottomLeft
+{
+    width: 13px;
+    height: 13px;
+    left: 5px;
+}
+
+.pointBottomLeft:hover
+{
+    cursor: sw-resize;
+}
+
+.pointTopRight
+{
+    width: 13px;
+    height: 13px;
+    top: 5px;
+}
+
+.pointTopRight:hover
+{
+    cursor: ne-resize;
+}
+
+.pointBottomRight
+{  
+    width: 13px;
+    height: 13px;
+}
+
+.pointBottomRight:hover
+{
+    cursor: se-resize;
+}
+
+.block 
+{
+    position: absolute;
+    background: #000;
+}
+
+.blockTop
+{
+    position: absolute;
+    top: 8px;
+    background: #000;
+    width: 20px;
+    height: 6px;
+}
+
+.blockTop:hover
+{
+    cursor: n-resize;
+}
+
+.blockRight
+{
+   width: 6px;
+   height: 20px;
+}
+
+.blockRight:hover
+{
+    cursor:w-resize;
+}
+
+.blockLeft
+{
+    left: 8px;
+    width: 6px;
+    height: 20px;
+}
+
+.blockLeft:hover
+{
+    cursor: e-resize;
+}
+
+.blockBottom
+{
+    width: 20px;
+    height: 6px;
+}
+
+.blockBottom:hover
+{
+    cursor: s-resize;
+}
+
+.viewOff
+{
+    display: none;
+}
+
+.viewOn
+{
+    display: block;
+}

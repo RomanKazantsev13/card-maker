@@ -1,26 +1,28 @@
 import type { Card, Size } from "../../../Card/card"
 import { madeChange } from "../../../Card/History/history"
-import { getSelectElement } from "../element"
+import { Element, getSelectElement } from "../element"
 import { uuid } from 'uuidv4';
 
 export function addText(card: Card): Card {
+    const element: Element = {
+        centre: { x: 50, y: 50 },
+        id: uuid(),
+        object: {
+            size: { width: 75, height: 40 },
+            sizeText: 10,
+            font: 'TimeNewRoman',
+            color: '#000',
+            str: 'Введите свой текст'
+        }
+    }
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
+            selectElement: element,
             elements: [
                 ...card.canvas.elements,
-                {
-                    centre: { x: 50, y: 50 },
-                    id: uuid(),
-                    object: {
-                        size: { width: 75, height: 40 },
-                        sizeText: 10,
-                        font: 'TimeNewRoman',
-                        color: '#000',
-                        str: 'Введите свой текст'
-                    }
-                }
+                element
             ]
         }
     }

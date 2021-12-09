@@ -1,13 +1,10 @@
 import React from 'react'
-import { ChromePicker } from 'react-color'
+import { ChromePicker, ColorResult } from 'react-color'
 import { dispatch } from '../../editor'
 import styles from './ColorPicker.module.css'
 
 export function ColorPicker(props: {
-    backPicker: {
-        color: string,
-        setColor: (color: string) => void
-    },
+    color: string,
     function: any,
 }) {
 
@@ -27,10 +24,9 @@ export function ColorPicker(props: {
         <div>
             <div className={styles.header}>Picker</div>
             <ChromePicker
-                color={props.backPicker.color}
-                onChange={(updateColor: any) => {
-                    props.backPicker.setColor(updateColor.hex)
-                    dispatch(props.function, updateColor.hex)
+                color={props.color}
+                onChange={(newColor: ColorResult) => {
+                    dispatch(props.function, newColor.hex)
                 }}
                 styles={chromePickerStyles}
             />

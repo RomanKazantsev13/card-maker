@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import styles from './Card.module.css'
-
 import type { Template } from './../model/Card/Templates/templates'
 import type { Canvas } from './../model/Canvas/canvas'
-
+import type { Stack } from '../model/Card/History/history'
 import { CanvasTools } from './CanvasTools/CanvasTools'
 import { NavigationBar } from './NavigationBar/NavigationBar'
 import { PrimaryPanel } from './PrimaryPanel/PrimaryPanel'
@@ -12,9 +11,8 @@ import { Editor } from './PrimaryPanel/Editor/Editor'
 import { SaveComputer } from './SaveComputer/SaveComputer'
 import { ResizeTemplate } from './ResizeTemplate/ResizeTemplate'
 import { ResetCanvas } from './ResetCanvas/ResetCanvas'
-import { Stack } from '../model/Card/History/history'
 
-interface CardType {
+interface CardPropsType {
     card: {
         allTemplates: {
             templates: Array<Template>,
@@ -28,10 +26,7 @@ interface CardType {
     }
 }
 
-// css вынести в .css
-// в компоненте оставить данные расчитываемые через пропсы
-
-export function Card(props: CardType) {
+export function Card(props: CardPropsType) {
     const [viewSave, setViewSave] = useState(false)
     const [viewResize, setViewResize] = useState(false)
     const [viewReset, setViewReset] = useState(false)
@@ -73,7 +68,6 @@ export function Card(props: CardType) {
         })
     };
 
-
     return (
         <div className={styles.card_size}>
             <NavigationBar
@@ -83,7 +77,7 @@ export function Card(props: CardType) {
                 setViewReset={setViewReset}
                 hoverPanel={hoverPanel}
             />
-            <div className={styles.layout}>
+            <div className={styles.card__content}>
                 <PrimaryPanel
                     handler={{
                         mouseOver: mouseOverHandler,
@@ -94,27 +88,27 @@ export function Card(props: CardType) {
                     setHoverPanel={setHoverPanel}
                     setViewEditor={setViewEditor}
                 />
-                <div className={styles.workspace}
-                    style={{
+                <div className={styles.card__workspace}
+                     style={{
                         width: hoverPanel.widthWorkspace,
                         marginLeft: hoverPanel.workspaceMarginLeft
                     }}>
-                    <div style={{
-                        display: (() => {
-                            if (viewEditor.view) {
-                                return 'flex'
-                            }
-                            return 'block'
-                        })()
-                    }}>
+                    <div className={(() => {
+                        if (viewEditor.view) {
+                            return styles.flex
+                        }
+                        return styles.block
+                    })()
+                    }>
                         <Editor
                             viewEditor={viewEditor}
                             setViewResize={setViewResize}
                             setViewEditor={setViewEditor}
-                            canvas={{size: props.card.canvas.size, background: props.card.canvas.background, selectElement: props.card.canvas.selectElement}}
+                            canvas={{ size: props.card.canvas.size, background: props.card.canvas.background, selectElement: props.card.canvas.selectElement }}
                         />
                         <Workspace
                             canvas={props.card.canvas}
+                            setViewEditor={setViewEditor}
                             width={(() => {
                                 if (viewEditor.view) {
                                     return 'calc(100% - 270px)'

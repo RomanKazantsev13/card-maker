@@ -10,7 +10,6 @@ export function FigureProperties(props: {
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
     element: Figure,
 }) {
-    const [color, setColor] = useState(props.element.color)
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
     return (
         <div>
@@ -27,7 +26,7 @@ export function FigureProperties(props: {
                 <div className={styles.picker_layout}>
                     <div
                         className={styles.color}
-                        style={{ backgroundColor: color, position: 'relative' }}
+                        style={{ backgroundColor: props.element.color, position: 'relative' }}
                         onClick={() => { setIsComponentVisible(true) }}
                     >
                         <span className={styles.color_triangle}></span>
@@ -45,7 +44,7 @@ export function FigureProperties(props: {
                 }
                 return
             })()} >
-                {isComponentVisible && <ColorPicker backPicker={{ color: color, setColor: setColor }} function={setColorFigure} />}
+                {isComponentVisible && <ColorPicker color={props.element.color} function={setColorFigure} />}
             </div>
         </div>
     )

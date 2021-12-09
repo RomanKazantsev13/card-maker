@@ -1,4 +1,4 @@
-.wrap
+.modal_window
 {
     z-index: 31;
     border-radius: 8px;
@@ -66,7 +66,7 @@
 }
 
 
-.buttonWrap
+.format__buttonWrap
 {
     display: flex;
     align-items: center;
@@ -77,23 +77,23 @@
     border: 1px solid #353948;
 }
 
-.buttonWrap:hover
+.format__buttonWrap:hover
 {
     background: #2e313f;
     cursor: pointer;
 }
 
-.buttonJPG
+.format__buttonJPG
 {
     border-radius: 4px 0 0 4px;
 }
 
-.buttonPNG
+.format__buttonPNG
 {
     border-radius: 0 4px 4px 0;
 }
 
-.selected
+.format_selected
 {
     border: 1px solid #8a9dff;
     background: #36365f;
@@ -109,7 +109,7 @@
     color: #adb1cc;
 }
 
-.buttonLayout
+.button_layout
 {
     margin-top: 85px;
     display: flex;

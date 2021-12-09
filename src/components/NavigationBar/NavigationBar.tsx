@@ -4,11 +4,6 @@ import { Button } from './Button/Button'
 import { Logo } from './Logo/Logo'
 import styles from './NavigationBar.module.css'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface Tools {
-    history: Array<Canvas>,
-    canvas: Canvas
-}
 
 export function NavigationBar(props: {   
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,

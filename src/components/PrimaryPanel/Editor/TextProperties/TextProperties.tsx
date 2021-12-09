@@ -14,7 +14,6 @@ export function TextProperties(props: {
     element: Text,
     selectElement: Element,
 }) {
-    const [color, setColor] = useState(props.element.color)
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
 
     const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
@@ -45,20 +44,23 @@ export function TextProperties(props: {
             <div className={styles.layout}>
                 <div className={styles.px}>px</div>
                 <input className={styles.size_value} maxLength={5} type="text" value={
-                   (() => {
-                       if (props.selectElement !== null && isText(props.selectElement.object)) {
+                    (() => {
+                        if (props.selectElement !== null && isText(props.selectElement.object)) {
                             return props.selectElement.object.sizeText
-                       }
-                   })()
+                        }
+                    })()
                 } onChange={handleChangeFontSize} />
                 <div
                     className={styles.color}
-                    style={{ backgroundColor: color, position: 'relative' }}
+                    style={{
+                        backgroundColor: (() => { if (isText(props.selectElement.object)) { return props.selectElement.object.color } })(),
+                        position: 'relative'
+                    }}
                     onClick={() => { setIsComponentVisible(true) }}
                 >
                     <span className={styles.color_triangle}></span>
                 </div>
-                <div className={styles.button_wrap} onClick={() => dispatch(deleteSelectElement) }>
+                <div className={styles.button_wrap} onClick={() => dispatch(deleteSelectElement)}>
                     <img className={styles.button} src="images/bin.png" />
                 </div>
             </div>
@@ -68,7 +70,15 @@ export function TextProperties(props: {
                 }
                 return
             })()} >
-                {isComponentVisible && <ColorPicker backPicker={{ color: color, setColor: setColor }} function={setColorText} />}
+                {isComponentVisible && <ColorPicker
+                    color={(() => {
+                        if (isText(props.selectElement.object)) {
+                            return props.selectElement.object.color
+                        }
+                        return '#FFF'
+                    })()}
+                    function={setColorText}
+                />}
             </div>
         </div>
     )

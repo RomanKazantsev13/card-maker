@@ -1,29 +1,31 @@
 import type { Card, Point, Size } from '../../../../Card/card'
 import { madeChange } from '../../../../Card/History/history'
-import { getSelectElement } from '../../element'
+import { Element, getSelectElement } from '../../element'
 import { isFigure } from '../figure'
 import { uuid } from 'uuidv4';
 
 export function addRectangle(card: Card): Card {
+    const element: Element = {
+        centre: { x: 50, y: 50 },
+        id: uuid(),
+        object: {
+            color: '#888',
+            figure: {
+                size: {
+                    width: 100,
+                    height: 75
+                }
+            }
+        }
+    }
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
+            selectElement: element,
             elements: [
                 ...card.canvas.elements,
-                {
-                    centre: { x: 50, y: 50 },
-                    id: uuid(),
-                    object: {
-                        color: '#888',
-                        figure: {
-                            size: {
-                                width: 100,
-                                height: 75
-                            }
-                        }
-                    }
-                }
+                element
             ]
         }
     }
@@ -104,7 +106,7 @@ export function setHeightRectangle(card: Card, mousePoint: Point): Card {
 }
 
 export function isRectangle(object: any): object is Rectangle {
-     return (object.figure as Rectangle).size !== undefined
+     return (object as Rectangle).size !== undefined
 }
 
 export type Rectangle = {
