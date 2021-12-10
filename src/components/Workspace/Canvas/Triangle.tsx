@@ -12,29 +12,29 @@ interface TrianglePropsType {
     },
     color: string,
     element: Element,
-    setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
-    ref: MutableRefObject<HTMLDivElement | null>
-} 
+    setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
+    refEditor: any
+}
 
 export function Triangle(props: TrianglePropsType) {
     const ref: any = useRef(null)
 
-    const handleClickOutside = (event: MouseEvent) => {
-        console.log('ref', ref)
-        console.log('props.ref', props.ref)
-        if (ref.current && !ref.current.contains(event.target)) {
-            if (props.ref.current) {
-                dispatch(setSelectElement, null)
-            }
-        } 
-    };
-
     useEffect(() => {
-        document.addEventListener('click', handleClickOutside, true)
+        const handleClickOutside = (event: MouseEvent) => {
+            if (ref.current && !ref.current.contains(event.target)) {
+                console.log(props.refEditor)
+                if (props.refEditor.current && !props.refEditor.current.contains(event.target)) {
+                    props.setViewEditor({view: false, state: ''})
+                    dispatch(setSelectElement, null)
+                }
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside)
         return () => {
-            document.removeEventListener('click', handleClickOutside, true)
-        };
-    });
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    })
 
     return (
         <polygon
@@ -46,7 +46,7 @@ export function Triangle(props: TrianglePropsType) {
             }
             fill={props.color}
             onClick={() => {
-                props.setViewEditor({view: true, state: 'Figure Properties'})
+                props.setViewEditor({ view: true, state: 'Figure Properties' })
                 dispatch(setSelectElement, props.element)
             }}
         />

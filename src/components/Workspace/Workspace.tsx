@@ -8,13 +8,13 @@ interface WorkspacePropsType {
     canvas: CanvasType,
     width: string,
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
+    refEditor: any
 }
 
 export function Workspace(props: WorkspacePropsType) {
-    const ref: MutableRefObject<HTMLDivElement | null> = useRef(null)
     return (
-        <div ref={ref} className={styles.workspace} style={{width: props.width}}>
-           <Canvas canvas={props.canvas} setViewEditor={props.setViewEditor} ref={ref} /> 
+        <div className={styles.workspace} style={{width: props.width}}>
+           <Canvas canvas={props.canvas} setViewEditor={props.setViewEditor} refEditor={props.refEditor} /> 
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './Card.module.css'
 import type { Template } from './../model/Card/Templates/templates'
 import type { Canvas } from './../model/Canvas/canvas'
@@ -43,6 +43,7 @@ export function Card(props: CardPropsType) {
         displayButtonText: 'none',
         widthButton: '44px',
     })
+    const ref: any = useRef(null)
 
     const mouseOutHandler = (event: React.MouseEvent<HTMLDivElement>) => {
         setHoverPanel({
@@ -101,6 +102,7 @@ export function Card(props: CardPropsType) {
                     })()
                     }>
                         <Editor
+                            refEditor={ref}
                             viewEditor={viewEditor}
                             setViewResize={setViewResize}
                             setViewEditor={setViewEditor}
@@ -115,6 +117,7 @@ export function Card(props: CardPropsType) {
                                 }
                                 return '100%'
                             })()}
+                            refEditor={ref}
                         />
                     </div>
                     <CanvasTools canvas={props.card.canvas} history={props.card.history} setViewReset={setViewReset} />

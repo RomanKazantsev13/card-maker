@@ -30,6 +30,7 @@ export function Editor(props: {
         background: string,
         selectElement: Element | null,
     },
+    refEditor: any,
 }) {
 
     const [font, setFont] = useState('Arial')
@@ -75,7 +76,7 @@ export function Editor(props: {
         }
     })()
     return (
-        <div className={styles.editor} style={{
+        <div className={styles.editor} ref={props.refEditor} style={{
             display: (() => {
                 if (props.viewEditor) {
                     return 'block'

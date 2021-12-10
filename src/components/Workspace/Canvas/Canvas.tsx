@@ -18,7 +18,7 @@ import { Text } from './Text'
 interface CanvasPropsType {
     canvas: CanvasType,
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
-    ref: MutableRefObject<HTMLDivElement | null>,
+    refEditor: any
 }
 
 export function Canvas(props: CanvasPropsType) {
@@ -40,7 +40,7 @@ export function Canvas(props: CanvasPropsType) {
                             color={figure.color}
                             element={canvas.elements[i]}
                             setViewEditor={props.setViewEditor}
-                            ref={props.ref}
+                            refEditor={props.refEditor}
                         />
                     )
                 }

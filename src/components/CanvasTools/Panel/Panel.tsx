@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { panelItem } from '../CanvasTools'
+import { PanelItem } from '../CanvasTools'
 import styles from './Panel.module.css'
 
 
 export function Panel(props: {
     name: string,
-    elements: Array<panelItem>,
+    elements: Array<PanelItem>,
     style: string,
     view: string,
     setView: (view: string) => void,

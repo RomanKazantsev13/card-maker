@@ -8,7 +8,7 @@ import { Figure, isFigure } from '../../model/Canvas/Element/Figure/figure'
 import { isTriangle } from '../../model/Canvas/Element/Figure/Triangle/triangle'
 import { isRectangle } from '../../model/Canvas/Element/Figure/Rectangle/rectangle'
 import { isEllipse } from '../../model/Canvas/Element/Figure/Ellipse/ellipse'
-import {    isImage } from '../../model/Canvas/Element/Image/image'
+import { isImage } from '../../model/Canvas/Element/Image/image'
 import { isText } from '../../model/Canvas/Element/Text/text'
 import { dispatch } from '../../editor'
 
@@ -21,7 +21,7 @@ interface CanvasTools {
     setViewReset: (view: boolean) => void,
 }
 
-export type panelItem = {
+export type PanelItem = {
     image: string,
     name: string,
     style: React.CSSProperties
@@ -29,9 +29,9 @@ export type panelItem = {
 
 export function CanvasTools(props: CanvasTools) {
 
-    const history: Array<panelItem> = (() => {
-        let undo: Array<panelItem> = []
-        let redo: Array<panelItem> = []
+    const history: Array<PanelItem> = (() => {
+        let undo: Array<PanelItem> = []
+        let redo: Array<PanelItem> = []
         for (let i = props.history.undo.length - 1; i >= 0; i--) {
             undo.push({
                 image: props.history.undo[i].image,
@@ -52,8 +52,8 @@ export function CanvasTools(props: CanvasTools) {
         return redo.concat(undo)
     })()
 
-    const layers: Array<panelItem> = (() => {
-        let elements: Array<panelItem> = []
+    const layers: Array<PanelItem> = (() => {
+        let elements: Array<PanelItem> = []
         let shapeCount: number = 0
         let imageCount: number = 0
         let textCount: number = 0
