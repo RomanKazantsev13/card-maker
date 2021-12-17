@@ -12,8 +12,9 @@ interface TrianglePropsType {
     },
     color: string,
     element: Element,
+    viewEditor: {view: boolean, state: string},
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
-    refEditor: any
+    refEditor: any,
 }
 
 export function Triangle(props: TrianglePropsType) {
@@ -24,15 +25,20 @@ export function Triangle(props: TrianglePropsType) {
             if (ref.current && !ref.current.contains(event.target)) {
                 console.log(props.refEditor)
                 if (props.refEditor.current && !props.refEditor.current.contains(event.target)) {
-                    props.setViewEditor({view: false, state: ''})
+                    if (props.viewEditor.state == 'Text Properties') {
+                        props.setViewEditor({view: true, state: 'Text'})
+                    }
+                    if (props.viewEditor.state == 'Figure Properties') {
+                        props.setViewEditor({view: true, state: 'Graphics'})
+                    }
                     dispatch(setSelectElement, null)
                 }
             }
         }
 
-        document.addEventListener('mousedown', handleClickOutside)
+        document.addEventListener('click', handleClickOutside, true)
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
+            document.removeEventListener('click', handleClickOutside, true)
         }
     })
 

@@ -7,7 +7,7 @@ import { Image, isImage } from '../../../../model/Canvas/Element/Image/image'
 import { isText, Text } from '../../../../model/Canvas/Element/Text/text'
 import { Point, Size } from '../../../../model/Card/card'
 
-export function getCentreAndSizeOfElement(selectElement: Element | null) {
+export function getCentreAndSizeOfElement(selectElement: Element | null, refText: any) {
     let size: Size = { width: 0, height: 0 }
     let centre: Point = { x: 0, y: 0 }
     let type: string = ''
@@ -60,6 +60,13 @@ export function getCentreAndSizeOfElement(selectElement: Element | null) {
     } else if (selectElement !== null && isText(selectElement.object)) {
         const text: Text = selectElement.object
         type = 'Text'
+        const element: HTMLElement | null = refText.current
+        if (element !== null) {
+            centre.x = selectElement.centre.x
+            centre.y = selectElement.centre.y - selectElement.object.sizeText
+            size.width = element.getBoundingClientRect().width
+            size.height = element.getBoundingClientRect().height
+        }
     }
     return {
         centre: centre,

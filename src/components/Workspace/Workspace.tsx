@@ -8,13 +8,14 @@ interface WorkspacePropsType {
     canvas: CanvasType,
     width: string,
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
-    refEditor: any
+    refEditor: any,
+    viewEditor: {view: boolean, state: string}
 }
 
 export function Workspace(props: WorkspacePropsType) {
     return (
         <div className={styles.workspace} style={{width: props.width}}>
-           <Canvas canvas={props.canvas} setViewEditor={props.setViewEditor} refEditor={props.refEditor} /> 
+           <Canvas canvas={props.canvas} setViewEditor={props.setViewEditor} viewEditor={props.viewEditor} refEditor={props.refEditor} /> 
         </div>
     )
 }

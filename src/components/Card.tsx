@@ -110,6 +110,7 @@ export function Card(props: CardPropsType) {
                         />
                         <Workspace
                             canvas={props.card.canvas}
+                            viewEditor={viewEditor}
                             setViewEditor={setViewEditor}
                             width={(() => {
                                 if (viewEditor.view) {

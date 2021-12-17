@@ -13,7 +13,6 @@ export function Graphics(props: {
             <div className={styles.header}>Graphics</div>
             <div className={styles.graphics_layout}>
                 <div className={styles.button_layout} onClick={() => {
-                    props.setViewEditor({view: true, state: 'Figure Properties'})
                     dispatch(addRectangle)
                 }}>
                     <svg className={styles.svg}>
@@ -21,7 +20,6 @@ export function Graphics(props: {
                     </svg>
                 </div>
                 <div className={styles.button_layout + ' ' + styles.ellipse_back} onClick={() => {
-                    props.setViewEditor({view: true, state: 'Figure Properties'})
                     dispatch(addEllipse)
                 }}>
                     <svg className={styles.svg}>
@@ -29,7 +27,6 @@ export function Graphics(props: {
                     </svg>
                 </div>
                 <div className={styles.button_layout + ' ' + styles.triangle_back} onClick={() => {
-                    props.setViewEditor({view: true, state: 'Figure Properties'})
                     dispatch(addTriangle)
                 }}>
                     <svg className={styles.svg} style={{marginTop: '2px' }}>

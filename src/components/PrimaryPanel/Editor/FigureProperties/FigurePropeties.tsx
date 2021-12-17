@@ -34,6 +34,7 @@ export function FigureProperties(props: {
                 </div>
             </div>
             <div className={styles.button_wrap} onClick={() => {
+                props.setViewEditor({view: true, state: 'Graphics'})
                 dispatch(deleteSelectElement)
             }}>
                 <img className={styles.button} src="images/bin.png" />

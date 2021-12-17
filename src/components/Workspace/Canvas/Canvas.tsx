@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useRef } from 'react'
+import React, { MutableRefObject, useRef, useState } from 'react'
 import styles from './Canvas.module.css'
 import { Canvas as CanvasType } from './../../../model/Canvas/canvas'
 import { SelectElement } from './SelectElement/SelectElement'
@@ -14,14 +14,18 @@ import { Rectangle } from './Rectangle'
 import { Ellipse } from './Ellipse'
 import { Image } from './Image'
 import { Text } from './Text'
+import { InputText } from './InputText/InputText'
 
 interface CanvasPropsType {
     canvas: CanvasType,
+    viewEditor: {view: boolean, state: string}
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
-    refEditor: any
+    refEditor: any,
 }
 
 export function Canvas(props: CanvasPropsType) {
+    const ref: any = useRef(null)
+    const [viewInput, setViewInput] = useState(false)
     function getArrayJSXElements(canvas: CanvasType): Array<JSX.Element> {
         let elements: Array<JSX.Element> = []
         for (let i = 0; i < canvas.elements.length; i++) {
@@ -39,6 +43,7 @@ export function Canvas(props: CanvasPropsType) {
                             }}
                             color={figure.color}
                             element={canvas.elements[i]}
+                            viewEditor={props.viewEditor}
                             setViewEditor={props.setViewEditor}
                             refEditor={props.refEditor}
                         />
@@ -82,20 +87,20 @@ export function Canvas(props: CanvasPropsType) {
                 const text: TextType = object
                 elements.push(
                     <Text
-                        stroka={text.str}
+                        string={text.str}
                         center={{ x: canvas.elements[i].centre.x, y: canvas.elements[i].centre.y }}
                         fontFamily={text.font}
                         fontSize={text.sizeText}
                         color={text.color}
                         element={canvas.elements[i]}
                         setViewEditor={props.setViewEditor}
+                        refText={ref}
                     />
                 )
             }
         }
         return elements
     }
-
     const elements: Array<JSX.Element> = getArrayJSXElements(props.canvas)
     return (
         <div style={{
@@ -109,8 +114,16 @@ export function Canvas(props: CanvasPropsType) {
             <svg style={{ width: props.canvas.size.width, height: props.canvas.size.height }}>
                 {elements}
                 <SelectElement
+                    refText={ref}
                     selectElement={props.canvas.selectElement}
                     setViewEditor={props.setViewEditor}
+                    setViewInput={setViewInput}
+                />
+                <InputText 
+                    refText={ref}
+                    selectElement={props.canvas.selectElement} 
+                    view={viewInput}
+                    setView={setViewInput}
                 />
             </svg>
         </div>

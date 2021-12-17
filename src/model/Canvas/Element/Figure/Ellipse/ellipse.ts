@@ -5,25 +5,24 @@ import { isFigure } from "../figure"
 import { uuid } from 'uuidv4';
 
 export function addEllipse(card: Card): Card {
-    const element: Element = {
-        centre: { x: 50, y: 50 },
-        id: uuid(),
-        object: {
-            color: '#888',
-            figure: {
-                rx: 30,
-                ry: 50
-            }
-        }
-    }
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
-            selectElement: element,
+            selectElement: null,
             elements: [
                 ...card.canvas.elements,
-                element
+                {
+                    centre: { x: 150, y: 150 },
+                    id: uuid(),
+                    object: {
+                        color: '#888',
+                        figure: {
+                            rx: 50,
+                            ry: 50
+                        }
+                    }
+                }
             ]
         }
     }

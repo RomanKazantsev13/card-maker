@@ -19,11 +19,7 @@ export function TextProperties(props: {
     const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     function handleChangeFontSize(event: React.ChangeEvent<HTMLInputElement>) {
         if (digits.includes(event.target.value.slice(-1))) {
-            if (Number(event.target.value) < 1) {
-                dispatch(setSizeText, 1)
-            } else {
-                dispatch(setSizeText, Number(event.target.value))
-            }
+            dispatch(setSizeText, Number(event.target.value))
         }
     }
 
@@ -43,13 +39,7 @@ export function TextProperties(props: {
             </div>
             <div className={styles.layout}>
                 <div className={styles.px}>px</div>
-                <input className={styles.size_value} maxLength={5} type="text" value={
-                    (() => {
-                        if (props.selectElement !== null && isText(props.selectElement.object)) {
-                            return props.selectElement.object.sizeText
-                        }
-                    })()
-                } onChange={handleChangeFontSize} />
+                <input className={styles.size_value} maxLength={5} type="text" onChange={handleChangeFontSize} />
                 <div
                     className={styles.color}
                     style={{

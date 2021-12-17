@@ -10,7 +10,6 @@ export function Text(props: {
         <div>
             <div className={styles.header}>Text</div>
             <div className={styles.button} onClick={() => {
-                props.setViewEditor({view: true, state: 'Text Properties'})
                 dispatch(addText)
             }}>
                 <div className={styles.text}>Add Text</div>

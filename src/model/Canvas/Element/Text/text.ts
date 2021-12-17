@@ -4,25 +4,24 @@ import { Element, getSelectElement } from "../element"
 import { uuid } from 'uuidv4';
 
 export function addText(card: Card): Card {
-    const element: Element = {
-        centre: { x: 50, y: 50 },
-        id: uuid(),
-        object: {
-            size: { width: 75, height: 40 },
-            sizeText: 10,
-            font: 'TimeNewRoman',
-            color: '#000',
-            str: 'Введите свой текст'
-        }
-    }
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
-            selectElement: element,
+            selectElement: null,
             elements: [
                 ...card.canvas.elements,
-                element
+                {
+                    centre: { x: 30, y: 350 },
+                    id: uuid(),
+                    object: {
+                        size: { width: 75, height: 20 },
+                        sizeText: 20,
+                        font: 'TimeNewRoman',
+                        color: '#000',
+                        str: 'Введите свой текст'
+                    }
+                }
             ]
         }
     }
@@ -156,7 +155,7 @@ export function setColorText(card: Card, newColor: string): Card {
 
 export function changeText(card: Card, newText: string): Card {
     const oldElement = getSelectElement(card)
-    const changeCard = {
+    const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -174,14 +173,7 @@ export function changeText(card: Card, newText: string): Card {
             })
         }
     }
-    const newCard = {
-        ...changeCard,
-        canvas: {
-            ...changeCard.canvas,
-            selectElement: getSelectElement(card)
-        }
-    }
-    madeChange(newCard, 'Edit Text', 'images/text_hover.png')
+    madeChange(newCard, 'Edit Text', 'images/text__hover.png')
     return newCard
 }
 

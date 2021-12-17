@@ -5,26 +5,25 @@ import { isFigure } from '../figure'
 import { uuid } from 'uuidv4';
 
 export function addTriangle(card: Card): Card {
-    const element: Element = {
-        centre: { x: 50, y: 50 },
-        id: uuid(),
-        object: {
-            color: '#888',
-            figure: {
-                firstPoint: { x: 100, y: 200 },
-                secondPoint: { x: 150, y: 100 },
-                thirdPoint: { x: 200, y: 200 }
-            }
-        }
-    }
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
-            selectElement: element,
+            selectElement: null,
             elements: [
                 ...card.canvas.elements,
-                element
+                {
+                    centre: { x: 50, y: 50 },
+                    id: uuid(),
+                    object: {
+                        color: '#888',
+                        figure: {
+                            firstPoint: { x: 100, y: 200 },
+                            secondPoint: { x: 150, y: 100 },
+                            thirdPoint: { x: 200, y: 200 }
+                        }
+                    }
+                }
             ]
         }
     }

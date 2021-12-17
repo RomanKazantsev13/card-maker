@@ -3,27 +3,22 @@ import { madeChange } from '../../../Card/History/history'
 import { Element, getSelectElement } from '../element'
 import { uuid } from 'uuidv4';
 
-export function addImage(card: Card, image: {url: string, size: Size}): Card {
-    const element: Element = {
-        centre: { x: 50, y: 50 },
-        id: uuid(),
-        object: {
-            // узнать о размере, если размер больше холста, вывести сообщение:
-            // увеличить холст
-            // показать часть картинки
-            // отмена
-            size: { width: image.size.width, height: image.size.height},
-            url: image.url
-        }
-    }
+export function addImage(card: Card, image: { url: string, size: Size }): Card {
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
-            selectElement: element,
+            selectElement: null,
             elements: [
                 ...card.canvas.elements,
-                element
+                {
+                    centre: { x: 50, y: 50 },
+                    id: uuid(),
+                    object: {
+                        size: { width: image.size.width, height: image.size.height },
+                        url: image.url
+                    }
+                }
             ]
         }
     }

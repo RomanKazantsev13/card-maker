@@ -5,27 +5,26 @@ import { isFigure } from '../figure'
 import { uuid } from 'uuidv4';
 
 export function addRectangle(card: Card): Card {
-    const element: Element = {
-        centre: { x: 50, y: 50 },
-        id: uuid(),
-        object: {
-            color: '#888',
-            figure: {
-                size: {
-                    width: 100,
-                    height: 75
-                }
-            }
-        }
-    }
     const newCard = {
         ...card,
         canvas: {
             ...card.canvas,
-            selectElement: element,
+            selectElement: null,
             elements: [
                 ...card.canvas.elements,
-                element
+                {
+                    centre: { x: 50, y: 50 },
+                    id: uuid(),
+                    object: {
+                        color: '#888',
+                        figure: {
+                            size: {
+                                width: 100,
+                                height: 75
+                            }
+                        }
+                    }
+                }
             ]
         }
     }
