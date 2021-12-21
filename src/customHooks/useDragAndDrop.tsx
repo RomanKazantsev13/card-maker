@@ -2,40 +2,34 @@ import { RefObject, useEffect, useState } from "react"
 
 export function useDragAndDrop(
   elementRef: any,
-  initPosition: { x: number; y: number },
+  position: { x: number; y: number },
+  setPosition: (position: { x: number; y: number }) => void,
 ) {
-  const [position, setPosition] = useState(initPosition)
   let startPos: { x: number; y: number } = { x: 0, y: 0 }
 
   useEffect(() => {
     if (elementRef.current !== null) {
-        elementRef.current.addEventListener("mousedown", mouseDownHandler)
+      elementRef.current.addEventListener("mousedown", MouseDownListener)
     }
     return () => {
-        if (elementRef.current !== null) {
-            elementRef.current.removeEventListener("mousedown", mouseDownHandler)
-        }
+      if (elementRef.current !== null) {
+        elementRef.current.removeEventListener("mousedown", MouseDownListener)
+      }
     }
   })
 
-  const mouseDownHandler = (e: MouseEvent) => {
+  const MouseDownListener = (e: MouseEvent) => {
     console.log('mousedown')
     startPos = {
       x: e.pageX,
       y: e.pageY,
     }
 
-    document.addEventListener("mousemove", mouseMoveHandler)
-    document.addEventListener("mouseup", mouseUpHandler)
+    document.addEventListener("mousemove", MouseMoveListener)
+    document.addEventListener("mouseup", MouseUpListener)
   }
 
-  const mouseUpHandler = () => {
-    console.log("mouseup")
-    document.removeEventListener("mousemove", mouseMoveHandler)
-    document.removeEventListener("mouseup", mouseUpHandler)
-  }
-
-  const mouseMoveHandler = (e: MouseEvent) => {
+  const MouseMoveListener = (e: MouseEvent) => {
     console.log("mousemove")
     const delta = {
       x: e.pageX - startPos.x,
@@ -48,5 +42,9 @@ export function useDragAndDrop(
     setPosition(newPos)
   }
 
-  return position
+  const MouseUpListener = () => {
+    console.log("mouseup")
+    document.removeEventListener("mousemove", MouseMoveListener)
+    document.removeEventListener("mouseup", MouseUpListener)
+  }
 }

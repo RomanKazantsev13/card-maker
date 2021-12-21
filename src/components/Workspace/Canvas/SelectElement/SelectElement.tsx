@@ -11,25 +11,22 @@ interface SelectElementPropsType {
     refText: any,
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     setViewInput: (view: boolean) => void,
+    position: {x: number, y: number},
+    setPosition: (position: {x: number, y: number}) => void,
 }
 
 export function SelectElement(props: SelectElementPropsType) {
 
     const ref = useRef(null)
 
-    let position = { x: 0, y: 0 }
-
     const { centre, size, type } = getCentreAndSizeOfElement(props.selectElement, props.refText)
 
-    position = centre
 
-    if (props.selectElement !== null) {
-        position = (useDragAndDrop(ref, props.selectElement.centre))
-    }
+    useDragAndDrop(ref, props.position, props.setPosition)
     return (
         <foreignObject
             ref={ref}
-            x={position.x} y={position.y}
+            x={props.position.x - 20} y={props.position.y - 20}
             width={size.width + 40} height={size.height + 40}
             className={(() => {
                 if (props.selectElement !== null) {

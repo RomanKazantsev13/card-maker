@@ -9,6 +9,7 @@ interface EllipsePropsType {
     color: string,
     element: Element,
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
+    setPosition: (position: {x: number, y: number}) => void,
 }
 
 export function Ellipse(props: EllipsePropsType) {
@@ -20,6 +21,7 @@ export function Ellipse(props: EllipsePropsType) {
             ry={props.radius.ry}
             fill={props.color}
             onClick={() => {
+                props.setPosition(props.centre)
                 props.setViewEditor({view: true, state: 'Figure Properties'})
                 dispatch(setSelectElement, props.element)
             }}

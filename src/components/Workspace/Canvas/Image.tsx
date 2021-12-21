@@ -8,6 +8,7 @@ interface ImagePropsType {
     size: { width: number, height: number },
     url: string,
     element: Element,
+    setPosition: (position: {x: number, y: number}) => void,
 }
 
 export function Image(props: ImagePropsType) {
@@ -19,6 +20,7 @@ export function Image(props: ImagePropsType) {
             width={props.size.width}
             height={props.size.height}
             onClick={() => {
+                props.setPosition(props.centre)
                 dispatch(setSelectElement, props.element)
             }}
         />

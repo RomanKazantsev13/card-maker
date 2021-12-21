@@ -12,6 +12,7 @@ interface TextPropsType {
     element: Element,
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     refText: any,
+    setPosition: (position: {x: number, y: number}) => void,
 }
 
 export function Text(props: TextPropsType) {
@@ -22,8 +23,8 @@ export function Text(props: TextPropsType) {
             y={props.center.y}
             style={{ fontFamily: props.fontFamily, fontSize: props.fontSize, fill: props.color }}
             onClick={() => {
+                props.setPosition(props.element.centre)
                 props.setViewEditor({ view: true, state: 'Text Properties' })
-                console.log(props.element)
                 
                 dispatch(setSelectElement, props.element)
             }}

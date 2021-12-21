@@ -9,6 +9,7 @@ interface RectanglePropsType {
     color: string,
     element: Element,
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
+    setPosition: (position: {x: number, y: number}) => void,
 }
 
 export function Rectangle(props: RectanglePropsType) {
@@ -20,6 +21,7 @@ export function Rectangle(props: RectanglePropsType) {
             height={props.size.height}
             fill={props.color}
             onClick={() => {
+                props.setPosition(props.centre)
                 props.setViewEditor({view: true, state: 'Figure Properties'})
                 dispatch(setSelectElement, props.element)
             }}

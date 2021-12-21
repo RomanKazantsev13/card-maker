@@ -15,6 +15,7 @@ interface TrianglePropsType {
     viewEditor: {view: boolean, state: string},
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     refEditor: any,
+    setPosition: (position: {x: number, y: number}) => void,
 }
 
 export function Triangle(props: TrianglePropsType) {
@@ -52,6 +53,7 @@ export function Triangle(props: TrianglePropsType) {
             }
             fill={props.color}
             onClick={() => {
+                props.setPosition(props.element.centre)
                 props.setViewEditor({ view: true, state: 'Figure Properties' })
                 dispatch(setSelectElement, props.element)
             }}

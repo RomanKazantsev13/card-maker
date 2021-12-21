@@ -26,6 +26,7 @@ interface CanvasPropsType {
 export function Canvas(props: CanvasPropsType) {
     const ref: any = useRef(null)
     const [viewInput, setViewInput] = useState(false)
+    const [position, setPosition] = useState({x: 0, y: 0})
     function getArrayJSXElements(canvas: CanvasType): Array<JSX.Element> {
         let elements: Array<JSX.Element> = []
         for (let i = 0; i < canvas.elements.length; i++) {
@@ -46,6 +47,7 @@ export function Canvas(props: CanvasPropsType) {
                             viewEditor={props.viewEditor}
                             setViewEditor={props.setViewEditor}
                             refEditor={props.refEditor}
+                            setPosition={setPosition}
                         />
                     )
                 }
@@ -58,6 +60,7 @@ export function Canvas(props: CanvasPropsType) {
                             color={figure.color}
                             element={canvas.elements[i]}
                             setViewEditor={props.setViewEditor}
+                            setPosition={setPosition}
                         />
                     )
                 }
@@ -70,6 +73,7 @@ export function Canvas(props: CanvasPropsType) {
                             color={figure.color}
                             element={canvas.elements[i]}
                             setViewEditor={props.setViewEditor}
+                            setPosition={setPosition}
                         />
                     )
                 }
@@ -81,6 +85,7 @@ export function Canvas(props: CanvasPropsType) {
                         centre={{ x: canvas.elements[i].centre.x, y: canvas.elements[i].centre.y }}
                         size={{ width: image.size.width, height: image.size.width }}
                         element={canvas.elements[i]}
+                        setPosition={setPosition}
                     />
                 )
             } else if (isText(object)) {
@@ -95,6 +100,7 @@ export function Canvas(props: CanvasPropsType) {
                         element={canvas.elements[i]}
                         setViewEditor={props.setViewEditor}
                         refText={ref}
+                        setPosition={setPosition}
                     />
                 )
             }
@@ -118,6 +124,8 @@ export function Canvas(props: CanvasPropsType) {
                     selectElement={props.canvas.selectElement}
                     setViewEditor={props.setViewEditor}
                     setViewInput={setViewInput}
+                    position={position}
+                    setPosition={setPosition}
                 />
                 <InputText 
                     refText={ref}
