@@ -1,8 +1,8 @@
-import React, { MutableRefObject, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Element, setSelectElement } from '../../../model/Canvas/Element/element'
-import useComponentVisible from '../../../customHooks/useComponentVisible'
 
 import { dispatch } from '../../../editor'
+import { getCentreAndSizeOfElement } from './SelectElement/SelectElementFunction'
 
 interface TrianglePropsType {
     points: {
@@ -12,40 +12,36 @@ interface TrianglePropsType {
     },
     color: string,
     element: Element,
-    viewEditor: {view: boolean, state: string},
+    viewEditor: { view: boolean, state: string },
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     refEditor: any,
-    setPosition: (position: {x: number, y: number}) => void,
+    position: { x: number, y: number },
+    setPosition: (position: { x: number, y: number }) => void,
 }
 
 export function Triangle(props: TrianglePropsType) {
-    const ref: any = useRef(null)
-
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (ref.current && !ref.current.contains(event.target)) {
-                console.log(props.refEditor)
-                if (props.refEditor.current && !props.refEditor.current.contains(event.target)) {
-                    if (props.viewEditor.state == 'Text Properties') {
-                        props.setViewEditor({view: true, state: 'Text'})
-                    }
-                    if (props.viewEditor.state == 'Figure Properties') {
-                        props.setViewEditor({view: true, state: 'Graphics'})
-                    }
-                    dispatch(setSelectElement, null)
-                }
+    const handleClickOutside = (event: MouseEvent) => {
+        if (props.refEditor.current && !props.refEditor.current.contains(event.target)) {
+            if (props.viewEditor.state == 'Text Properties') {
+                props.setViewEditor({ view: true, state: 'Text' })
             }
+            if (props.viewEditor.state == 'Figure Properties') {
+                props.setViewEditor({ view: true, state: 'Graphics' })
+            }
+            dispatch(setSelectElement, null)
         }
-
+    }
+    useEffect(() => {
         document.addEventListener('click', handleClickOutside, true)
         return () => {
             document.removeEventListener('click', handleClickOutside, true)
         }
     })
 
+    const {centre, size, type} = getCentreAndSizeOfElement(props.element, null)
+
     return (
         <polygon
-            ref={ref}
             points={
                 props.points.first.x + ' ' + props.points.first.y + ',' +
                 props.points.second.x + ' ' + props.points.second.y + ',' +
@@ -53,7 +49,7 @@ export function Triangle(props: TrianglePropsType) {
             }
             fill={props.color}
             onClick={() => {
-                props.setPosition(props.element.centre)
+                props.setPosition(centre)
                 props.setViewEditor({ view: true, state: 'Figure Properties' })
                 dispatch(setSelectElement, props.element)
             }}

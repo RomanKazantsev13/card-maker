@@ -8,12 +8,14 @@ import { ColorPicker } from '../../../ColorPicker/ColorPicker'
 import { SelectElement } from '../../../Workspace/Canvas/SelectElement/SelectElement'
 import styles from './TextProperties.module.css'
 
-export function TextProperties(props: {
+interface TextPropertiesPropsType {
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     font: string,
     element: Text,
     selectElement: Element,
-}) {
+}
+
+export function TextProperties(props: TextPropertiesPropsType) {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
 
     const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
@@ -27,9 +29,7 @@ export function TextProperties(props: {
         <div>
             <div className={styles.header_layout}>
                 <div className={styles.header}>Text Properties</div>
-                <div className={styles.image_wrap} onClick={() => {
-                    props.setViewEditor({ view: false, state: '' })
-                }}>
+                <div className={styles.image_wrap} onClick={() => { props.setViewEditor({ view: false, state: '' }) }}>
                     <img className={styles.image} src="images/close.png" />
                 </div>
             </div>
@@ -43,7 +43,11 @@ export function TextProperties(props: {
                 <div
                     className={styles.color}
                     style={{
-                        backgroundColor: (() => { if (isText(props.selectElement.object)) { return props.selectElement.object.color } })(),
+                        backgroundColor: (() => {
+                            if (isText(props.selectElement.object)) {
+                                return props.selectElement.object.color
+                            }
+                        })(),
                         position: 'relative'
                     }}
                     onClick={() => { setIsComponentVisible(true) }}
@@ -54,19 +58,9 @@ export function TextProperties(props: {
                     <img className={styles.button} src="images/bin.png" />
                 </div>
             </div>
-            <div ref={ref} className={(() => {
-                if (isComponentVisible) {
-                    return styles.pickerWrap
-                }
-                return
-            })()} >
+            <div ref={ref} className={(() => { return isComponentVisible ? styles.pickerWrap : '' })()} >
                 {isComponentVisible && <ColorPicker
-                    color={(() => {
-                        if (isText(props.selectElement.object)) {
-                            return props.selectElement.object.color
-                        }
-                        return '#FFF'
-                    })()}
+                    color={(() => { return isText(props.selectElement.object) ? props.selectElement.object.color : '#FFF' })()}
                     function={setColorText}
                 />}
             </div>

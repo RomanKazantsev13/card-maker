@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { uuid } from 'uuidv4'
 import { PanelItem } from '../CanvasTools'
 import styles from './Panel.module.css'
 
@@ -10,15 +11,15 @@ export function Panel(props: {
     view: string,
     setView: (view: string) => void,
 }) {
-    let PanelElements: Array<JSX.Element> = []
-    for (let i = props.elements.length - 1; i >= 0; i--) {
-        PanelElements.push(
-            <div className={styles.elementWrap} style={props.elements[i].style}>
-                <img className={styles.panelImage} src={props.elements[i].image} />
-                <div className={styles.PanleText}>{props.elements[i].name}</div>
-            </div>
-        )
-    }
+
+    let PanelElements: Array<JSX.Element> = props.elements.map(function (element, index) {
+        return <div key={uuid()} className={styles.elementWrap} style={element.style}>
+            <img className={styles.panelImage} src={element.image} />
+            <div className={styles.PanleText}>{element.name}</div>
+        </div>
+    })
+
+    PanelElements = PanelElements.reverse()
 
     return (
         <div className={styles.wrap + ' ' + props.style + ' ' + props.view}>

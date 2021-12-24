@@ -28,12 +28,7 @@
     z-index: 30;
 }
 
-.viewOff
-{
-    display: none;
-}
-
-.viewOn, .block
+.block
 {
     display: block;
 }

@@ -54,7 +54,7 @@
     top: -75px;
 }
 
-p 
+.comment
 {
     z-index: 20;
     position: relative;
@@ -63,7 +63,7 @@ p
     border: 1px solid #2a2c3b;
 }
 
-p:after, p:before 
+.comment:after, .comment:before 
 {
     top: 80%;
     border: solid transparent;
@@ -74,7 +74,7 @@ p:after, p:before
     pointer-events: none;
 }
     
-p:after 
+.comment:after 
 {
     border-color: rgba(255, 255, 255, 0);
     border-top-color: #2a2c3b;
@@ -83,7 +83,7 @@ p:after
     margin-left: -18px;
 }
 
-p:before 
+.comment:before 
 {
     border-color: rgba(125, 145, 133, 0);
     border-top-color: #2a2c3b;

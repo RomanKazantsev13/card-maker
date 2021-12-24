@@ -3,9 +3,11 @@ import { dispatch } from '../../../../editor'
 import { setBackgroundColor } from '../../../../model/Canvas/canvas'
 import styles from './ButtonColor.module.css'
 
-export function ButtonColor(props: {
+interface ButtonColorPropsType {
     color: string,
-}) {
+}
+
+export function ButtonColor(props: ButtonColorPropsType) {
     return (
         <div 
             className={styles.color}

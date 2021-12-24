@@ -13,11 +13,11 @@ interface InputTextPropsType {
 
 export function InputText(props: InputTextPropsType) {
     const ref: MutableRefObject<HTMLInputElement | null> = useRef(null)
-    const { centre, size, type } = getCentreAndSizeOfElement(props.selectElement, props.refText)
-    const str = (() => {
+    const str: string = (() => {
         if (props.selectElement !== null && isText(props.selectElement.object)) {
             return props.selectElement.object.str
         }
+        return ''
     })()
     const [string, setString] = useState(str)
 
@@ -31,29 +31,26 @@ export function InputText(props: InputTextPropsType) {
 
     useEffect(() => {
         document.addEventListener("keydown", escFunction)
-
         return () => {
             document.removeEventListener("keydown", escFunction)
         }
     }, [])
+
+    
+    const { centre, size, type } = getCentreAndSizeOfElement(props.selectElement, props.refText)
 
     return (
         <foreignObject x={centre.x - 20} y={centre.y - 20}
             style={{
                 width: size.width + 40,
                 height: size.height + 40,
-                display: (() => {
-                    if (props.view) {
-                        return 'block'
-                    }
-                    return 'none'
-                })()
+                display: (() => { return props.view ? 'block' : 'none' })()
             }}>
             <input
                 ref={ref}
                 value={string}
                 type="text"
-                style={{width: size.width + 40, height: size.height + 40}}
+                style={{ width: size.width + 40, height: size.height + 40 }}
                 onBlur={() => {
                     dispatch(changeText, string)
                     dispatch(setSelectElement, null)

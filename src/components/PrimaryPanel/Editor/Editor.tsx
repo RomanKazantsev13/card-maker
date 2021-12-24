@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { MutableRefObject, useState } from 'react'
 import styles from './Editor.module.css'
 import { Image } from './Image/Image'
 import { Customize } from './Customize/Customize'
@@ -8,82 +8,65 @@ import { Text } from './Text/Text'
 import { FigureProperties } from './FigureProperties/FigurePropeties'
 import { TextProperties } from './TextProperties/TextProperties'
 import { FontChoose } from './FontChoose/FontChoose'
-import { Element } from '../../../model/Canvas/Element/element'
 import { isText } from '../../../model/Canvas/Element/Text/text'
 import { isFigure } from '../../../model/Canvas/Element/Figure/figure'
+import { Canvas } from '../../../model/Canvas/canvas'
 
-
-
-
-export function Editor(props: {
-    viewEditor: {
-        view: boolean,
-        state: string,
-    },
-    setViewResize: (viewResize: boolean) => void,
-    setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
-    canvas: {
-        size: {
-            height: number,
-            width: number,
+interface EditorPropsType {
+    stateViewEditor: {
+        viewEditor: {
+            view: boolean,
+            state: string,
         },
-        background: string,
-        selectElement: Element | null,
-    },
-    refEditor: any,
-}) {
+        setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
+    }
+    setViewResize: (viewResize: boolean) => void,
+    canvas: Canvas,
+    refEditor: MutableRefObject<HTMLDivElement | null>,
+}
 
+
+export function Editor(props: EditorPropsType) {
     const [font, setFont] = useState('Arial')
-
-    const State = (() => {
-        if (props.viewEditor.state == 'Image Manager') {
+    const State: JSX.Element | undefined = (() => {
+        if (props.stateViewEditor.viewEditor.state == 'Image Manager') {
             return <Image />
         }
-        if (props.viewEditor.state == 'Customize') {
-            return <Customize
-                setViewResize={props.setViewResize}
-                canvas={props.canvas}
-            />
+        if (props.stateViewEditor.viewEditor.state == 'Customize') {
+            return <Customize setViewResize={props.setViewResize} canvas={props.canvas} />
         }
-        if (props.viewEditor.state == 'Templates') {
+        if (props.stateViewEditor.viewEditor.state == 'Templates') {
             return <Templates />
         }
-        if (props.viewEditor.state == 'Graphics') {
-            return <Graphics setViewEditor={props.setViewEditor} />
+        if (props.stateViewEditor.viewEditor.state == 'Graphics') {
+            return <Graphics setViewEditor={props.stateViewEditor.setViewEditor} />
         }
-        if (props.viewEditor.state == 'Text') {
-            return <Text setViewEditor={props.setViewEditor} />
+        if (props.stateViewEditor.viewEditor.state == 'Text') {
+            return <Text setViewEditor={props.stateViewEditor.setViewEditor} />
         }
-        if (props.viewEditor.state == 'Figure Properties') {
+        if (props.stateViewEditor.viewEditor.state == 'Figure Properties') {
             if (props.canvas.selectElement !== null && isFigure(props.canvas.selectElement.object)) {
-                return <FigureProperties setViewEditor={props.setViewEditor} element={props.canvas.selectElement.object} />
+                return <FigureProperties setViewEditor={props.stateViewEditor.setViewEditor} element={props.canvas.selectElement.object} />
             }
         }
-        if (props.viewEditor.state == 'Text Properties') {
+        if (props.stateViewEditor.viewEditor.state == 'Text Properties') {
             if (props.canvas.selectElement !== null && isText(props.canvas.selectElement.object)) {
-                return <TextProperties 
-                    setViewEditor={props.setViewEditor} 
-                    font={props.canvas.selectElement.object.font} 
-                    element={props.canvas.selectElement.object} 
+                return <TextProperties
+                    setViewEditor={props.stateViewEditor.setViewEditor}
+                    font={font}
+                    element={props.canvas.selectElement.object}
                     selectElement={props.canvas.selectElement}
                 />
             }
         }
-        if (props.viewEditor.state == 'FontChoose') {
+        if (props.stateViewEditor.viewEditor.state == 'FontChoose') {
             if (props.canvas.selectElement !== null && isText(props.canvas.selectElement.object)) {
-                return <FontChoose setViewEditor={props.setViewEditor} font={props.canvas.selectElement.object.font} setFont={setFont} />
+                return <FontChoose setViewEditor={props.stateViewEditor.setViewEditor} font={props.canvas.selectElement.object.font} setFont={setFont} />
             }
         }
     })()
     return (
-        <div className={styles.editor} ref={props.refEditor} style={{
-            display: (() => {
-                if (props.viewEditor) {
-                    return 'block'
-                }
-                return 'none'
-            })()
-        }}>
+        <div className={styles.editor} ref={props.refEditor} style={{ display: (() => { return props.stateViewEditor.viewEditor ? 'block' : 'none' })() }}>
             {State}
         </div>
     )

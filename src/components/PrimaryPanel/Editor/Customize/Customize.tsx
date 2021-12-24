@@ -17,7 +17,7 @@ const colors: Array<string> = [
     'rgb(73, 144, 226)',
 ]
 
-export function Customize(props: {
+interface CustomizePropsType {
     setViewResize: (viewResize: boolean) => void,
     canvas: {
         size: {
@@ -26,23 +26,19 @@ export function Customize(props: {
         },
         background: string,
     },
-}) {
+}
+
+export function Customize(props: CustomizePropsType) {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
 
-    let ButtonsColor: Array<ReactElement> = []
-
-    for (let i = 0; i < colors.length; i++) {
-        ButtonsColor.push(
-            <ButtonColor color={colors[i]} />
-        )
-    }
+    let ButtonsColor: Array<ReactElement> = colors.map(function (color, index) {
+        return <ButtonColor key={index} color={color} />
+    })
 
     return (
         <div>
             <div className={styles.header}>Cuztomize</div>
-            <div className={styles.button} onClick={() => {
-                props.setViewResize(true)
-            }}>
+            <div className={styles.button} onClick={() => { props.setViewResize(true) }}>
                 <div className={styles.text}>Resize Template</div>
             </div>
             <div className={styles.size}>{props.canvas.size.width} × {props.canvas.size.height} px</div>
@@ -52,18 +48,13 @@ export function Customize(props: {
                     <div
                         className={styles.color}
                         style={{ backgroundColor: props.canvas.background, position: 'relative' }}
-                        onClick={() => { setIsComponentVisible(true) }} 
+                        onClick={() => { setIsComponentVisible(true) }}
                     >
                         <span className={styles.color_triangle}></span>
                     </div>
                     {ButtonsColor}
                 </div>
-                <div ref={ref} className={(() => {
-                    if (isComponentVisible) {
-                        return styles.pickerWrap
-                    }
-                    return
-                })()} >
+                <div ref={ref} className={(() => { return isComponentVisible ? styles.pickerWrap : '' })()} >
                     {isComponentVisible && <ColorPicker color={props.canvas.background} function={setBackgroundColor} />}
                 </div>
             </div>

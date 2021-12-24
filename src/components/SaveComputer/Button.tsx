@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import styles from './Button.module.css'
 
-interface ButtonPropstype {
-    name: string,
+interface ButtonPropsType {
+    content: string,
     background: Array<string>,
     color: string,
     onclick: (value: boolean) => void,
 }
 
-export function Button(props: ButtonPropstype) {
+export function Button(props: ButtonPropsType) {
     const [background, setBackground] = useState(props.background[0])
 
     const mouseOutHandler = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -22,11 +22,11 @@ export function Button(props: ButtonPropstype) {
         <div className={styles.wrap}
             style={{ background: background }}
             onMouseOver={mouseOverHandler}
-            onMouseOut={mouseOutHandler} 
+            onMouseOut={mouseOutHandler}
             onClick={() => {
                 props.onclick(false)
             }}>
-            <div className={styles.text} style={{ color: props.color }}>{props.name}</div>
+            <div className={styles.text} style={{ color: props.color }}>{props.content}</div>
         </div>
     )
 }

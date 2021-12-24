@@ -4,38 +4,33 @@ import { Button } from './Button/Button'
 import { Logo } from './Logo/Logo'
 import styles from './NavigationBar.module.css'
 
+interface StateHoverPanelType {
+    widthPanel: string,
+    workspaceMarginLeft: string,
+    widthEditor: string,
+    widthWorkspace: string,
+    hoverImage: boolean,
+    displayButtonText: string,
+    widthButton: string,
+}
 
-export function NavigationBar(props: {   
-    setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
-    setHoverPanel: (hoverPanel: {
-        widthPanel: string,
-        workspaceMarginLeft: string,
-        widthEditor: string,                     
-        widthWorkspace: string,   
-        hoverImage: boolean,
-        displayButtonText: string,
-        widthButton: string,
-    }) => void,
-    hoverPanel: {
-        widthPanel: string,
-        workspaceMarginLeft: string,
-        widthEditor: string,                     
-        widthWorkspace: string,   
-        hoverImage: boolean,
-        displayButtonText: string,
-        widthButton: string,
-    },
+interface NavigationBarPropsType {
+    stateHoverPanel: {
+        hoverPanel: StateHoverPanelType,
+        setHoverPanel: (hoverPanel: StateHoverPanelType) => void,
+    }
+    setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     setViewSave: (view: boolean) => void,
     setViewReset: (view: boolean) => void,
-}) {
+}
 
+export function NavigationBar(props: NavigationBarPropsType) {
     return (
         <div className={styles.navbar}>
             <Logo />
             <div className={styles.button__layout}>
-
                 <Button name={'Open'} functional={'New Design'} height={'102px'}>
-                    <div className={styles.list_element} onClick={() => {props.setViewReset(true)}}>
+                    <div className={styles.list_element} onClick={() => { props.setViewReset(true) }}>
                         <img className={styles.list_image} src="images/blankCanvas.png" />
                         <div className={styles.list_text}>Blank Canvas</div>
                     </div>
@@ -44,8 +39,8 @@ export function NavigationBar(props: {
                             view: true,
                             state: 'Templates'
                         })
-                        props.setHoverPanel({
-                            ...props.hoverPanel,
+                        props.stateHoverPanel.setHoverPanel({
+                            ...props.stateHoverPanel.hoverPanel,
                             widthEditor: '260px',
                             widthWorkspace: 'calc(100% - 55px)',
                         })
@@ -54,9 +49,8 @@ export function NavigationBar(props: {
                         <div className={styles.list_text}>Template</div>
                     </div>
                 </Button>
-
                 <Button name={'Save'} functional={'Save as Image'} height={'69px'}>
-                    <div className={styles.list_element} onClick={() => {props.setViewSave(true)}} >
+                    <div className={styles.list_element} onClick={() => { props.setViewSave(true) }} >
                         <img className={styles.list_image} src="images/computer.png" />
                         <div className={styles.list_text}>Computer</div>
                     </div>

@@ -1,14 +1,14 @@
 import React from 'react'
 import styles from './ButtonList.module.css'
 
-// 
-
-export function ButtonList(props: { 
+interface ButtonListPropsType { 
     click: boolean,
     children: React.ReactNode,
     functional: string,
     height: string 
-}) {
+}
+
+export function ButtonList(props: ButtonListPropsType) {
     const listStyle = () => {
         if (props.click) {
             return {

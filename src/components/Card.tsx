@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { MutableRefObject, useRef, useState } from 'react'
 import styles from './Card.module.css'
 import type { Template } from './../model/Card/Templates/templates'
 import type { Canvas } from './../model/Canvas/canvas'
@@ -27,13 +27,11 @@ interface CardPropsType {
 }
 
 export function Card(props: CardPropsType) {
+    const ref: MutableRefObject<HTMLDivElement | null> = useRef(null)
     const [viewSave, setViewSave] = useState(false)
     const [viewResize, setViewResize] = useState(false)
     const [viewReset, setViewReset] = useState(false)
-    const [viewEditor, setViewEditor] = useState({
-        view: false,
-        state: ''
-    })
+    const [viewEditor, setViewEditor] = useState({ view: false, state: '' })
     const [hoverPanel, setHoverPanel] = useState({
         widthPanel: '55px',
         workspaceMarginLeft: '0',
@@ -43,9 +41,8 @@ export function Card(props: CardPropsType) {
         displayButtonText: 'none',
         widthButton: '44px',
     })
-    const ref: any = useRef(null)
 
-    const mouseOutHandler = (event: React.MouseEvent<HTMLDivElement>) => {
+    const mouseOutHandler = () => {
         setHoverPanel({
             widthPanel: '55px',
             workspaceMarginLeft: '0',
@@ -57,7 +54,7 @@ export function Card(props: CardPropsType) {
         })
     };
 
-    const mouseOverHandler = (event: React.MouseEvent<HTMLDivElement>) => {
+    const mouseOverHandler = () => {
         setHoverPanel({
             widthPanel: '175px',
             workspaceMarginLeft: '-120px',
@@ -72,67 +69,39 @@ export function Card(props: CardPropsType) {
     return (
         <div className={styles.card_size}>
             <NavigationBar
-                setHoverPanel={setHoverPanel}
+                stateHoverPanel={{ hoverPanel, setHoverPanel }}
                 setViewEditor={setViewEditor}
                 setViewSave={setViewSave}
                 setViewReset={setViewReset}
-                hoverPanel={hoverPanel}
             />
             <div className={styles.card__content}>
                 <PrimaryPanel
-                    handler={{
-                        mouseOver: mouseOverHandler,
-                        mouseOut: mouseOutHandler
-                    }}
-                    hoverPanel={hoverPanel}
-                    viewEditor={viewEditor}
-                    setHoverPanel={setHoverPanel}
-                    setViewEditor={setViewEditor}
+                    handler={{ mouseOver: mouseOverHandler, mouseOut: mouseOutHandler }}
+                    stateHoverPanel={{ hoverPanel, setHoverPanel }}
+                    stateViewEditor={{ viewEditor, setViewEditor }}
                 />
-                <div className={styles.card__workspace}
-                     style={{
-                        width: hoverPanel.widthWorkspace,
-                        marginLeft: hoverPanel.workspaceMarginLeft
-                    }}>
-                    <div className={(() => {
-                        if (viewEditor.view) {
-                            return styles.flex
-                        }
-                        return styles.block
-                    })()
-                    }>
+                <div className={styles.card__workspace} style={{ width: hoverPanel.widthWorkspace, marginLeft: hoverPanel.workspaceMarginLeft }}>
+                    <div className={(() => { return viewEditor.view ? styles.flex : styles.block })()}>
                         <Editor
                             refEditor={ref}
-                            viewEditor={viewEditor}
+                            stateViewEditor={{ viewEditor, setViewEditor }}
                             setViewResize={setViewResize}
-                            setViewEditor={setViewEditor}
-                            canvas={{ size: props.card.canvas.size, background: props.card.canvas.background, selectElement: props.card.canvas.selectElement }}
+                            canvas={props.card.canvas}
                         />
                         <Workspace
-                            canvas={props.card.canvas}
-                            viewEditor={viewEditor}
-                            setViewEditor={setViewEditor}
-                            width={(() => {
-                                if (viewEditor.view) {
-                                    return 'calc(100% - 270px)'
-                                }
-                                return '100%'
-                            })()}
                             refEditor={ref}
+                            stateViewEditor={{ viewEditor, setViewEditor }}
+                            width={(() => { return viewEditor.view ? 'calc(100% - 270px)' : '100%' })()}
+                            canvas={props.card.canvas}
                         />
                     </div>
                     <CanvasTools canvas={props.card.canvas} history={props.card.history} setViewReset={setViewReset} />
                 </div>
             </div>
-            <div className={styles.shadow + ' ' + (() => {
-                if (viewSave || viewResize || viewReset) {
-                    return styles.viewOn
-                }
-                return styles.viewOff
-            })()}></div>
-            <SaveComputer view={viewSave} setView={setViewSave} size={props.card.canvas.size} />
-            <ResizeTemplate view={viewResize} setView={setViewResize} size={props.card.canvas.size} />
-            <ResetCanvas view={viewReset} setView={setViewReset} />
+            {(viewSave || viewResize || viewReset) && <div className={styles.shadow}></div>}
+            {viewSave && <SaveComputer setView={setViewSave} size={props.card.canvas.size} />}
+            {viewResize && <ResizeTemplate setView={setViewResize} size={props.card.canvas.size} />}
+            {viewReset && <ResetCanvas setView={setViewReset} />}
         </div>
     )
 }

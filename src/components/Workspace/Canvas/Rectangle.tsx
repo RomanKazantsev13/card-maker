@@ -9,14 +9,15 @@ interface RectanglePropsType {
     color: string,
     element: Element,
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
+    position: { x: number, y: number },
     setPosition: (position: {x: number, y: number}) => void,
 }
 
 export function Rectangle(props: RectanglePropsType) {
     return (
         <rect
-            x={props.centre.x}
-            y={props.centre.y}
+            x={props.position.x}
+            y={props.position.y}
             width={props.size.width}
             height={props.size.height}
             fill={props.color}

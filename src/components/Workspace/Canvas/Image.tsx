@@ -8,6 +8,7 @@ interface ImagePropsType {
     size: { width: number, height: number },
     url: string,
     element: Element,
+    position: { x: number, y: number },
     setPosition: (position: {x: number, y: number}) => void,
 }
 

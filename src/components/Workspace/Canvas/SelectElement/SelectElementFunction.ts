@@ -66,6 +66,7 @@ export function getCentreAndSizeOfElement(selectElement: Element | null, refText
             centre.y = selectElement.centre.y - selectElement.object.sizeText
             size.width = element.getBoundingClientRect().width
             size.height = element.getBoundingClientRect().height
+            console.log(size)
         }
     }
     return {

@@ -1,8 +1,7 @@
 import React from 'react'
-import { setWidthRectangle } from '../../model/Canvas/Element/Figure/Rectangle/rectangle'
 import styles from './Button.module.css'
 
-export function Button(props: {
+interface ButtonPropsType {
     name: string,
     width: number,
     height: number,
@@ -11,7 +10,9 @@ export function Button(props: {
         setHeight: (heigth: number) => void,
     },
     setViewList: (view: string) => void,
-}) {
+}
+
+export function Button(props: ButtonPropsType) {
     return (
         <div className={styles.wrap} onClick={() => {
             props.setSize.setWidth(props.width)

@@ -30,26 +30,22 @@ export type PanelItem = {
 export function CanvasTools(props: CanvasTools) {
 
     const history: Array<PanelItem> = (() => {
-        let undo: Array<PanelItem> = []
-        let redo: Array<PanelItem> = []
-        for (let i = props.history.undo.length - 1; i >= 0; i--) {
-            undo.push({
-                image: props.history.undo[i].image,
-                name: props.history.undo[i].name,
-                style: { background: '2e313f' }
-            })
-        }
-
-        undo[0].style = { background: '#36365f' }
-
-        for (let i = 0; i < props.history.redo.length; i++) {
-            redo.push({
-                image: props.history.redo[i].image,
-                name: props.history.redo[i].name,
+        let undo: Array<PanelItem> = props.history.undo.map(function (elem, index) {
+            return {
+                image: elem.image,
+                name: elem.name,
+                style: { background: (() => { return (index !== props.history.undo.length - 1) ? '2e313f' : '#36365f' })() }
+            }
+        })
+        let redo: Array<PanelItem> = props.history.redo.map(function (elem) {
+            return {
+                image: elem.image,
+                name: elem.name,
                 style: { opacity: 0.3 }
-            })
-        }
-        return redo.concat(undo)
+            }
+        })
+        undo = undo.concat(redo.reverse())
+        return undo.reverse()
     })()
 
     const layers: Array<PanelItem> = (() => {
@@ -60,9 +56,9 @@ export function CanvasTools(props: CanvasTools) {
         for (let i = 0; i < props.canvas.elements.length; i++) {
             let style: React.CSSProperties
             if (props.canvas.elements[i] === props.canvas.selectElement) {
-                style = {background: '#36365f'}
+                style = { background: '#36365f' }
             } else {
-                style = {background: '#2e313f'}
+                style = { background: '#2e313f' }
             }
             const object = props.canvas.elements[i].object
             if (isFigure(object)) {
@@ -70,30 +66,30 @@ export function CanvasTools(props: CanvasTools) {
                 if (isTriangle(figure.figure)) {
                     shapeCount++
                     elements.push(
-                        {name: 'Shape ' + shapeCount, image: 'images/triangle.png', style: style}
+                        { name: 'Shape ' + shapeCount, image: 'images/triangle.png', style: style }
                     )
                 }
                 if (isRectangle(figure.figure)) {
                     shapeCount++
                     elements.push(
-                            {name: 'Shape ' + shapeCount, image: 'images/square.png', style: style}
+                        { name: 'Shape ' + shapeCount, image: 'images/square.png', style: style }
                     )
                 }
                 if (isEllipse(figure.figure)) {
                     shapeCount++
                     elements.push(
-                            {name: 'Shape ' + shapeCount, image: 'images/circle.png', style: style}
+                        { name: 'Shape ' + shapeCount, image: 'images/circle.png', style: style }
                     )
                 }
             } else if (isImage(object)) {
                 imageCount++
                 elements.push(
-                    {name: 'Image ' + imageCount, image: 'images/image.png', style: style}
+                    { name: 'Image ' + imageCount, image: 'images/image.png', style: style }
                 )
             } else if (isText(object)) {
                 textCount++
                 elements.push(
-                    {name: 'Text ' + textCount, image: 'images/text__hover.png', style: style}
+                    { name: 'Text ' + textCount, image: 'images/text__hover.png', style: style }
                 )
             }
         }
@@ -128,7 +124,7 @@ export function CanvasTools(props: CanvasTools) {
                         }
                         return false
                     })()}
-                    image={"images/undo.png"} name={"Undo"} onclick={() => {dispatch(undo)}} />
+                    image={"images/undo.png"} name={"Undo"} onclick={() => { dispatch(undo) }} />
                 <ToolsButton
                     block={(() => {
                         if (props.history.redo.length == 0) {
@@ -136,15 +132,14 @@ export function CanvasTools(props: CanvasTools) {
                         }
                         return false
                     })()}
-                    image={"images/redo.png"} name={"Redo"} onclick={() => {dispatch(redo)}} />
+                    image={"images/redo.png"} name={"Redo"} onclick={() => { dispatch(redo) }} />
                 <ToolsButton
-                    block={(
-                        () => {
-                            if (history.length == 0) {
-                                return true
-                            }
-                            return false
-                        })()}
+                    block={(() => {
+                        if (history.length == 0) {
+                            return true
+                        }
+                        return false
+                    })()}
                     image={"images/history.png"} name={"History"}
                     onclick={() => {
                         if (viewHistory == styles.viewOff) {
@@ -153,7 +148,12 @@ export function CanvasTools(props: CanvasTools) {
                         }
                         setViewHistory(styles.viewOff)
                     }} />
-                <Panel style={styles.history} name={'History'} elements={history} view={viewHistory} setView={setViewHistory} />
+                <Panel style={styles.history} name={'History'} elements={history} 
+                    view={(() => {
+                        return history.length == 0 ? styles.viewOff : viewHistory
+                    })()} 
+                    setView={setViewHistory} 
+                />
             </div>
         </div>
     )

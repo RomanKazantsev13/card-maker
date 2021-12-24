@@ -1,11 +1,14 @@
-import { RefObject, useEffect, useState } from "react"
+import { useEffect } from "react"
+import { dispatch } from "../editor"
+import { setCentre } from "../model/Canvas/Element/element"
 
 export function useDragAndDrop(
   elementRef: any,
   position: { x: number; y: number },
   setPosition: (position: { x: number; y: number }) => void,
 ) {
-  let startPos: { x: number; y: number } = { x: 0, y: 0 }
+  let startPos: { x: number; y: number } = position
+  let newPos: { x: number; y: number }
 
   useEffect(() => {
     if (elementRef.current !== null) {
@@ -19,7 +22,6 @@ export function useDragAndDrop(
   })
 
   const MouseDownListener = (e: MouseEvent) => {
-    console.log('mousedown')
     startPos = {
       x: e.pageX,
       y: e.pageY,
@@ -30,12 +32,11 @@ export function useDragAndDrop(
   }
 
   const MouseMoveListener = (e: MouseEvent) => {
-    console.log("mousemove")
     const delta = {
       x: e.pageX - startPos.x,
       y: e.pageY - startPos.y,
     }
-    const newPos = {
+    newPos = {
       x: position.x + delta.x,
       y: position.y + delta.y,
     }
@@ -43,7 +44,7 @@ export function useDragAndDrop(
   }
 
   const MouseUpListener = () => {
-    console.log("mouseup")
+    dispatch(setCentre, newPos)
     document.removeEventListener("mousemove", MouseMoveListener)
     document.removeEventListener("mouseup", MouseUpListener)
   }

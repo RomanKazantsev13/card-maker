@@ -1,7 +1,8 @@
-import React, { ElementType, ReactElement, useRef } from 'react'
+import React, { MutableRefObject } from 'react'
 import { Element, setSelectElement } from '../../../model/Canvas/Element/element'
 
 import { dispatch } from '../../../editor'
+import { getCentreAndSizeOfElement } from './SelectElement/SelectElementFunction'
 
 interface TextPropsType {
     string: string,
@@ -11,11 +12,14 @@ interface TextPropsType {
     color: string,
     element: Element,
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
-    refText: any,
+    refText: MutableRefObject<SVGTextElement | null>,
+    position: { x: number, y: number },
     setPosition: (position: {x: number, y: number}) => void,
 }
 
 export function Text(props: TextPropsType) {
+    const {centre, size, type} = getCentreAndSizeOfElement(props.element, props.refText)
+    console.log(centre)
     return (
         <text
             ref={props.refText}
@@ -23,9 +27,8 @@ export function Text(props: TextPropsType) {
             y={props.center.y}
             style={{ fontFamily: props.fontFamily, fontSize: props.fontSize, fill: props.color }}
             onClick={() => {
-                props.setPosition(props.element.centre)
+                props.setPosition(centre)
                 props.setViewEditor({ view: true, state: 'Text Properties' })
-                
                 dispatch(setSelectElement, props.element)
             }}
         >

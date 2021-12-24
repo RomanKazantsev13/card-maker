@@ -3,105 +3,65 @@ import { Template } from '../../model/Card/Templates/templates'
 import { Button } from './Button/Button'
 import styles from './PrimaryPanel.module.css'
 
-interface IEditor {
-    name: string,
-    value: boolean,
-    widthWorkspace: string,
+interface StateHoverPanelType {
+    widthPanel: string,
+    workspaceMarginLeft: string,
     widthEditor: string,
+    widthWorkspace: string,
+    hoverImage: boolean,
+    displayButtonText: string,
+    widthButton: string,
 }
 
-export function PrimaryPanel(props: {
+interface PrimaryPanelPropsType {
     handler: {
         mouseOver: (event: React.MouseEvent<HTMLDivElement>) => void,
         mouseOut: (event: React.MouseEvent<HTMLDivElement>) => void,
-    },  
-    hoverPanel: {
-        widthPanel: string,
-        workspaceMarginLeft: string,
-        widthEditor: string,                     
-        widthWorkspace: string,   
-        hoverImage: boolean,
-        displayButtonText: string,
-        widthButton: string,
     },
-    viewEditor: {
-        view: boolean,
-        state: string,
-    },
-    setHoverPanel: (hoverPanel: {
-        widthPanel: string,
-        workspaceMarginLeft: string,
-        widthEditor: string,                     
-        widthWorkspace: string,   
-        hoverImage: boolean,
-        displayButtonText: string,
-        widthButton: string,
-    }) => void,
-    setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
-}) {
-
-    const panelStyle = {
+    stateHoverPanel: {
+        hoverPanel: StateHoverPanelType,
+        setHoverPanel: (hoverPanel: StateHoverPanelType) => void,
     }
+    stateViewEditor: {
+        viewEditor: { view: boolean, state: string },
+        setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
+    }
+}
+
+const buttons = [
+    { name: 'Image Manager', imageName: 'picture' },
+    { name: 'Customize', imageName: 'customize' },
+    { name: 'Templates', imageName: 'template' },
+    { name: 'Graphics', imageName: 'figures' },
+    { name: 'Text', imageName: 'text' }
+]
+
+export function PrimaryPanel(props: PrimaryPanelPropsType) {
+    const Buttons = buttons.map(function (button, index) {
+        return <Button
+            key={index}
+            name={button.name}
+            imageName={button.imageName}
+            stateHoverPanel={{
+                hoverPanel: props.stateHoverPanel.hoverPanel,
+                setHoverPanel: props.stateHoverPanel.setHoverPanel
+            }}
+            stateViewEditor={{
+                viewEditor: {
+                    view: props.stateViewEditor.viewEditor.view,
+                    state: props.stateViewEditor.viewEditor.state
+                },
+                setViewEditor: props.stateViewEditor.setViewEditor
+            }}
+        />
+    })
     return (
         <div className={styles.panel}
-             style={{width: props.hoverPanel.widthPanel}}
-             onMouseOut={props.handler.mouseOut}
-             onMouseOver={props.handler.mouseOver}>
-            <Button 
-                name={'Image Manager'} 
-                imageName={'picture'} 
-                hoverPanel={props.hoverPanel} 
-                viewEditor={{
-                    view: props.viewEditor.view,
-                    state: props.viewEditor.state
-                }} 
-                setHoverPanel={props.setHoverPanel}
-                setViewEditor={props.setViewEditor}
-            />
-            <Button 
-                name={'Customize'} 
-                imageName={'customize'} 
-                hoverPanel={props.hoverPanel} 
-                viewEditor={{
-                    view: props.viewEditor.view,
-                    state: props.viewEditor.state
-                }} 
-                setHoverPanel={props.setHoverPanel} 
-                setViewEditor={props.setViewEditor}
-            />
-            <Button 
-                name={'Templates'} 
-                imageName={'template'} 
-                hoverPanel={props.hoverPanel} 
-                viewEditor={{
-                    view: props.viewEditor.view,
-                    state: props.viewEditor.state
-                }} 
-                setHoverPanel={props.setHoverPanel}
-                setViewEditor={props.setViewEditor}
-            />
-            <Button 
-                name={'Graphics'} 
-                imageName={'figures'}
-                hoverPanel={props.hoverPanel} 
-                viewEditor={{
-                    view: props.viewEditor.view,
-                    state: props.viewEditor.state
-                }} 
-                setHoverPanel={props.setHoverPanel}
-                setViewEditor={props.setViewEditor}
-            />
-            <Button 
-                name={'Text'} 
-                imageName={'text'} 
-                hoverPanel={props.hoverPanel} 
-                viewEditor={{
-                    view: props.viewEditor.view,
-                    state: props.viewEditor.state
-                }} 
-                setHoverPanel={props.setHoverPanel}
-                setViewEditor={props.setViewEditor}
-            />
+            style={{ width: props.stateHoverPanel.hoverPanel.widthPanel }}
+            onMouseOut={props.handler.mouseOut}
+            onMouseOver={props.handler.mouseOver}
+        >
+            {Buttons}
         </div>
     )
 }

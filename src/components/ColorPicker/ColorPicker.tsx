@@ -3,11 +3,12 @@ import { ChromePicker, ColorResult } from 'react-color'
 import { dispatch } from '../../editor'
 import styles from './ColorPicker.module.css'
 
-export function ColorPicker(props: {
+interface ColorPickerPropstype {
     color: string,
     function: any,
-}) {
+}
 
+export function ColorPicker(props: ColorPickerPropstype) {
     const chromePickerStyles = {
         default: {
             picker: { 
@@ -19,7 +20,6 @@ export function ColorPicker(props: {
             },
         },
     }
-
     return (
         <div>
             <div className={styles.header}>Picker</div>

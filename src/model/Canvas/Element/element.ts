@@ -4,6 +4,34 @@ import type { Image } from './Image/image'
 import type { Figure } from './Figure/figure'
 import { madeChange } from '../../Card/History/history'
 
+export function setCentre(card: Card, position: Point): Card {
+    const selectElement = getSelectElement(card)
+    const changeCard: Card = {
+        ...card,
+        canvas: {
+            ...card.canvas,
+            elements: card.canvas.elements.map(element => {
+                if (element == selectElement) {
+                    return {
+                        ...element,
+                        centre: position
+                    }
+                }
+                return element
+            })
+        }
+    }
+    const newCard = {
+        ...changeCard,
+        canvas: {
+            ...changeCard.canvas,
+            selectElement: getSelectElement(card)
+        }
+    }
+    madeChange(newCard, 'Change Position', 'images/square.png')
+    return newCard
+}
+
 export function deleteSelectElement(card: Card): Card {
     const newElements = card.canvas.elements.filter(element => {
         if (element !== card.canvas.selectElement) {
