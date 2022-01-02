@@ -1,35 +1,42 @@
-import React, { MutableRefObject } from 'react'
+import React, { MutableRefObject, useRef, useState } from 'react'
 import { Element, setSelectElement } from '../../../model/Canvas/Element/element'
 
 import { dispatch } from '../../../editor'
 import { getCentreAndSizeOfElement } from './SelectElement/SelectElementFunction'
+import { useDragAndDrop } from '../../../customHooks/useDragAndDrop'
 
 interface TextPropsType {
     string: string,
-    center: { x: number, y: number },
     fontFamily: string,
     fontSize: number,
     color: string,
     element: Element,
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
-    refText: MutableRefObject<SVGTextElement | null>,
     position: { x: number, y: number },
     setPosition: (position: {x: number, y: number}) => void,
+    setInputValue: (value: string) => void,
+    setViewInput: (view: boolean) => void,
+    setSize: (size: {width: number, height: number}) => void,
 }
 
 export function Text(props: TextPropsType) {
-    const {centre, size, type} = getCentreAndSizeOfElement(props.element, props.refText)
-    console.log(centre)
+    const ref = useRef(null)
+    const { centre, size, type } = getCentreAndSizeOfElement(props.element, ref)
+
+    const [position, setPosition] = useState(centre)
+    useDragAndDrop(props.element, ref, centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
+    console.log(getCentreAndSizeOfElement(props.element, ref).size)
     return (
         <text
-            ref={props.refText}
-            x={props.center.x} 
-            y={props.center.y}
+            ref={ref}
+            x={position.x} 
+            y={position.y}
             style={{ fontFamily: props.fontFamily, fontSize: props.fontSize, fill: props.color }}
             onClick={() => {
-                props.setPosition(centre)
-                props.setViewEditor({ view: true, state: 'Text Properties' })
-                dispatch(setSelectElement, props.element)
+                props.setInputValue(props.string)
+            }}
+            onDoubleClick={() => {
+                props.setViewInput(true)
             }}
         >
             {props.string}

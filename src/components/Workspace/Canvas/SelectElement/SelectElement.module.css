@@ -1,25 +1,9 @@
-.border
-{
-    z-index: 5;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    border: 1px dashed#000;
-}
-
 .point 
-{
-    position: absolute;
-    border-radius: 50%;
-    background: #000;
-}
-
-.pointTopLeft 
 {
     width: 13px;
     height: 13px;
-    top: 5px;
-    left: 5px;
+    border-radius: 50%;
+    background: #000;
 }
 
 .pointTopLeft:hover
@@ -27,34 +11,14 @@
     cursor: nw-resize;
 }
 
-.pointBottomLeft
-{
-    width: 13px;
-    height: 13px;
-    left: 5px;
-}
-
 .pointBottomLeft:hover
 {
     cursor: sw-resize;
 }
 
-.pointTopRight
-{
-    width: 13px;
-    height: 13px;
-    top: 5px;
-}
-
 .pointTopRight:hover
 {
     cursor: ne-resize;
-}
-
-.pointBottomRight
-{  
-    width: 13px;
-    height: 13px;
 }
 
 .pointBottomRight:hover
@@ -68,24 +32,21 @@
     background: #000;
 }
 
-.blockTop
+.blockTop, .blockBottom
 {
-    position: absolute;
-    top: 8px;
-    background: #000;
     width: 20px;
     height: 6px;
 }
 
-.blockTop:hover
-{
-    cursor: n-resize;
-}
-
-.blockRight
+.blockRight, .blockLeft
 {
    width: 6px;
    height: 20px;
+}   
+
+.blockTop:hover
+{
+    cursor: n-resize;
 }
 
 .blockRight:hover
@@ -93,22 +54,9 @@
     cursor:w-resize;
 }
 
-.blockLeft
-{
-    left: 8px;
-    width: 6px;
-    height: 20px;
-}
-
 .blockLeft:hover
 {
     cursor: e-resize;
-}
-
-.blockBottom
-{
-    width: 20px;
-    height: 6px;
 }
 
 .blockBottom:hover
@@ -116,12 +64,7 @@
     cursor: s-resize;
 }
 
-.viewOff
+.border 
 {
-    display: none;
-}
-
-.viewOn
-{
-    display: block;
+    border: 1px dashed #000;
 }

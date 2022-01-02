@@ -1,7 +1,7 @@
 import type { Card, Point } from '../../Card/card'
 import type { Text } from './Text/text'
 import type { Image } from './Image/image'
-import type { Figure } from './Figure/figure'
+import { Figure } from './Figure/figure'
 import { madeChange } from '../../Card/History/history'
 
 export function setCentre(card: Card, position: Point): Card {
@@ -28,7 +28,7 @@ export function setCentre(card: Card, position: Point): Card {
             selectElement: getSelectElement(card)
         }
     }
-    madeChange(newCard, 'Change Position', 'images/square.png')
+    madeChange(newCard, 'Change Position', 'images/move.png')
     return newCard
 }
 

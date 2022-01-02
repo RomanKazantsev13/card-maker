@@ -6,9 +6,10 @@ import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunctio
 
 interface InputTextPropsType {
     selectElement: Element | null,
-    refText: any,
     view: boolean,
     setView: (view: boolean) => void,
+    value: string,
+    setValue: (value: string) => void,
 }
 
 export function InputText(props: InputTextPropsType) {
@@ -17,12 +18,12 @@ export function InputText(props: InputTextPropsType) {
         if (props.selectElement !== null && isText(props.selectElement.object)) {
             return props.selectElement.object.str
         }
+        props.setView(false)
         return ''
     })()
-    const [string, setString] = useState(str)
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-        setString(event.target.value)
+        props.setValue(event.target.value)
     }
 
     const escFunction = (event: KeyboardEvent) => {
@@ -37,7 +38,7 @@ export function InputText(props: InputTextPropsType) {
     }, [])
 
     
-    const { centre, size, type } = getCentreAndSizeOfElement(props.selectElement, props.refText)
+    const { centre, size, type } = getCentreAndSizeOfElement(props.selectElement, null)
 
     return (
         <foreignObject x={centre.x - 20} y={centre.y - 20}
@@ -48,11 +49,11 @@ export function InputText(props: InputTextPropsType) {
             }}>
             <input
                 ref={ref}
-                value={string}
+                value={props.value}
                 type="text"
                 style={{ width: size.width + 40, height: size.height + 40 }}
                 onBlur={() => {
-                    dispatch(changeText, string)
+                    dispatch(changeText, props.value)
                     dispatch(setSelectElement, null)
                     props.setView(false)
                 }}

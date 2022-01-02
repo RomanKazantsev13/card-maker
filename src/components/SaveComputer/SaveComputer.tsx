@@ -41,7 +41,7 @@ export function SaveComputer(props: SaveComputerPropsType) {
                 <input className={styles.input} type="text" maxLength={100} required placeholder="Назови меня!" />
                 <label className={styles.subHeader}>Format</label>
                 <div className={styles.format}>
-                    <div className={styles.format__buttonWrap + ' ' + styles.format_buttonJPG + ' ' + isJpg()} onClick={() => { setFormat('JPG') }}>
+                    <div className={styles.format__buttonWrap + ' ' + styles.format__buttonJPG + ' ' + isJpg()} onClick={() => { setFormat('JPG') }}>
                         <div>JPG</div>
                     </div>
                     <div className={styles.format__buttonWrap + ' ' + styles.format__buttonPNG + ' ' + isPng()} onClick={() => { setFormat('PNG') }}>

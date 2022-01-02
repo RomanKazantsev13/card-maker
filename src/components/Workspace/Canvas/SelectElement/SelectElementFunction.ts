@@ -1,3 +1,4 @@
+import { MutableRefObject, RefObject } from 'react'
 import { Element } from '../../../../model/Canvas/Element/element'
 import { Ellipse, isEllipse } from '../../../../model/Canvas/Element/Figure/Ellipse/ellipse'
 import { Figure, isFigure } from '../../../../model/Canvas/Element/Figure/figure'
@@ -7,9 +8,12 @@ import { Image, isImage } from '../../../../model/Canvas/Element/Image/image'
 import { isText, Text } from '../../../../model/Canvas/Element/Text/text'
 import { Point, Size } from '../../../../model/Card/card'
 
-export function getCentreAndSizeOfElement(selectElement: Element | null, refText: any) {
+export function getCentreAndSizeOfElement(
+    selectElement: Element | null, 
+    refText: RefObject<SVGRectElement | SVGEllipseElement | SVGPolygonElement | SVGTextElement | SVGImageElement | null> | null
+    ) {
     let size: Size = { width: 0, height: 0 }
-    let centre: Point = { x: 0, y: 0 }
+    let centre: Point = { x: 100, y: 100 }
     let type: string = ''
     if (selectElement !== null && isFigure(selectElement.object)) {
         const figure: Figure = selectElement.object
@@ -60,13 +64,14 @@ export function getCentreAndSizeOfElement(selectElement: Element | null, refText
     } else if (selectElement !== null && isText(selectElement.object)) {
         const text: Text = selectElement.object
         type = 'Text'
-        const element: HTMLElement | null = refText.current
+        const element: SVGRectElement | SVGEllipseElement | SVGPolygonElement | SVGTextElement | SVGImageElement | null = (() => {
+            return refText !== null ? refText.current : null
+        })()
         if (element !== null) {
             centre.x = selectElement.centre.x
-            centre.y = selectElement.centre.y - selectElement.object.sizeText
+            centre.y = selectElement.centre.y
             size.width = element.getBoundingClientRect().width
             size.height = element.getBoundingClientRect().height
-            console.log(size)
         }
     }
     return {

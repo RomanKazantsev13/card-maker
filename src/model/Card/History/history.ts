@@ -25,9 +25,13 @@ export function undo(card: Card): Card {
     if (data !== undefined) {
         pushStack(card.history.redo, data)
     }
+    const newCanvas = card.history.undo[card.history.undo.length - 1].canvas
     return {
         ...card,
-        canvas: card.history.undo[card.history.undo.length - 1].canvas
+        canvas: {
+            ...newCanvas,
+            selectElement: null
+        }
     }
 }
 
@@ -36,9 +40,13 @@ export function redo(card: Card): Card {
     if (data !== undefined) {
         pushStack(card.history.undo, data)
     }
+    const newCanvas = card.history.undo[card.history.undo.length - 1].canvas
     return {
         ...card,
-        canvas: card.history.undo[card.history.undo.length - 1].canvas
+        canvas: {
+            ...newCanvas,
+            selectElement: null
+        }
     }
 }
 

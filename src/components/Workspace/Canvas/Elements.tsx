@@ -19,9 +19,11 @@ interface CanvasPropsType {
         setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     }
     refEditor: MutableRefObject<HTMLDivElement | null>,
-    refText: MutableRefObject<SVGTextElement | null>,
-    setPosition: (position: { x: number, y: number }) => void,
-    position: { x: number, y: number },
+    setPositionSelectElement: (position: { x: number, y: number }) => void,
+    positionSelectElement: { x: number, y: number },
+    setInputValue: (value: string) => void,
+    setViewInput: (view: boolean) => void,
+    setSize: (size: {width: number, height: number}) => void,
 }
 
 export default function Elements(props: CanvasPropsType): JSX.Element {
@@ -43,34 +45,36 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                     viewEditor={props.stateViewEditor.viewEditor}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     refEditor={props.refEditor}
-                    position={props.position}
-                    setPosition={props.setPosition}
+                    position={props.positionSelectElement}
+                    setPosition={props.setPositionSelectElement}
+                    setSize={props.setSize}
                 />
             }
             if (isRectangle(figure.figure)) {
                 const rectangle: RectangleType = figure.figure
                 return <Rectangle
                     key={element.id}
-                    centre={{ x: element.centre.x, y: element.centre.y }}
                     size={{ width: rectangle.size.width, height: rectangle.size.height }}
                     color={figure.color}
                     element={element}
+                    selectElement={props.canvas.selectElement}
                     setViewEditor={props.stateViewEditor.setViewEditor}
-                    position={props.position}
-                    setPosition={props.setPosition}
+                    position={props.positionSelectElement}
+                    setPosition={props.setPositionSelectElement}
+                    setSize={props.setSize}
                 />
             }
             if (isEllipse(figure.figure)) {
                 const ellipse: EllipseType = figure.figure
                 return <Ellipse
                     key={element.id}
-                    centre={{ x: element.centre.x, y: element.centre.y }}
                     radius={{ rx: ellipse.rx, ry: ellipse.ry }}
                     color={figure.color}
                     element={element}
                     setViewEditor={props.stateViewEditor.setViewEditor}
-                    position={props.position}
-                    setPosition={props.setPosition}
+                    position={props.positionSelectElement}
+                    setPosition={props.setPositionSelectElement}
+                    setSize={props.setSize}
                 />
             }
         } else if (isImage(object)) {
@@ -78,26 +82,28 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
             return <Image
                 key={element.id}
                 url={image.url}
-                centre={{ x: element.centre.x, y: element.centre.y }}
                 size={{ width: image.size.width, height: image.size.width }}
                 element={element}
-                position={props.position}
-                setPosition={props.setPosition}
+                position={props.positionSelectElement}
+                setPosition={props.setPositionSelectElement}
+                setSize={props.setSize}
+                setViewEditor={props.stateViewEditor.setViewEditor}
             />
         } else if (isText(object)) {
             const text: TextType = object
             return <Text
                 key={element.id}
                 string={text.str}
-                center={{ x: element.centre.x, y: element.centre.y }}
                 fontFamily={text.font}
                 fontSize={text.sizeText}
                 color={text.color}
                 element={element}
                 setViewEditor={props.stateViewEditor.setViewEditor}
-                refText={props.refText}
-                position={props.position    }
-                setPosition={props.setPosition}
+                position={props.positionSelectElement}
+                setPosition={props.setPositionSelectElement}
+                setInputValue={props.setInputValue}
+                setViewInput={props.setViewInput}
+                setSize={props.setSize}
             />
         }
     })

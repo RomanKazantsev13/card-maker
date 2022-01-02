@@ -15,9 +15,10 @@ interface CanvasPropsType {
 }
 
 export function Canvas(props: CanvasPropsType) {
-    const ref: MutableRefObject<SVGTextElement | null> = useRef(null)
+    const [size, setSize] = useState({width: 0, height: 0})
     const [viewInput, setViewInput] = useState(false)
-    const [position, setPosition] = useState({ x: 0, y: 0 })
+    const [positionSelectElement, setPositionSelectElement] = useState({ x: 0, y: 0 })
+    const [inputValue, setInputValue] = useState('')
     return (
         <div style={{
             width: props.canvas.size.width,
@@ -29,26 +30,29 @@ export function Canvas(props: CanvasPropsType) {
         >
             <svg style={{ width: props.canvas.size.width, height: props.canvas.size.height }}>
                 <Elements
+                    setInputValue={setInputValue}
                     canvas={props.canvas}
                     stateViewEditor={{
                         viewEditor: props.stateViewEditor.viewEditor,
                         setViewEditor: props.stateViewEditor.setViewEditor
                     }}
                     refEditor={props.refEditor} 
-                    refText={ref}
-                    position={position}
-                    setPosition={setPosition}
+                    positionSelectElement={positionSelectElement}
+                    setPositionSelectElement={setPositionSelectElement}
+                    setViewInput={setViewInput}
+                    setSize={setSize}
                 />
-                <SelectElement
-                    refText={ref}
+                {props.canvas.selectElement !== null && <SelectElement
                     selectElement={props.canvas.selectElement}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     setViewInput={setViewInput}
-                    position={position}
-                    setPosition={setPosition}
-                />
+                    positionSelectElement={positionSelectElement}
+                    setPositionSelectElement={setPositionSelectElement}
+                    size={size}
+                />}
                 <InputText
-                    refText={ref}
+                    value={inputValue}
+                    setValue={setInputValue}
                     selectElement={props.canvas.selectElement}
                     view={viewInput}
                     setView={setViewInput}

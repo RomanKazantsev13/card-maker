@@ -1,11 +1,12 @@
 import React from 'react'
 import { ChromePicker, ColorResult } from 'react-color'
 import { dispatch } from '../../editor'
+import { Card } from '../../model/Card/card'
 import styles from './ColorPicker.module.css'
 
 interface ColorPickerPropstype {
     color: string,
-    function: any,
+    function: (card: Card, newColor: string) => Card,
 }
 
 export function ColorPicker(props: ColorPickerPropstype) {

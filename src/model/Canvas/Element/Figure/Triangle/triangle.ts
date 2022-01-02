@@ -13,7 +13,7 @@ export function addTriangle(card: Card): Card {
             elements: [
                 ...card.canvas.elements,
                 {
-                    centre: { x: 50, y: 50 },
+                    centre: { x: 100, y: 100 },
                     id: uuid(),
                     object: {
                         color: '#888',

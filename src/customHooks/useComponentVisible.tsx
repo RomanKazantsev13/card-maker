@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, RefObject, MutableRefObject } from 'react'
 
 
 // check ref
@@ -8,7 +8,7 @@ export default function useComponentVisible(initialIsVisible: boolean) {
     const ref: any = useRef(null)
 
     const handleClickOutside = (event: MouseEvent) => {
-        if (ref.current && !ref.current.contains(event.target)) {
+        if (ref.current && !ref.current.contains(event.target as Node)) {
             setIsComponentVisible(false)
         } 
     };

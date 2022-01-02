@@ -1,47 +1,57 @@
-import React, { useRef } from 'react'
+import React, { MutableRefObject, useRef } from 'react'
 import styles from './SelectElement.module.css'
 import type { Element } from '../../../../model/Canvas/Element/element'
 import { getCentreAndSizeOfElement } from './SelectElementFunction'
 import { isText } from '../../../../model/Canvas/Element/Text/text'
-import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 
 interface SelectElementPropsType {
     selectElement: Element | null,
-    refText: any,
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     setViewInput: (view: boolean) => void,
-    position: { x: number, y: number },
-    setPosition: (position: { x: number, y: number }) => void,
+    positionSelectElement: { x: number, y: number },
+    setPositionSelectElement: (position: { x: number, y: number }) => void,
+    size: {width: number, height: number}
 }
 
 export function SelectElement(props: SelectElementPropsType) {
-    const ref = useRef(null)
-    const { centre, size, type } = getCentreAndSizeOfElement(props.selectElement, props.refText)
-    useDragAndDrop(ref, props.position, props.setPosition)
     return (
-        <foreignObject
-            ref={ref}
-            x={props.position.x - 20} y={props.position.y - 20}
-            width={size.width + 40} height={size.height + 40}
-            className={(() => { return props.selectElement !== null ? styles.viewOn : styles.viewOff })()}
-            onClick={() => { 
-                {type == 'Figure' && props.setViewEditor({ view: true, state: 'Figure Properties' })}
-                {type == 'Text'   && props.setViewEditor({ view: true, state: 'Text Properties' })
-                }
-            }}
-            onDoubleClick={() => {
-                {props.selectElement !== null && isText(props.selectElement.object) && props.setViewInput(true)}
-            }}
-        >
-            <div className={styles.border} style={{ width: size.width + 20, height: size.height + 20 }}></div>
-            <div className={styles.point + ' ' + styles.pointTopLeft}></div>
-            <div className={styles.point + ' ' + styles.pointBottomLeft} style={{ top: size.height + 23 }}></div>
-            <div className={styles.point + ' ' + styles.pointBottomRight} style={{ top: size.height + 23, left: size.width + 23 }}></div>
-            <div className={styles.point + ' ' + styles.pointTopRight} style={{ left: size.width + 23 }}></div>
-            <div className={styles.block + ' ' + styles.blockTop} style={{ left: size.width / 2 + 11.5 }}></div>
-            <div className={styles.block + ' ' + styles.blockRight} style={{ top: size.height / 2 + 11.5, left: size.width + 26 }}></div>
-            <div className={styles.block + ' ' + styles.blockLeft} style={{ top: size.height / 2 + 11.5 }}></div>
-            <div className={styles.block + ' ' + styles.blockBottom} style={{ top: size.height + 26, left: size.width / 2 + 11.5 }}></div>
-        </foreignObject>
+        <>
+            <foreignObject x={props.positionSelectElement.x - 2 - 7.5} y={props.positionSelectElement.y - 2 - 7.5} width={props.size.width + 20} height={1}>
+                <div className={styles.border} style={{ width: props.size.width + 20, height: 1 }}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x - 2 - 7.5} y={props.positionSelectElement.y - 2 - 7.5} width={1} height={props.size.height + 20}>
+                <div className={styles.border} style={{ width: 1, height: props.size.height + 20 }}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x + props.size.width + 7.5} y={props.positionSelectElement.y - 2 - 7.5} width={1} height={props.size.height + 20}>
+                <div className={styles.border} style={{ width: 1, height: props.size.height + 20 }}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x - 2 - 7.5} y={props.positionSelectElement.y + props.size.height + 7.5} width={props.size.width + 20} height={1}>
+                <div className={styles.border} style={{ width: props.size.width + 20, height: 1 }}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x - 15} y={props.positionSelectElement.y - 15} width={13} height={13}>
+                <div className={styles.point + ' ' + styles.pointTopLeft}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x - 15} y={props.positionSelectElement.y + props.size.height + 3} width={13} height={13}>
+                <div className={styles.point + ' ' + styles.pointBottomLeft}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x + props.size.width + 3} y={props.positionSelectElement.y + props.size.height + 3} width={13} height={13}>
+                <div className={styles.point + ' ' + styles.pointBottomRight}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x + props.size.width + 3} y={props.positionSelectElement.y - 15} width={13} height={13}>
+                <div className={styles.point + ' ' + styles.pointTopRight}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x + props.size.width / 2 + 11.5 - 20} y={props.positionSelectElement.y - 12} width={20} height={6}>
+                <div className={styles.block + ' ' + styles.blockTop}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x + props.size.width + 6} y={props.positionSelectElement.y + props.size.height / 2 + 11.5 - 20} width={6} height={20}>
+                <div className={styles.block + ' ' + styles.blockRight}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x - 12} y={props.positionSelectElement.y + props.size.height / 2 + 11.5 - 20} width={6} height={20}>
+                <div className={styles.block + ' ' + styles.blockLeft}></div>
+            </foreignObject>
+            <foreignObject x={props.positionSelectElement.x + props.size.width / 2 + 11.5 - 20} y={props.positionSelectElement.y + props.size.height + 6} width={20} height={6}>
+                <div className={styles.block + ' ' + styles.blockBottom}></div>
+            </foreignObject>
+        </>
     )
 }
