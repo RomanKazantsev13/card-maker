@@ -4,11 +4,15 @@ import { Element, setSelectElement } from '../../../../model/Canvas/Element/elem
 import { dispatch } from '../../../../editor'
 import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
+import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
 
 interface EllipsePropsType {
     radius: { rx: number, ry: number },
     color: string,
     element: Element,
+    selectElement: Element | null,
+    refEditor: RefObject<HTMLDivElement | null>,
+    viewEditor: { view: boolean, state: string },
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
     position: { x: number, y: number },
     setPosition: (position: {x: number, y: number}) => void,
@@ -19,6 +23,7 @@ export function Ellipse(props: EllipsePropsType) {
     const [position, setPosition] = useState(props.element.centre)
     const ref: RefObject<SVGEllipseElement> = useRef(null)
     useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
+    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.viewEditor, props.setViewEditor)
     return (
         <ellipse
             ref={ref}

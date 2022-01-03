@@ -4,11 +4,15 @@ import { Element, setSelectElement } from '../../../../model/Canvas/Element/elem
 import { dispatch } from '../../../../editor'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
+import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
 
 interface ImagePropsType {
     size: { width: number, height: number },
     url: string,
     element: Element,
+    selectElement: Element | null,
+    refEditor: RefObject<HTMLDivElement | null>,
+    viewEditor: { view: boolean, state: string },
     position: { x: number, y: number },
     setPosition: (position: {x: number, y: number}) => void,
     setSize: (size: {width: number, height: number}) => void,
@@ -19,6 +23,7 @@ export function Image(props: ImagePropsType) {
     const [position, setPosition] = useState(props.element.centre)
     const ref: RefObject<SVGImageElement> = useRef(null)
     useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
+    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.viewEditor, props.setViewEditor)
     return (
         <image
             ref={ref}

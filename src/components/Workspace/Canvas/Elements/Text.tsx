@@ -1,9 +1,10 @@
-import React, { MutableRefObject, useRef, useState } from 'react'
+import React, { MutableRefObject, RefObject, useRef, useState } from 'react'
 import { Element, setSelectElement } from '../../../../model/Canvas/Element/element'
 
 import { dispatch } from '../../../../editor'
 import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
+import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
 
 interface TextPropsType {
     string: string,
@@ -11,6 +12,9 @@ interface TextPropsType {
     fontSize: number,
     color: string,
     element: Element,
+    selectElement: Element | null,
+    refEditor: RefObject <HTMLDivElement | null>,
+    viewEditor: { view: boolean, state: string },
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     position: { x: number, y: number },
     setPosition: (position: {x: number, y: number}) => void,
@@ -25,7 +29,7 @@ export function Text(props: TextPropsType) {
 
     const [position, setPosition] = useState(centre)
     useDragAndDrop(props.element, ref, centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
-    console.log(getCentreAndSizeOfElement(props.element, ref).size)
+    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.viewEditor, props.setViewEditor)
     return (
         <text
             ref={ref}

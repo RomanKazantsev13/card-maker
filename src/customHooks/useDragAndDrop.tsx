@@ -20,6 +20,7 @@ export function useDragAndDrop(
   let newPos: { x: number; y: number } = position
 
   useEffect(() => {
+    console.log('drag')
     {!isMoving && setPosition(position)}
     if (elementRef.current !== null) {
       elementRef.current.addEventListener("mousedown", MouseDownListener)

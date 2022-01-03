@@ -6,6 +6,7 @@ import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunctio
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 import { isTriangle } from '../../../../model/Canvas/Element/Figure/Triangle/triangle'
 import { isFigure } from '../../../../model/Canvas/Element/Figure/figure'
+import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
 
 interface TrianglePropsType {
     points: {
@@ -15,6 +16,7 @@ interface TrianglePropsType {
     },
     color: string,
     element: Element,
+    selectElement: Element | null,
     viewEditor: { view: boolean, state: string },
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     refEditor: RefObject<HTMLDivElement | null>,
@@ -24,26 +26,10 @@ interface TrianglePropsType {
 }
 
 export function Triangle(props: TrianglePropsType) {
-    // const handleClickOutside = (event: MouseEvent) => {
-    //     if (props.refEditor.current && !props.refEditor.current.contains(event.target as Node)) {
-    //         if (props.viewEditor.state == 'Text Properties') {
-    //             props.setViewEditor({ view: true, state: 'Text' })
-    //         }
-    //         if (props.viewEditor.state == 'Figure Properties') {
-    //             props.setViewEditor({ view: true, state: 'Graphics' })
-    //         }
-    //         dispatch(setSelectElement, null)
-    //     }
-    // }
-    // useEffect(() => {
-    //     document.addEventListener('click', handleClickOutside, true)
-    //     return () => {
-    //         document.removeEventListener('click', handleClickOutside, true)
-    //     }
-    // })
     const [position, setPosition] = useState(props.element.centre)
     const ref: RefObject<SVGPolygonElement> = useRef(null)
     useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
+    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.viewEditor, props.setViewEditor)
 
     return (
         <polygon

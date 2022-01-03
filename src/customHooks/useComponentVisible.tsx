@@ -1,8 +1,5 @@
 import { useState, useEffect, useRef, RefObject, MutableRefObject } from 'react'
 
-
-// check ref
-
 export default function useComponentVisible(initialIsVisible: boolean) {
     const [isComponentVisible, setIsComponentVisible] = useState(initialIsVisible)
     const ref: any = useRef(null)

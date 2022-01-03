@@ -42,6 +42,7 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                     }}
                     color={figure.color}
                     element={element}
+                    selectElement={props.canvas.selectElement}
                     viewEditor={props.stateViewEditor.viewEditor}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     refEditor={props.refEditor}
@@ -58,6 +59,8 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                     color={figure.color}
                     element={element}
                     selectElement={props.canvas.selectElement}
+                    refEditor={props.refEditor}
+                    viewEditor={props.stateViewEditor.viewEditor}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     position={props.positionSelectElement}
                     setPosition={props.setPositionSelectElement}
@@ -71,6 +74,9 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                     radius={{ rx: ellipse.rx, ry: ellipse.ry }}
                     color={figure.color}
                     element={element}
+                    selectElement={props.canvas.selectElement}
+                    refEditor={props.refEditor}
+                    viewEditor={props.stateViewEditor.viewEditor}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     position={props.positionSelectElement}
                     setPosition={props.setPositionSelectElement}
@@ -84,6 +90,9 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                 url={image.url}
                 size={{ width: image.size.width, height: image.size.width }}
                 element={element}
+                selectElement={props.canvas.selectElement}
+                refEditor={props.refEditor}
+                viewEditor={props.stateViewEditor.viewEditor}
                 position={props.positionSelectElement}
                 setPosition={props.setPositionSelectElement}
                 setSize={props.setSize}
@@ -98,6 +107,9 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                 fontSize={text.sizeText}
                 color={text.color}
                 element={element}
+                selectElement={props.canvas.selectElement}
+                refEditor={props.refEditor}
+                viewEditor={props.stateViewEditor.viewEditor}
                 setViewEditor={props.stateViewEditor.setViewEditor}
                 position={props.positionSelectElement}
                 setPosition={props.setPositionSelectElement}
