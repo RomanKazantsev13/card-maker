@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useState } from 'react'
 import styles from './Editor.module.css'
-import { Image } from './Image/Image'
+import { ImageManager } from './Image/ImageManager'
 import { Customize } from './Customize/Customize'
 import { Templates } from './Templates/Templates'
 import { Graphics } from './Graphics/Graphics'
@@ -30,7 +30,7 @@ export function Editor(props: EditorPropsType) {
     const [font, setFont] = useState('Arial')
     const State: JSX.Element | undefined = (() => {
         if (props.stateViewEditor.viewEditor.state == 'Image Manager') {
-            return <Image />
+            return <ImageManager />
         }
         if (props.stateViewEditor.viewEditor.state == 'Customize') {
             return <Customize setViewResize={props.setViewResize} canvas={props.canvas} />

@@ -15,7 +15,7 @@ export function addImage(card: Card, image: { url: string, size: Size }): Card {
                     centre: { x: 50, y: 50 },
                     id: uuid(),
                     object: {
-                        size: { width: image.size.width, height: image.size.height },
+                        size: image.size,
                         url: image.url
                     }
                 }

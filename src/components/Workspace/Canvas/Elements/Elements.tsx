@@ -88,7 +88,7 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
             return <Image
                 key={element.id}
                 url={image.url}
-                size={{ width: image.size.width, height: image.size.width }}
+                size={image.size}
                 element={element}
                 selectElement={props.canvas.selectElement}
                 refEditor={props.refEditor}
