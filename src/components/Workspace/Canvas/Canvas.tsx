@@ -3,7 +3,7 @@ import styles from './Canvas.module.css'
 import { Canvas as CanvasType } from './../../../model/Canvas/canvas'
 import { SelectElement } from './SelectElement/SelectElement'
 import { InputText } from './InputText/InputText'
-import Elements from './Elements'
+import Elements from './Elements/Elements'
 
 interface CanvasPropsType {
     canvas: CanvasType,
@@ -50,13 +50,13 @@ export function Canvas(props: CanvasPropsType) {
                     setPositionSelectElement={setPositionSelectElement}
                     size={size}
                 />}
-                <InputText
+                {/* <InputText
                     value={inputValue}
                     setValue={setInputValue}
                     selectElement={props.canvas.selectElement}
                     view={viewInput}
                     setView={setViewInput}
-                />
+                /> */}
             </svg>
         </div>
     )

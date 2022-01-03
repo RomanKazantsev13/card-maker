@@ -1,9 +1,9 @@
 import React, { RefObject, useRef, useState } from 'react'
-import { Element, setSelectElement } from '../../../model/Canvas/Element/element'
+import { Element, setSelectElement } from '../../../../model/Canvas/Element/element'
 
-import { dispatch } from '../../../editor'
-import { getCentreAndSizeOfElement } from './SelectElement/SelectElementFunction'
-import { useDragAndDrop } from '../../../customHooks/useDragAndDrop'
+import { dispatch } from '../../../../editor'
+import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
+import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 
 interface EllipsePropsType {
     radius: { rx: number, ry: number },

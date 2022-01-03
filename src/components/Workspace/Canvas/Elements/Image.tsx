@@ -1,34 +1,32 @@
 import React, { RefObject, useRef, useState } from 'react'
-import { Element, setSelectElement } from '../../../model/Canvas/Element/element'
-import { Point } from '../../../model/Card/card'
+import { Element, setSelectElement } from '../../../../model/Canvas/Element/element'
 
-import { dispatch } from '../../../editor'
-import { useDragAndDrop } from '../../../customHooks/useDragAndDrop'
-import { getCentreAndSizeOfElement } from './SelectElement/SelectElementFunction'
+import { dispatch } from '../../../../editor'
+import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
+import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
 
-interface RectanglePropsType {
+interface ImagePropsType {
     size: { width: number, height: number },
-    color: string,
+    url: string,
     element: Element,
-    selectElement: Element | null,
-    setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
     position: { x: number, y: number },
     setPosition: (position: {x: number, y: number}) => void,
     setSize: (size: {width: number, height: number}) => void,
+    setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
 }
 
-export function Rectangle(props: RectanglePropsType) {
+export function Image(props: ImagePropsType) {
     const [position, setPosition] = useState(props.element.centre)
-    const ref: RefObject<SVGRectElement> = useRef(null)
+    const ref: RefObject<SVGImageElement> = useRef(null)
     useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
     return (
-        <rect
+        <image
             ref={ref}
+            href={props.url}
             x={position.x}
             y={position.y}
             width={props.size.width}
             height={props.size.height}
-            fill={props.color}
             onClick={() => {
             }}
         />

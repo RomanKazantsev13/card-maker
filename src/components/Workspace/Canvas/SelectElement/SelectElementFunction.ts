@@ -13,7 +13,7 @@ export function getCentreAndSizeOfElement(
     refText: RefObject<SVGRectElement | SVGEllipseElement | SVGPolygonElement | SVGTextElement | SVGImageElement | null> | null
     ) {
     let size: Size = { width: 0, height: 0 }
-    let centre: Point = { x: 100, y: 100 }
+    let centre: Point = { x: 30, y: 350 }
     let type: string = ''
     if (selectElement !== null && isFigure(selectElement.object)) {
         const figure: Figure = selectElement.object

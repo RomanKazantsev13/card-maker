@@ -1,8 +1,8 @@
-import React, { MutableRefObject, useRef, useState } from 'react'
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import styles from './Card.module.css'
 import type { Template } from './../model/Card/Templates/templates'
 import type { Canvas } from './../model/Canvas/canvas'
-import type { Stack } from '../model/Card/History/history'
+import { redo, Stack, undo } from '../model/Card/History/history'
 import { CanvasTools } from './CanvasTools/CanvasTools'
 import { NavigationBar } from './NavigationBar/NavigationBar'
 import { PrimaryPanel } from './PrimaryPanel/PrimaryPanel'
@@ -11,6 +11,7 @@ import { Editor } from './PrimaryPanel/Editor/Editor'
 import { SaveComputer } from './SaveComputer/SaveComputer'
 import { ResizeTemplate } from './ResizeTemplate/ResizeTemplate'
 import { ResetCanvas } from './ResetCanvas/ResetCanvas'
+import { dispatch } from '../editor'
 
 interface CardPropsType {
     card: {
@@ -65,6 +66,18 @@ export function Card(props: CardPropsType) {
             widthButton: '162px',
         })
     };
+
+    const escFunction = (event: KeyboardEvent) => {
+        { event.ctrlKey && event.key === 'z' && (props.card.history.undo.length - 1) && dispatch(undo)}
+        { event.ctrlKey && event.key === 'y' && props.card.history.redo && dispatch(redo)}
+    }
+
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction)
+        return () => {
+            document.removeEventListener("keydown", escFunction)
+        }
+    }, [])
 
     return (
         <div className={styles.card_size}>
