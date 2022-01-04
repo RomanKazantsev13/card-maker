@@ -15,7 +15,7 @@ interface CanvasPropsType {
 }
 
 export function Canvas(props: CanvasPropsType) {
-    const [size, setSize] = useState({width: 0, height: 0})
+    const [size, setSize] = useState({ width: 0, height: 0 })
     const [viewInput, setViewInput] = useState(false)
     const [positionSelectElement, setPositionSelectElement] = useState({ x: 0, y: 0 })
     const [inputValue, setInputValue] = useState('')
@@ -36,7 +36,7 @@ export function Canvas(props: CanvasPropsType) {
                         viewEditor: props.stateViewEditor.viewEditor,
                         setViewEditor: props.stateViewEditor.setViewEditor
                     }}
-                    refEditor={props.refEditor} 
+                    refEditor={props.refEditor}
                     positionSelectElement={positionSelectElement}
                     setPositionSelectElement={setPositionSelectElement}
                     setViewInput={setViewInput}
@@ -50,13 +50,13 @@ export function Canvas(props: CanvasPropsType) {
                     setPositionSelectElement={setPositionSelectElement}
                     size={size}
                 />}
-                {/* <InputText
-                    value={inputValue}
-                    setValue={setInputValue}
+                <InputText
                     selectElement={props.canvas.selectElement}
-                    view={viewInput}
-                    setView={setViewInput}
-                /> */}
+                    positionSelectElement={positionSelectElement}
+                    stateInputValue={{ inputValue, setInputValue }}
+                    stateViewInput={{ viewInput, setViewInput }}
+                    stateSize={{ size, setSize }}
+                />
             </svg>
         </div>
     )

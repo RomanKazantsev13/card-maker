@@ -6,10 +6,19 @@ import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunctio
 
 interface InputTextPropsType {
     selectElement: Element | null,
-    view: boolean,
-    setView: (view: boolean) => void,
-    value: string,
-    setValue: (value: string) => void,
+    positionSelectElement: {x: number, y: number},
+    stateViewInput: {
+        viewInput: boolean,
+        setViewInput: (view: boolean) => void,
+    }
+    stateInputValue: {
+        inputValue: string,
+        setInputValue: (value: string) => void,
+    }
+    stateSize: {
+        size: {width: number, height: number},
+        setSize: (size: {width: number, height: number}) => void,
+    }
 }
 
 export function InputText(props: InputTextPropsType) {
@@ -18,12 +27,12 @@ export function InputText(props: InputTextPropsType) {
         if (props.selectElement !== null && isText(props.selectElement.object)) {
             return props.selectElement.object.str
         }
-        props.setView(false)
+        props.stateViewInput.setViewInput(false)
         return ''
     })()
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-        props.setValue(event.target.value)
+        props.stateInputValue.setInputValue(event.target.value)
     }
 
     const escFunction = (event: KeyboardEvent) => {
@@ -41,21 +50,21 @@ export function InputText(props: InputTextPropsType) {
     const { centre, size, type } = getCentreAndSizeOfElement(props.selectElement, null)
 
     return (
-        <foreignObject x={centre.x - 20} y={centre.y - 20}
+        <foreignObject x={props.positionSelectElement.x - 20} y={props.positionSelectElement.y - 20}
             style={{
-                width: size.width + 40,
-                height: size.height + 40,
-                display: (() => { return props.view ? 'block' : 'none' })()
+                width: props.stateSize.size.width + 40,
+                height: props.stateSize.size.height + 40,
+                display: (() => { return props.stateViewInput.viewInput ? 'block' : 'none' })()
             }}>
             <input
                 ref={ref}
-                value={props.value}
+                value={props.stateInputValue.inputValue}
                 type="text"
-                style={{ width: size.width + 40, height: size.height + 40 }}
+                style={{ width: props.stateSize.size.width + 40, height: props.stateSize.size.height + 40 }}
                 onBlur={() => {
-                    dispatch(changeText, props.value)
+                    dispatch(changeText, props.stateInputValue.inputValue)
                     dispatch(setSelectElement, null)
-                    props.setView(false)
+                    props.stateViewInput.setViewInput(false)
                 }}
                 onChange={handleChange}
             />

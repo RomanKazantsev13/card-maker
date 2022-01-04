@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react'
+import React, { ChangeEvent, RefObject, useRef } from 'react'
 import { dispatch } from '../../../../editor'
 import { addImage } from '../../../../model/Canvas/Element/Image/image'
 import { Size } from '../../../../model/Card/card'
@@ -10,7 +10,7 @@ interface ImageManagerPropsType {
 }
 
 export function ImageManager(props: ImageManagerPropsType) {
-    let size: Size = { width: 0, height: 0 }
+    const ref: RefObject<HTMLInputElement> = useRef(null)
     function createImage(url: string): Promise<HTMLImageElement> {
         return new Promise((resolve, reject) => {
             let img: HTMLImageElement = new Image();
@@ -20,11 +20,8 @@ export function ImageManager(props: ImageManagerPropsType) {
         });
     }
     async function getSize(imgSrc: string) {
-        let img: HTMLImageElement = await createImage(imgSrc);
-        let width: number = img.width;
-        let height: number = img.height;
-        size = { width: width, height: height }
-        return size
+        const image: HTMLImageElement = await createImage(imgSrc);
+        return { width: image.width, height: image.height }
     }
 
     return (
@@ -33,7 +30,7 @@ export function ImageManager(props: ImageManagerPropsType) {
             <label htmlFor="file" className={styles.button}>
                 <div className={styles.text}>Computer</div>
             </label>
-            <input id="file" type="file" className={styles.input} accept="image/png, image/gif, image/jpeg" onChange={
+            <input ref={ref} id="file" type="file" className={styles.input} accept="image/png, image/gif, image/jpeg" onChange={
                 (event: ChangeEvent<HTMLInputElement>) => {
                     if (event.currentTarget.files) {
                         const imgUrl = URL.createObjectURL(event.currentTarget.files[0])
@@ -44,6 +41,7 @@ export function ImageManager(props: ImageManagerPropsType) {
                                 dispatch(addImage, { url: imgUrl, size: size })
                             }
                         })
+                        event.target.value = "";
                     }
                 }} />
             <div className={styles.button}>
