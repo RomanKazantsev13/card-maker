@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useState } from 'react'
 import styles from './Editor.module.css'
-import { ImageManager } from './Image/ImageManager'
+import { ImageManager } from './ImageManager/ImageManager'
 import { Customize } from './Customize/Customize'
 import { Templates } from './Templates/Templates'
 import { Graphics } from './Graphics/Graphics'
@@ -23,6 +23,7 @@ interface EditorPropsType {
     setViewResize: (viewResize: boolean) => void,
     canvas: Canvas,
     refEditor: MutableRefObject<HTMLDivElement | null>,
+    setSizeInsertImage: (insertImage: {image: {size: {width: number, height: number}, url: string}, view: boolean}) => void,
 }
 
 
@@ -30,7 +31,7 @@ export function Editor(props: EditorPropsType) {
     const [font, setFont] = useState('Arial')
     const State: JSX.Element | undefined = (() => {
         if (props.stateViewEditor.viewEditor.state == 'Image Manager') {
-            return <ImageManager />
+            return <ImageManager setSizeInsertImage={props.setSizeInsertImage} canvasSize={props.canvas.size} />
         }
         if (props.stateViewEditor.viewEditor.state == 'Customize') {
             return <Customize setViewResize={props.setViewResize} canvas={props.canvas} />

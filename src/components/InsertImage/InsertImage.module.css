@@ -2,8 +2,8 @@
 {
     position: absolute;
     z-index: 31;
-    width: 400px;
-    height: 200px;
+    width: 450px;
+    height: 225px;
     top: calc(50% - 100px);
     left: calc(50% - 200px);  
     background-color: #2e313f;

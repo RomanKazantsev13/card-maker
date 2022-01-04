@@ -12,6 +12,7 @@ import { SaveComputer } from './SaveComputer/SaveComputer'
 import { ResizeTemplate } from './ResizeTemplate/ResizeTemplate'
 import { ResetCanvas } from './ResetCanvas/ResetCanvas'
 import { dispatch } from '../editor'
+import { InsertImage } from './InsertImage/InsertImage'
 
 interface CardPropsType {
     card: {
@@ -33,6 +34,7 @@ export function Card(props: CardPropsType) {
     const [viewResize, setViewResize] = useState(false)
     const [viewReset, setViewReset] = useState(false)
     const [viewEditor, setViewEditor] = useState({ view: false, state: '' })
+    const [sizeInsertImage, setSizeInsertImage] = useState({image: {size: {width: 0, height: 0}, url: ''}, view: false})
     const [hoverPanel, setHoverPanel] = useState({
         widthPanel: '55px',
         workspaceMarginLeft: '0',
@@ -100,6 +102,7 @@ export function Card(props: CardPropsType) {
                             stateViewEditor={{ viewEditor, setViewEditor }}
                             setViewResize={setViewResize}
                             canvas={props.card.canvas}
+                            setSizeInsertImage={setSizeInsertImage}
                         />
                         <Workspace
                             refEditor={ref}
@@ -111,7 +114,8 @@ export function Card(props: CardPropsType) {
                     <CanvasTools canvas={props.card.canvas} history={props.card.history} setViewReset={setViewReset} />
                 </div>
             </div>
-            {(viewSave || viewResize || viewReset) && <div className={styles.shadow}></div>}
+            {sizeInsertImage.view && <InsertImage stateSizeInsertImage={{sizeInsertImage, setSizeInsertImage}} />}
+            {(viewSave || viewResize || viewReset || sizeInsertImage.view) && <div className={styles.shadow}></div>}
             {viewSave && <SaveComputer setView={setViewSave} size={props.card.canvas.size} />}
             {viewResize && <ResizeTemplate setView={setViewResize} size={props.card.canvas.size} />}
             {viewReset && <ResetCanvas setView={setViewReset} />}

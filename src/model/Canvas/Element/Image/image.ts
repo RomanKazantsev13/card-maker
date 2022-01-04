@@ -12,7 +12,7 @@ export function addImage(card: Card, image: { url: string, size: Size }): Card {
             elements: [
                 ...card.canvas.elements,
                 {
-                    centre: { x: 50, y: 50 },
+                    centre: { x: 0, y: 0 },
                     id: uuid(),
                     object: {
                         size: image.size,
