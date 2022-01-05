@@ -19,6 +19,7 @@ interface CanvasPropsType {
         setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     }
     refEditor: MutableRefObject<HTMLDivElement | null>,
+    refInputText: MutableRefObject<HTMLInputElement | null>,
     setPositionSelectElement: (position: { x: number, y: number }) => void,
     positionSelectElement: { x: number, y: number },
     setInputValue: (value: string) => void,
@@ -46,6 +47,7 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                     viewEditor={props.stateViewEditor.viewEditor}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     refEditor={props.refEditor}
+                    refInputText={props.refInputText}
                     position={props.positionSelectElement}
                     setPosition={props.setPositionSelectElement}
                     setSize={props.setSize}
@@ -60,6 +62,7 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                     element={element}
                     selectElement={props.canvas.selectElement}
                     refEditor={props.refEditor}
+                    refInputText={props.refInputText}
                     viewEditor={props.stateViewEditor.viewEditor}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     position={props.positionSelectElement}
@@ -76,6 +79,7 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                     element={element}
                     selectElement={props.canvas.selectElement}
                     refEditor={props.refEditor}
+                    refInputText={props.refInputText}
                     viewEditor={props.stateViewEditor.viewEditor}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     position={props.positionSelectElement}
@@ -92,6 +96,7 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                 element={element}
                 selectElement={props.canvas.selectElement}
                 refEditor={props.refEditor}
+                refInputText={props.refInputText}
                 viewEditor={props.stateViewEditor.viewEditor}
                 position={props.positionSelectElement}
                 setPosition={props.setPositionSelectElement}
@@ -109,6 +114,7 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                 element={element}
                 selectElement={props.canvas.selectElement}
                 refEditor={props.refEditor}
+                refInputText={props.refInputText}
                 viewEditor={props.stateViewEditor.viewEditor}
                 setViewEditor={props.stateViewEditor.setViewEditor}
                 position={props.positionSelectElement}

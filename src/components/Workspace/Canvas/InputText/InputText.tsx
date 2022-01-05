@@ -2,11 +2,13 @@ import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { dispatch } from '../../../../editor';
 import { Element, setSelectElement } from '../../../../model/Canvas/Element/element';
 import { changeText, isText } from '../../../../model/Canvas/Element/Text/text';
-import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction';
+import styles from './InputText.module.css'
 
 interface InputTextPropsType {
     selectElement: Element | null,
     positionSelectElement: {x: number, y: number},
+    refInputText: MutableRefObject<HTMLInputElement | null>,
+    setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     stateViewInput: {
         viewInput: boolean,
         setViewInput: (view: boolean) => void,
@@ -22,9 +24,8 @@ interface InputTextPropsType {
 }
 
 export function InputText(props: InputTextPropsType) {
-    const ref: MutableRefObject<HTMLInputElement | null> = useRef(null)
     const str: string = (() => {
-        if (props.selectElement !== null && isText(props.selectElement.object)) {
+        if (props.selectElement && isText(props.selectElement.object)) {
             return props.selectElement.object.str
         }
         props.stateViewInput.setViewInput(false)
@@ -36,7 +37,10 @@ export function InputText(props: InputTextPropsType) {
     }
 
     const escFunction = (event: KeyboardEvent) => {
-        { event.keyCode === 13 && ref.current !== null && ref.current.blur() }
+        if (event.keyCode === 13) {
+            {props.refInputText.current && props.refInputText.current.blur() }
+            props.setViewEditor({view: true, state: 'Text'})
+        }
     }
 
     useEffect(() => {
@@ -46,19 +50,16 @@ export function InputText(props: InputTextPropsType) {
         }
     }, [])
 
-    
-    const { centre, size, type } = getCentreAndSizeOfElement(props.selectElement, null)
-
     return (
         <foreignObject x={props.positionSelectElement.x - 20} y={props.positionSelectElement.y - 20}
             style={{
                 width: props.stateSize.size.width + 40,
-                height: props.stateSize.size.height + 40,
-                display: (() => { return props.stateViewInput.viewInput ? 'block' : 'none' })()
+                height: props.stateSize.size.height + 40
             }}>
             <input
-                ref={ref}
+                ref={props.refInputText}
                 value={props.stateInputValue.inputValue}
+                className={styles.input}
                 type="text"
                 style={{ width: props.stateSize.size.width + 40, height: props.stateSize.size.height + 40 }}
                 onBlur={() => {

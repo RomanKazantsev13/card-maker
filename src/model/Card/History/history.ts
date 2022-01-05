@@ -1,7 +1,7 @@
 import type { Canvas } from './../../Canvas/canvas'
 import type { Card } from '../card'
 
-const maxStackValue = 50
+const maxStackValue = 500
 
 function pushStack(stack: Array<Stack>, data: { canvas: Canvas, name: string, image: string }): void {
     if (stack.length > maxStackValue) {

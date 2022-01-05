@@ -28,7 +28,7 @@ interface EditorPropsType {
 
 
 export function Editor(props: EditorPropsType) {
-    const [font, setFont] = useState('Arial')
+    const [font, setFont] = useState('Times New Roman')
     const State: JSX.Element | undefined = (() => {
         if (props.stateViewEditor.viewEditor.state == 'Image Manager') {
             return <ImageManager setSizeInsertImage={props.setSizeInsertImage} canvasSize={props.canvas.size} />

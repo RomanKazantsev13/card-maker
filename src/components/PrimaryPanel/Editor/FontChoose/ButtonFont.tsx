@@ -1,4 +1,6 @@
 import React from 'react'
+import { dispatch } from '../../../../editor'
+import { setFontText } from '../../../../model/Canvas/Element/Text/text'
 import styles from './ButtonFont.module.css'
 
 interface ButtonFontPropsType {
@@ -10,7 +12,10 @@ interface ButtonFontPropsType {
 export function ButtonFont(props: ButtonFontPropsType) {
     const style = () => { return props.font == props.selectFont ? styles.selected : '' }
     return (
-        <div onClick={() => { props.setFont(props.font) }} className={styles.wrap + ' ' + style()} style={{ fontFamily: props.font }}>
+        <div className={styles.wrap + ' ' + style()} style={{ fontFamily: props.font }} onClick={() => { 
+            props.setFont(props.font) 
+            dispatch(setFontText, props.font)
+        }}>
             <div className={styles.text} >{props.font}</div>
         </div>
     )

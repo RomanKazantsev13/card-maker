@@ -29,7 +29,8 @@ interface CardPropsType {
 }
 
 export function Card(props: CardPropsType) {
-    const ref: MutableRefObject<HTMLDivElement | null> = useRef(null)
+    const refEditor: MutableRefObject<HTMLDivElement | null> = useRef(null)
+    const refSvg: MutableRefObject<SVGSVGElement | null> = useRef(null)
     const [viewSave, setViewSave] = useState(false)
     const [viewResize, setViewResize] = useState(false)
     const [viewReset, setViewReset] = useState(false)
@@ -98,14 +99,15 @@ export function Card(props: CardPropsType) {
                 <div className={styles.card__workspace} style={{ width: hoverPanel.widthWorkspace, marginLeft: hoverPanel.workspaceMarginLeft }}>
                     <div className={(() => { return viewEditor.view ? styles.flex : styles.block })()}>
                         <Editor
-                            refEditor={ref}
+                            refEditor={refEditor}
                             stateViewEditor={{ viewEditor, setViewEditor }}
                             setViewResize={setViewResize}
                             canvas={props.card.canvas}
                             setSizeInsertImage={setSizeInsertImage}
                         />
                         <Workspace
-                            refEditor={ref}
+                            refEditor={refEditor}
+                            refSvg={refSvg}
                             stateViewEditor={{ viewEditor, setViewEditor }}
                             width={(() => { return viewEditor.view ? 'calc(100% - 270px)' : '100%' })()}
                             canvas={props.card.canvas}
@@ -116,7 +118,7 @@ export function Card(props: CardPropsType) {
             </div>
             {sizeInsertImage.view && <InsertImage stateSizeInsertImage={{sizeInsertImage, setSizeInsertImage}} />}
             {(viewSave || viewResize || viewReset || sizeInsertImage.view) && <div className={styles.shadow}></div>}
-            {viewSave && <SaveComputer setView={setViewSave} size={props.card.canvas.size} />}
+            {viewSave && <SaveComputer setView={setViewSave} size={props.card.canvas.size} refSvg={refSvg} /> }
             {viewResize && <ResizeTemplate setView={setViewResize} size={props.card.canvas.size} />}
             {viewReset && <ResetCanvas setView={setViewReset} />}
         </div>

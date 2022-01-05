@@ -20,6 +20,7 @@ interface TrianglePropsType {
     viewEditor: { view: boolean, state: string },
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     refEditor: RefObject<HTMLDivElement | null>,
+    refInputText: MutableRefObject<HTMLInputElement | null>,
     position: { x: number, y: number },
     setPosition: (position: { x: number, y: number }) => void,
     setSize: (size: {width: number, height: number}) => void,
@@ -29,7 +30,7 @@ export function Triangle(props: TrianglePropsType) {
     const [position, setPosition] = useState(props.element.centre)
     const ref: RefObject<SVGPolygonElement> = useRef(null)
     useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
-    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.viewEditor, props.setViewEditor)
+    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor)
 
     return (
         <polygon

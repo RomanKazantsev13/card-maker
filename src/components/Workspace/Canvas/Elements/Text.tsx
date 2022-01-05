@@ -14,6 +14,7 @@ interface TextPropsType {
     element: Element,
     selectElement: Element | null,
     refEditor: RefObject <HTMLDivElement | null>,
+    refInputText: MutableRefObject<HTMLInputElement | null>,
     viewEditor: { view: boolean, state: string },
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     position: { x: number, y: number },
@@ -29,7 +30,7 @@ export function Text(props: TextPropsType) {
 
     const [position, setPosition] = useState(centre)
     useDragAndDrop(props.element, ref, centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
-    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.viewEditor, props.setViewEditor)
+    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor)
     return (
         <text
             ref={ref}
@@ -38,6 +39,7 @@ export function Text(props: TextPropsType) {
             style={{ fontFamily: props.fontFamily, fontSize: props.fontSize, fill: props.color }}
             onClick={() => {
                 props.setInputValue(props.string)
+                props.setViewInput(false)
             }}
             onDoubleClick={() => {
                 props.setViewInput(true)

@@ -6,6 +6,7 @@ import { Canvas } from '../Workspace/Canvas/Canvas'
 interface WorkspacePropsType {
     canvas: CanvasType,
     refEditor: MutableRefObject<HTMLDivElement | null>,
+    refSvg: MutableRefObject<SVGSVGElement | null>,
     width: string,
     stateViewEditor: {
         viewEditor: { view: boolean, state: string }
@@ -22,6 +23,7 @@ export function Workspace(props: WorkspacePropsType) {
                     viewEditor: props.stateViewEditor.viewEditor,
                     setViewEditor: props.stateViewEditor.setViewEditor
                 }}
+                refSvg={props.refSvg}
                 refEditor={props.refEditor}
             />
         </div>

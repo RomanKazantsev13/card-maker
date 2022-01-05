@@ -9,6 +9,7 @@ export default function useObjectVisible(
     element: Element,
     selectElement: Element |null,
     refEditor: RefObject<HTMLDivElement | null>,
+    refInputText: MutableRefObject<HTMLInputElement | null>,
     viewEditor: { view: boolean, state: string },
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
 ) {
@@ -17,6 +18,7 @@ export default function useObjectVisible(
         if (
             ref.current && !ref.current.contains(event.target as Node) && 
             refEditor.current && !refEditor.current.contains(event.target as Node) &&
+            refInputText.current && !refInputText.current.contains(event.target as Node) &&
             element === selectElement
         ) {
             

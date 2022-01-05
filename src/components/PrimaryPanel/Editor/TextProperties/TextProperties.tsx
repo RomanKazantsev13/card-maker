@@ -34,7 +34,7 @@ export function TextProperties(props: TextPropertiesPropsType) {
                 </div>
             </div>
             <div className={styles.style_wrap} onClick={() => { props.setViewEditor({ view: true, state: 'FontChoose' }) }}>
-                <div className={styles.font} style={{ fontFamily: props.font }}>{props.font}</div>
+                <div className={styles.font} style={{ fontFamily: props.element.font }}>{props.element.font}</div>
                 <img className={styles.arrow} src="images/arrow_right.png" />
             </div>
             <div className={styles.layout}>
