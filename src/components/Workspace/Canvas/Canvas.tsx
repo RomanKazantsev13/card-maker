@@ -7,17 +7,21 @@ import Elements from './Elements/Elements'
 
 interface CanvasPropsType {
     canvas: CanvasType,
+    stateSizeSelectElement: {
+        sizeSelectElement: {width: number, height: number},
+        setSizeSelectElement: (size: {width: number, height: number}) => void,
+    },
     stateViewEditor: {
         viewEditor: { view: boolean, state: string }
         setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     }
     refSvg: MutableRefObject<SVGSVGElement | null>,
     refEditor: MutableRefObject<HTMLDivElement | null>,
+    setRefText: (refText: MutableRefObject<SVGTextElement | null>) => void,
 }
 
 export function Canvas(props: CanvasPropsType) {
     const refInputText: MutableRefObject<HTMLInputElement | null> = useRef(null)
-    const [size, setSize] = useState({ width: 0, height: 0 })
     const [viewInput, setViewInput] = useState(false)
     const [positionSelectElement, setPositionSelectElement] = useState({ x: 0, y: 0 })
     const [inputValue, setInputValue] = useState('')
@@ -40,10 +44,11 @@ export function Canvas(props: CanvasPropsType) {
                     }}
                     refEditor={props.refEditor}
                     refInputText={refInputText}
+                    setRefText={props.setRefText}
                     positionSelectElement={positionSelectElement}
                     setPositionSelectElement={setPositionSelectElement}
                     setViewInput={setViewInput}
-                    setSize={setSize}
+                    setSize={props.stateSizeSelectElement.setSizeSelectElement}
                 />
                 {props.canvas.selectElement !== null && <SelectElement
                     selectElement={props.canvas.selectElement}
@@ -51,7 +56,7 @@ export function Canvas(props: CanvasPropsType) {
                     setViewInput={setViewInput}
                     positionSelectElement={positionSelectElement}
                     setPositionSelectElement={setPositionSelectElement}
-                    size={size}
+                    size={props.stateSizeSelectElement.sizeSelectElement}
                 />}
                 {viewInput && <InputText
                     selectElement={props.canvas.selectElement}
@@ -60,7 +65,10 @@ export function Canvas(props: CanvasPropsType) {
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     stateInputValue={{ inputValue, setInputValue }}
                     stateViewInput={{ viewInput, setViewInput }}
-                    stateSize={{ size, setSize }}
+                    stateSize={{
+                        size: props.stateSizeSelectElement.sizeSelectElement, 
+                        setSize: props.stateSizeSelectElement.setSizeSelectElement
+                    }}
                 />}
             </svg>
         </div>

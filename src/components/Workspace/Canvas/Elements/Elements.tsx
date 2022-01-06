@@ -25,6 +25,7 @@ interface CanvasPropsType {
     setInputValue: (value: string) => void,
     setViewInput: (view: boolean) => void,
     setSize: (size: {width: number, height: number}) => void,
+    setRefText: (refText: MutableRefObject<SVGTextElement | null>) => void,
 }
 
 export default function Elements(props: CanvasPropsType): JSX.Element {
@@ -115,6 +116,7 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                 selectElement={props.canvas.selectElement}
                 refEditor={props.refEditor}
                 refInputText={props.refInputText}
+                setRefText={props.setRefText}
                 viewEditor={props.stateViewEditor.viewEditor}
                 setViewEditor={props.stateViewEditor.setViewEditor}
                 position={props.positionSelectElement}

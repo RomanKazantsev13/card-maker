@@ -36,19 +36,19 @@ export function InputText(props: InputTextPropsType) {
         props.stateInputValue.setInputValue(event.target.value)
     }
 
-    const escFunction = (event: KeyboardEvent) => {
-        if (event.keyCode === 13) {
-            {props.refInputText.current && props.refInputText.current.blur() }
-            props.setViewEditor({view: true, state: 'Text'})
-        }
-    }
+    // const escFunction = (event: KeyboardEvent) => {
+    //     if (event.keyCode === 13) {
+    //         {props.refInputText.current && props.refInputText.current.blur() }
+    //         props.setViewEditor({view: true, state: 'Text'})
+    //     }
+    // }
 
-    useEffect(() => {
-        document.addEventListener("keydown", escFunction)
-        return () => {
-            document.removeEventListener("keydown", escFunction)
-        }
-    }, [])
+    // useEffect(() => {
+    //     document.addEventListener("keydown", escFunction)
+    //     return () => {
+    //         document.removeEventListener("keydown", escFunction)
+    //     }
+    // }, [])
 
     return (
         <foreignObject x={props.positionSelectElement.x - 20} y={props.positionSelectElement.y - 20}
@@ -66,6 +66,7 @@ export function InputText(props: InputTextPropsType) {
                     dispatch(changeText, props.stateInputValue.inputValue)
                     dispatch(setSelectElement, null)
                     props.stateViewInput.setViewInput(false)
+                    props.setViewEditor({view: true, state: 'Text'})
                 }}
                 onChange={handleChange}
             />

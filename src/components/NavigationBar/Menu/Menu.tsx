@@ -1,16 +1,16 @@
 import React from 'react'
 import useComponentVisible from '../../../customHooks/useComponentVisible'
-import styles from './Button.module.css'
-import { ButtonList } from './ButtonList'
+import styles from './Menu.module.css'
+import { Popup } from './Popup'
 
-interface ButtonPropsType {
+interface MenuPropsType {
     name: string,
     children: React.ReactNode,
     functional: string,
     height: string,
 }
 
-export function Button(props: ButtonPropsType) {
+export function Menu(props: MenuPropsType) {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
 
     return (
@@ -20,9 +20,9 @@ export function Button(props: ButtonPropsType) {
                 <img className={styles.image} src="images/arrow_down.png" />
             </div>
             <div>
-                <ButtonList click={isComponentVisible} functional={props.functional} height={props.height}>
+                <Popup click={isComponentVisible} functional={props.functional} height={props.height}>
                     {props.children}
-                </ButtonList>
+                </Popup>
             </div>
         </div>
     )

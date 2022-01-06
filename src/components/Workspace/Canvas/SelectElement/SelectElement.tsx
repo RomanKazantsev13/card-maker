@@ -22,36 +22,36 @@ export function SelectElement(props: SelectElementPropsType) {
             <foreignObject x={props.positionSelectElement.x - 2 - 7.5} y={props.positionSelectElement.y - 2 - 7.5} width={1} height={props.size.height + 20}>
                 <div className={styles.border} style={{ width: 1, height: props.size.height + 20 }}></div>
             </foreignObject>
-            <foreignObject x={props.positionSelectElement.x + props.size.width + 7.5} y={props.positionSelectElement.y - 2 - 7.5} width={1} height={props.size.height + 20}>
+            <foreignObject x={props.positionSelectElement.x + props.size.width + 9.5} y={props.positionSelectElement.y - 2 - 7.5} width={1} height={props.size.height + 20}>
                 <div className={styles.border} style={{ width: 1, height: props.size.height + 20 }}></div>
             </foreignObject>
-            <foreignObject x={props.positionSelectElement.x - 2 - 7.5} y={props.positionSelectElement.y + props.size.height + 7.5} width={props.size.width + 20} height={1}>
+            <foreignObject x={props.positionSelectElement.x - 2 - 7.5} y={props.positionSelectElement.y + props.size.height + 9.5} width={props.size.width + 20} height={1}>
                 <div className={styles.border} style={{ width: props.size.width + 20, height: 1 }}></div>
             </foreignObject>
-            <foreignObject x={props.positionSelectElement.x - 15} y={props.positionSelectElement.y - 15} width={13} height={13}>
+            {(props.selectElement && !isText(props.selectElement.object)) && <foreignObject x={props.positionSelectElement.x - 15} y={props.positionSelectElement.y - 15} width={13} height={13}>
                 <div className={styles.point + ' ' + styles.pointTopLeft}></div>
-            </foreignObject>
-            <foreignObject x={props.positionSelectElement.x - 15} y={props.positionSelectElement.y + props.size.height + 3} width={13} height={13}>
+            </foreignObject>}
+            {(props.selectElement && !isText(props.selectElement.object)) && <foreignObject x={props.positionSelectElement.x - 15} y={props.positionSelectElement.y + props.size.height + 3} width={13} height={13}>
                 <div className={styles.point + ' ' + styles.pointBottomLeft}></div>
-            </foreignObject>
-            <foreignObject x={props.positionSelectElement.x + props.size.width + 3} y={props.positionSelectElement.y + props.size.height + 3} width={13} height={13}>
+            </foreignObject>}
+            {(props.selectElement && !isText(props.selectElement.object)) && <foreignObject x={props.positionSelectElement.x + props.size.width + 3} y={props.positionSelectElement.y + props.size.height + 3} width={13} height={13}>
                 <div className={styles.point + ' ' + styles.pointBottomRight}></div>
-            </foreignObject>
-            <foreignObject x={props.positionSelectElement.x + props.size.width + 3} y={props.positionSelectElement.y - 15} width={13} height={13}>
+            </foreignObject>}
+            {(props.selectElement && !isText(props.selectElement.object)) && <foreignObject x={props.positionSelectElement.x + props.size.width + 3} y={props.positionSelectElement.y - 15} width={13} height={13}>
                 <div className={styles.point + ' ' + styles.pointTopRight}></div>
-            </foreignObject>
-            <foreignObject x={props.positionSelectElement.x + props.size.width / 2 + 11.5 - 20} y={props.positionSelectElement.y - 12} width={20} height={6}>
+            </foreignObject>}
+            {(props.selectElement && !isText(props.selectElement.object)) && <foreignObject x={props.positionSelectElement.x + props.size.width / 2 + 11.5 - 20} y={props.positionSelectElement.y - 12} width={20} height={6}>
                 <div className={styles.block + ' ' + styles.blockTop}></div>
-            </foreignObject>
-            <foreignObject x={props.positionSelectElement.x + props.size.width + 6} y={props.positionSelectElement.y + props.size.height / 2 + 11.5 - 20} width={6} height={20}>
+            </foreignObject>}
+            {(props.selectElement && !isText(props.selectElement.object)) && <foreignObject x={props.positionSelectElement.x + props.size.width + 6} y={props.positionSelectElement.y + props.size.height / 2 + 11.5 - 20} width={6} height={20}>
                 <div className={styles.block + ' ' + styles.blockRight}></div>
-            </foreignObject>
-            <foreignObject x={props.positionSelectElement.x - 12} y={props.positionSelectElement.y + props.size.height / 2 + 11.5 - 20} width={6} height={20}>
+            </foreignObject>}
+            {(props.selectElement && !isText(props.selectElement.object)) && <foreignObject x={props.positionSelectElement.x - 12} y={props.positionSelectElement.y + props.size.height / 2 + 11.5 - 20} width={6} height={20}>
                 <div className={styles.block + ' ' + styles.blockLeft}></div>
-            </foreignObject>
-            <foreignObject x={props.positionSelectElement.x + props.size.width / 2 + 11.5 - 20} y={props.positionSelectElement.y + props.size.height + 6} width={20} height={6}>
+            </foreignObject>}
+            {(props.selectElement && !isText(props.selectElement.object)) && <foreignObject x={props.positionSelectElement.x + props.size.width / 2 + 11.5 - 20} y={props.positionSelectElement.y + props.size.height + 6} width={20} height={6}>
                 <div className={styles.block + ' ' + styles.blockBottom}></div>
-            </foreignObject>
+            </foreignObject>}
         </>
     )
 }

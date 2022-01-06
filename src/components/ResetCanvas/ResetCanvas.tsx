@@ -6,6 +6,7 @@ import styles from './ResetCanvas.module.css'
 
 interface ResetCanvasPropsType {
     setView: (view: boolean) => void,
+    setViewEditor: (viewEditor: { view: boolean, state: string }) => void
 }
 
 export function ResetCanvas(props: ResetCanvasPropsType) {
@@ -37,6 +38,7 @@ export function ResetCanvas(props: ResetCanvasPropsType) {
                     <Button content={"Yes"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => {
                         dispatch(resetCanvas, [])
                         props.setView(false)
+                        props.setViewEditor({view: true, state: 'Customize'})
                     }} />
                 </div>
             </div>

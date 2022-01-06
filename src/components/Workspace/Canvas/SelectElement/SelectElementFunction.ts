@@ -62,7 +62,6 @@ export function getCentreAndSizeOfElement(
             y: selectElement.centre.y
         }
     } else if (selectElement !== null && isText(selectElement.object)) {
-        const text: Text = selectElement.object
         type = 'Text'
         const element: SVGRectElement | SVGEllipseElement | SVGPolygonElement | SVGTextElement | SVGImageElement | null = (() => {
             return refText !== null ? refText.current : null

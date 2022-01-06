@@ -24,6 +24,8 @@ interface EditorPropsType {
     canvas: Canvas,
     refEditor: MutableRefObject<HTMLDivElement | null>,
     setSizeInsertImage: (insertImage: {image: {size: {width: number, height: number}, url: string}, view: boolean}) => void,
+    setSizeSelectElement: (size: {width: number, height: number}) => void,
+    refText: MutableRefObject<SVGTextElement | null>,
 }
 
 
@@ -57,12 +59,21 @@ export function Editor(props: EditorPropsType) {
                     font={font}
                     element={props.canvas.selectElement.object}
                     selectElement={props.canvas.selectElement}
+                    setSizeSelectElement={props.setSizeSelectElement}
+                    refText={props.refText}
                 />
             }
         }
         if (props.stateViewEditor.viewEditor.state == 'FontChoose') {
             if (props.canvas.selectElement !== null && isText(props.canvas.selectElement.object)) {
-                return <FontChoose setViewEditor={props.stateViewEditor.setViewEditor} font={props.canvas.selectElement.object.font} setFont={setFont} />
+                return <FontChoose 
+                    selectElement={props.canvas.selectElement}
+                    setViewEditor={props.stateViewEditor.setViewEditor} 
+                    font={props.canvas.selectElement.object.font} 
+                    setFont={setFont} 
+                    setSizeSelectElement={props.setSizeSelectElement}
+                    refText={props.refText}
+                />
             }
         }
     })()

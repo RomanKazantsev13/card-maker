@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Canvas } from '../../model/Canvas/canvas'
-import { Button } from './Button/Button'
+import { Menu } from './Menu/Menu'
 import { Logo } from './Logo/Logo'
 import styles from './NavigationBar.module.css'
 
@@ -29,9 +29,9 @@ export function NavigationBar(props: NavigationBarPropsType) {
         <div className={styles.navbar}>
             <Logo />
             <div className={styles.button__layout}>
-                <Button name={'Open'} functional={'New Design'} height={'102px'}>
+                <Menu name={'Open'} functional={'New Design'} height={'102px'}>
                     <div className={styles.list_element} onClick={() => { props.setViewReset(true) }}>
-                        <img className={styles.list_image} src="images/blankCanvas.png" />
+                        <img className={styles.list_image} src="images/blank_canvas.png" />
                         <div className={styles.list_text}>Blank Canvas</div>
                     </div>
                     <div className={styles.list_element} onClick={() => {
@@ -48,13 +48,13 @@ export function NavigationBar(props: NavigationBarPropsType) {
                         <img className={styles.list_image} src="images/template__hover.png" />
                         <div className={styles.list_text}>Template</div>
                     </div>
-                </Button>
-                <Button name={'Save'} functional={'Save as Image'} height={'69px'}>
+                </Menu>
+                <Menu name={'Save'} functional={'Save as Image'} height={'69px'}>
                     <div className={styles.list_element} onClick={() => { props.setViewSave(true) }} >
                         <img className={styles.list_image} src="images/computer.png" />
                         <div className={styles.list_text}>Computer</div>
                     </div>
-                </Button>
+                </Menu>
             </div>
         </div>
     )

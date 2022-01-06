@@ -22,6 +22,7 @@ interface TextPropsType {
     setInputValue: (value: string) => void,
     setViewInput: (view: boolean) => void,
     setSize: (size: {width: number, height: number}) => void,
+    setRefText: (refText: MutableRefObject<SVGTextElement | null>) => void,
 }
 
 export function Text(props: TextPropsType) {
@@ -38,6 +39,7 @@ export function Text(props: TextPropsType) {
             y={position.y}
             style={{ fontFamily: props.fontFamily, fontSize: props.fontSize, fill: props.color }}
             onClick={() => {
+                props.setRefText(ref)
                 props.setInputValue(props.string)
                 props.setViewInput(false)
             }}

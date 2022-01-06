@@ -1,14 +1,14 @@
 import React from 'react'
-import styles from './ButtonList.module.css'
+import styles from './Popup.module.css'
 
-interface ButtonListPropsType { 
+interface PopupPropsType { 
     click: boolean,
     children: React.ReactNode,
     functional: string,
     height: string 
 }
 
-export function ButtonList(props: ButtonListPropsType) {
+export function Popup(props: PopupPropsType) {
     const listStyle = () => {
         if (props.click) {
             return {

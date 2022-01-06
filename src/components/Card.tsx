@@ -31,11 +31,15 @@ interface CardPropsType {
 export function Card(props: CardPropsType) {
     const refEditor: MutableRefObject<HTMLDivElement | null> = useRef(null)
     const refSvg: MutableRefObject<SVGSVGElement | null> = useRef(null)
+    const refTextInit: MutableRefObject<SVGTextElement | null> = useRef(null)
+    const [refText, setRefText] = useState(refTextInit)
     const [viewSave, setViewSave] = useState(false)
     const [viewResize, setViewResize] = useState(false)
     const [viewReset, setViewReset] = useState(false)
     const [viewEditor, setViewEditor] = useState({ view: false, state: '' })
+
     const [sizeInsertImage, setSizeInsertImage] = useState({image: {size: {width: 0, height: 0}, url: ''}, view: false})
+    const [sizeSelectElement, setSizeSelectElement] = useState({ width: 0, height: 0 })
     const [hoverPanel, setHoverPanel] = useState({
         widthPanel: '55px',
         workspaceMarginLeft: '0',
@@ -104,23 +108,27 @@ export function Card(props: CardPropsType) {
                             setViewResize={setViewResize}
                             canvas={props.card.canvas}
                             setSizeInsertImage={setSizeInsertImage}
+                            setSizeSelectElement={setSizeSelectElement}
+                            refText={refText}
                         />
                         <Workspace
                             refEditor={refEditor}
                             refSvg={refSvg}
+                            setRefText={setRefText}
                             stateViewEditor={{ viewEditor, setViewEditor }}
                             width={(() => { return viewEditor.view ? 'calc(100% - 270px)' : '100%' })()}
                             canvas={props.card.canvas}
+                            stateSizeSelectElement={{sizeSelectElement, setSizeSelectElement}}
                         />
                     </div>
                     <CanvasTools canvas={props.card.canvas} history={props.card.history} setViewReset={setViewReset} />
                 </div>
             </div>
-            {sizeInsertImage.view && <InsertImage stateSizeInsertImage={{sizeInsertImage, setSizeInsertImage}} />}
             {(viewSave || viewResize || viewReset || sizeInsertImage.view) && <div className={styles.shadow}></div>}
             {viewSave && <SaveComputer setView={setViewSave} size={props.card.canvas.size} refSvg={refSvg} /> }
             {viewResize && <ResizeTemplate setView={setViewResize} size={props.card.canvas.size} />}
-            {viewReset && <ResetCanvas setView={setViewReset} />}
+            {viewReset && <ResetCanvas setView={setViewReset} setViewEditor={setViewEditor} />}
+            {sizeInsertImage.view && <InsertImage stateSizeInsertImage={{sizeInsertImage, setSizeInsertImage}} />}
         </div>
     )
 }

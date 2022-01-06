@@ -14,7 +14,6 @@ export default function useObjectVisible(
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
 ) {
     const handleClickOutside = (event: MouseEvent) => {
-        console.log('click')
         if (
             ref.current && !ref.current.contains(event.target as Node) && 
             refEditor.current && !refEditor.current.contains(event.target as Node) &&

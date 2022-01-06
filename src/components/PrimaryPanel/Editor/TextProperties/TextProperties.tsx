@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { MutableRefObject, useState } from 'react'
 import useComponentVisible from '../../../../customHooks/useComponentVisible'
 import { dispatch } from '../../../../editor'
 import { deleteSelectElement, Element } from '../../../../model/Canvas/Element/element'
@@ -6,6 +6,7 @@ import { isText, resizeText, setColorText, setFontText, setSizeText, Text } from
 import { Point } from '../../../../model/Card/card'
 import { ColorPicker } from '../../../ColorPicker/ColorPicker'
 import { SelectElement } from '../../../Workspace/Canvas/SelectElement/SelectElement'
+import { getCentreAndSizeOfElement } from '../../../Workspace/Canvas/SelectElement/SelectElementFunction'
 import styles from './TextProperties.module.css'
 
 interface TextPropertiesPropsType {
@@ -13,6 +14,8 @@ interface TextPropertiesPropsType {
     font: string,
     element: Text,
     selectElement: Element,
+    setSizeSelectElement: (size: {width: number, height: number}) => void,
+    refText: MutableRefObject<SVGTextElement | null>,
 }
 
 export function TextProperties(props: TextPropertiesPropsType) {
@@ -22,6 +25,7 @@ export function TextProperties(props: TextPropertiesPropsType) {
     function handleChangeFontSize(event: React.ChangeEvent<HTMLInputElement>) {
         if (digits.includes(event.target.value.slice(-1))) {
             dispatch(setSizeText, Number(event.target.value))
+            props.setSizeSelectElement(getCentreAndSizeOfElement(props.selectElement, props.refText).size)
         }
     }
 
