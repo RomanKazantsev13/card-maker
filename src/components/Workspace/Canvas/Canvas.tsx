@@ -29,12 +29,11 @@ export function Canvas(props: CanvasPropsType) {
         <div style={{
             width: props.canvas.size.width,
             height: props.canvas.size.height,
-            background: props.canvas.background,
             zoom: 0.8
         }}
             className={styles.canvas}   
         >
-            <svg style={{ width: props.canvas.size.width, height: props.canvas.size.height }} ref={props.refSvg}>
+            <svg style={{ width: props.canvas.size.width, height: props.canvas.size.height, background: props.canvas.background }} ref={props.refSvg}>
                 <Elements
                     setInputValue={setInputValue}
                     canvas={props.canvas}
@@ -47,7 +46,7 @@ export function Canvas(props: CanvasPropsType) {
                     setRefText={props.setRefText}
                     positionSelectElement={positionSelectElement}
                     setPositionSelectElement={setPositionSelectElement}
-                    setViewInput={setViewInput}
+                    stateViewInput={{ viewInput, setViewInput }}
                     setSize={props.stateSizeSelectElement.setSizeSelectElement}
                 />
                 {props.canvas.selectElement !== null && <SelectElement

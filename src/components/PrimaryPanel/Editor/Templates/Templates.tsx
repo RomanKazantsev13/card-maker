@@ -5,6 +5,10 @@ export function Templates() {
     return (
         <div>
             <div className={styles.header}>Templates</div>
+            
+            <div className={styles.button}>
+                <div className={styles.text}>Collection of Templates</div>
+            </div>
         </div>
     )
 }

@@ -12,11 +12,11 @@ interface InputTextPropsType {
     stateViewInput: {
         viewInput: boolean,
         setViewInput: (view: boolean) => void,
-    }
+    },
     stateInputValue: {
         inputValue: string,
         setInputValue: (value: string) => void,
-    }
+    },
     stateSize: {
         size: {width: number, height: number},
         setSize: (size: {width: number, height: number}) => void,

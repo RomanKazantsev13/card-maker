@@ -24,7 +24,7 @@ export function Ellipse(props: EllipsePropsType) {
     const [position, setPosition] = useState(props.element.centre)
     const ref: RefObject<SVGEllipseElement> = useRef(null)
     useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
-    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor)
+    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor, false)
     return (
         <ellipse
             ref={ref}

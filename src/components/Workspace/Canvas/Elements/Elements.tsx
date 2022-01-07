@@ -22,8 +22,11 @@ interface CanvasPropsType {
     refInputText: MutableRefObject<HTMLInputElement | null>,
     setPositionSelectElement: (position: { x: number, y: number }) => void,
     positionSelectElement: { x: number, y: number },
+    stateViewInput: {
+        viewInput: boolean,
+        setViewInput: (view: boolean) => void,
+    },
     setInputValue: (value: string) => void,
-    setViewInput: (view: boolean) => void,
     setSize: (size: {width: number, height: number}) => void,
     setRefText: (refText: MutableRefObject<SVGTextElement | null>) => void,
 }
@@ -122,7 +125,7 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                 position={props.positionSelectElement}
                 setPosition={props.setPositionSelectElement}
                 setInputValue={props.setInputValue}
-                setViewInput={props.setViewInput}
+                stateViewInput={props.stateViewInput}
                 setSize={props.setSize}
             />
         }

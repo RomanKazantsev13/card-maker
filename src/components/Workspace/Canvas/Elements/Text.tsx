@@ -20,7 +20,10 @@ interface TextPropsType {
     position: { x: number, y: number },
     setPosition: (position: {x: number, y: number}) => void,
     setInputValue: (value: string) => void,
-    setViewInput: (view: boolean) => void,
+    stateViewInput: {
+        viewInput: boolean,
+        setViewInput: (view: boolean) => void,
+    },
     setSize: (size: {width: number, height: number}) => void,
     setRefText: (refText: MutableRefObject<SVGTextElement | null>) => void,
 }
@@ -31,7 +34,7 @@ export function Text(props: TextPropsType) {
 
     const [position, setPosition] = useState(centre)
     useDragAndDrop(props.element, ref, centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
-    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor)
+    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor, props.stateViewInput.viewInput)
     return (
         <text
             ref={ref}
@@ -41,10 +44,10 @@ export function Text(props: TextPropsType) {
             onClick={() => {
                 props.setRefText(ref)
                 props.setInputValue(props.string)
-                props.setViewInput(false)
+                props.stateViewInput.setViewInput(false)
             }}
             onDoubleClick={() => {
-                props.setViewInput(true)
+                props.stateViewInput.setViewInput(true)
             }}
         >
             {props.string}

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, RefObject, MutableRefObject } from 'react'
 import { dispatch } from '../editor'
 import { Element, setSelectElement } from '../model/Canvas/Element/element'
+import { isText } from '../model/Canvas/Element/Text/text'
 
 
 
@@ -12,12 +13,12 @@ export default function useObjectVisible(
     refInputText: MutableRefObject<HTMLInputElement | null>,
     viewEditor: { view: boolean, state: string },
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
+    viewInput: boolean,
 ) {
     const handleClickOutside = (event: MouseEvent) => {
         if (
             ref.current && !ref.current.contains(event.target as Node) && 
             refEditor.current && !refEditor.current.contains(event.target as Node) &&
-            refInputText.current && !refInputText.current.contains(event.target as Node) &&
             element === selectElement
         ) {
             
@@ -27,7 +28,17 @@ export default function useObjectVisible(
             if (viewEditor.state == 'Figure Properties') {
                 setViewEditor({ view: true, state: 'Graphics' })
             }
-            dispatch(setSelectElement, null)
+            if (!isText(selectElement.object)) {
+                dispatch(setSelectElement, null)
+            } else {
+                if (viewInput) {
+                    if (refInputText.current && !refInputText.current.contains(event.target as Node)) {
+                        dispatch(setSelectElement, null)
+                    }
+                } else {
+                    dispatch(setSelectElement, null)
+                }
+            }
         }
     }
     useEffect(() => {

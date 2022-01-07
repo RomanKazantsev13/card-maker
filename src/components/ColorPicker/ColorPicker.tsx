@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ChromePicker, ColorResult } from 'react-color'
 import { dispatch } from '../../editor'
 import { Card } from '../../model/Card/card'
@@ -10,6 +10,7 @@ interface ColorPickerPropstype {
 }
 
 export function ColorPicker(props: ColorPickerPropstype) {
+    const [color, setColor] = useState('#FFF')
     const chromePickerStyles = {
         default: {
             picker: { 
@@ -26,8 +27,9 @@ export function ColorPicker(props: ColorPickerPropstype) {
             <div className={styles.header}>Picker</div>
             <ChromePicker
                 color={props.color}
-                onChange={(newColor: ColorResult) => {
-                    dispatch(props.function, newColor.hex)
+                onChange={(newColor: ColorResult, event: React.ChangeEvent<HTMLInputElement>) => {
+                    setColor(newColor.hex)
+                    event.target.onblur(event.target)
                 }}
                 styles={chromePickerStyles}
             />

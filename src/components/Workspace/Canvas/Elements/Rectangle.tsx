@@ -25,7 +25,7 @@ export function Rectangle(props: RectanglePropsType) {
     const [position, setPosition] = useState(props.element.centre)
     const ref: RefObject<SVGRectElement> = useRef(null)
     useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
-    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor)
+    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor, false)
     return (
         <rect
             ref={ref}

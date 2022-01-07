@@ -1,5 +1,7 @@
 import React, { createRef, LabelHTMLAttributes, MutableRefObject, RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { InputType } from 'zlib'
+import { dispatch } from '../../editor'
+import { setSelectElement } from '../../model/Canvas/Element/element'
 import { Button } from './Button'
 import styles from './SaveComputer.module.css'
 
@@ -15,7 +17,6 @@ interface SaveComputerPropsType {
 export function SaveComputer(props: SaveComputerPropsType) {
     const refCanvas: RefObject<HTMLCanvasElement> = createRef()
     const refButton: RefObject<HTMLAnchorElement> = createRef()
-    const refImage: RefObject<HTMLImageElement> = createRef()
     const [format, setFormat] = useState('JPG')
 
     const isJpg = () => {
@@ -59,12 +60,12 @@ export function SaveComputer(props: SaveComputerPropsType) {
                 <div className={styles.button_layout}>
                     <Button content={"Cancel"} background={["#353948", "#484d61"]} color={"#f1f1f1"} onclick={props.setView} />
                     <Button content={"Save"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => {
-                        
+                        dispatch(setSelectElement, null)
                         var btn = refButton.current;
                         var svg = props.refSvg.current;
                         var canvas = refCanvas.current;
                         
-                        function triggerDownload (imgURI: string) {
+                        function triggerDownload(imgURI: string) {
                           var evt = new MouseEvent('click', {
                             view: window,
                             bubbles: false,
@@ -89,21 +90,22 @@ export function SaveComputer(props: SaveComputerPropsType) {
                                         var DOMURL = window.URL || window.webkitURL || window;
                               
                                         var img = new Image();
+                                        img.crossOrigin = "anonymous"
                                         var svgBlob = new Blob([data], {type: 'image/svg+xml;charset=utf-8'});
                                         var url = DOMURL.createObjectURL(svgBlob);
                               
                                         img.onload = function () {
                                             if (ctx !== null) {
                                                 ctx.drawImage(img, 0, 0);
-                                            DOMURL.revokeObjectURL(url);
+                                                DOMURL.revokeObjectURL(url);
                               
-                                            if (canvas !== null) {
-                                                var imgURI = canvas
-                                                .toDataURL('image/png')
-                                                .replace('image/png', 'image/octet-stream');
+                                                if (canvas !== null) {
+                                                    var imgURI = canvas
+                                                                    .toDataURL('image/png')
+                                                                    .replace('image/png', 'image/octet-stream');
                               
-                                                triggerDownload(imgURI);
-                                            }
+                                                    triggerDownload(imgURI);
+                                                }
                                             }
                                         }
                                         img.src = url;
@@ -111,11 +113,11 @@ export function SaveComputer(props: SaveComputerPropsType) {
                                 }
                             });
                         }
+                        {refButton.current && refButton.current.click()}
                 }} />
                 </div>
             </div>
-            <canvas ref={refCanvas} width={props.size.width} height={props.size.height}></canvas>
-            <img ref={refImage} />
+            <canvas ref={refCanvas} width={props.size.width} height={props.size.height} style={{display: 'none'}}></canvas>
         </div>
     )
 }
