@@ -50,7 +50,7 @@ export function resizeImage(card: Card, newSize: Size): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: getSelectElement(card)
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Resize Image', 'images/image.png')

@@ -61,7 +61,7 @@ export function setWidthRectangle(card: Card, mousePoint: Point): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: getSelectElement(card)
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Resize Graphic', 'images/square.png')
@@ -97,7 +97,7 @@ export function setHeightRectangle(card: Card, mousePoint: Point): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: getSelectElement(card)
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Resize Graphic', 'images/square.png')

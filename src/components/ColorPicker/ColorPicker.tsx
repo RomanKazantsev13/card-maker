@@ -28,8 +28,7 @@ export function ColorPicker(props: ColorPickerPropstype) {
             <ChromePicker
                 color={props.color}
                 onChange={(newColor: ColorResult, event: React.ChangeEvent<HTMLInputElement>) => {
-                    setColor(newColor.hex)
-                    event.target.onblur(event.target)
+                    dispatch(props.function, newColor.hex)
                 }}
                 styles={chromePickerStyles}
             />

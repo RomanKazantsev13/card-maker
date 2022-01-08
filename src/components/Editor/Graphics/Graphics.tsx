@@ -1,8 +1,8 @@
 import React from 'react'
-import { dispatch } from '../../../../editor'
-import { addEllipse } from '../../../../model/Canvas/Element/Figure/Ellipse/ellipse'
-import { addRectangle } from '../../../../model/Canvas/Element/Figure/Rectangle/rectangle'
-import { addTriangle } from '../../../../model/Canvas/Element/Figure/Triangle/triangle'
+import { dispatch } from '../../../editor'
+import { addEllipse } from '../../../model/Canvas/Element/Figure/Ellipse/ellipse'
+import { addRectangle } from '../../../model/Canvas/Element/Figure/Rectangle/rectangle'
+import { addTriangle } from '../../../model/Canvas/Element/Figure/Triangle/triangle'
 import styles from './Graphics.module.css'
 
 interface GraphicsPropsType {

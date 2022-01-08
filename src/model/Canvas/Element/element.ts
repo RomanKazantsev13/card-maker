@@ -6,18 +6,16 @@ import { madeChange } from '../../Card/History/history'
 
 export function setCentre(card: Card, position: Point): Card {
     const selectElement = getSelectElement(card)
-    let newElement = selectElement
     const changeCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
                 if (element == selectElement) {
-                    newElement = {
+                    return {
                         ...element,
                         centre: position
                     }
-                    return newElement
                 }
                 return element
             })
@@ -27,7 +25,7 @@ export function setCentre(card: Card, position: Point): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: newElement
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Change Position', 'images/move.png')

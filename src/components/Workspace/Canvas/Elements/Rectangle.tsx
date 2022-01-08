@@ -6,6 +6,8 @@ import { dispatch } from '../../../../editor'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
 import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
+import { pointsSelectElement } from './Elements'
+import { useResizeObject } from '../../../../customHooks/useResizeObject'
 
 interface RectanglePropsType {
     size: { width: number, height: number },
@@ -16,23 +18,28 @@ interface RectanglePropsType {
     refInputText: MutableRefObject<HTMLInputElement | null>,
     viewEditor: { view: boolean, state: string },
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
-    position: { x: number, y: number },
-    setPosition: (position: {x: number, y: number}) => void,
+    statePointsSelectElement: {
+        positionPoints: pointsSelectElement,
+        setPositionPoints: (points: pointsSelectElement) => void,
+    }
     setSize: (size: {width: number, height: number}) => void,
+    pointTopLeftRef: any
 }
 
 export function Rectangle(props: RectanglePropsType) {
     const [position, setPosition] = useState(props.element.centre)
+    const [size, setSize] = useState(props.size)
     const ref: RefObject<SVGRectElement> = useRef(null)
-    useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
-    useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor, false)
+    useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.setViewEditor, props.setSize)
+    useResizeObject(props.pointTopLeftRef, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.setSize)
+    useResizeObject
     return (
         <rect
             ref={ref}
             x={position.x}
             y={position.y}
-            width={props.size.width}
-            height={props.size.height}
+            width={size.width}
+            height={size.height}
             fill={props.color}
             onClick={() => {
             }}

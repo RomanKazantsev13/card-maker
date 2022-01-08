@@ -5,6 +5,7 @@ import { dispatch } from '../../../../editor'
 import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
+import { pointsSelectElement } from './Elements'
 
 interface EllipsePropsType {
     radius: { rx: number, ry: number },
@@ -15,15 +16,17 @@ interface EllipsePropsType {
     refInputText: MutableRefObject<HTMLInputElement | null>,
     viewEditor: { view: boolean, state: string },
     setViewEditor: (viewEditor: {view: boolean, state: string}) => void,
-    position: { x: number, y: number },
-    setPosition: (position: {x: number, y: number}) => void,
+    statePointsSelectElement: {
+        positionPoints: pointsSelectElement,
+        setPositionPoints: (points: pointsSelectElement) => void,
+    }
     setSize: (size: {width: number, height: number}) => void,
 }
 
 export function Ellipse(props: EllipsePropsType) {
     const [position, setPosition] = useState(props.element.centre)
     const ref: RefObject<SVGEllipseElement> = useRef(null)
-    useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
+    useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.setViewEditor, props.setSize)
     useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor, false)
     return (
         <ellipse

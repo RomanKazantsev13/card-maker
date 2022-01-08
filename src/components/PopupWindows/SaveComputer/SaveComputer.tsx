@@ -1,7 +1,7 @@
 import React, { createRef, LabelHTMLAttributes, MutableRefObject, RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { InputType } from 'zlib'
-import { dispatch } from '../../editor'
-import { setSelectElement } from '../../model/Canvas/Element/element'
+import { dispatch } from '../../../editor'
+import { setSelectElement } from '../../../model/Canvas/Element/element'
 import { Button } from './Button'
 import styles from './SaveComputer.module.css'
 

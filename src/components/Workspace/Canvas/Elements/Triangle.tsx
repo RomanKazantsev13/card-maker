@@ -7,6 +7,7 @@ import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 import { isTriangle } from '../../../../model/Canvas/Element/Figure/Triangle/triangle'
 import { isFigure } from '../../../../model/Canvas/Element/Figure/figure'
 import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
+import { pointsSelectElement } from './Elements'
 
 interface TrianglePropsType {
     points: {
@@ -21,15 +22,17 @@ interface TrianglePropsType {
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     refEditor: RefObject<HTMLDivElement | null>,
     refInputText: MutableRefObject<HTMLInputElement | null>,
-    position: { x: number, y: number },
-    setPosition: (position: { x: number, y: number }) => void,
+    statePointsSelectElement: {
+        positionPoints: pointsSelectElement,
+        setPositionPoints: (points: pointsSelectElement) => void,
+    }
     setSize: (size: {width: number, height: number}) => void,
 }
 
 export function Triangle(props: TrianglePropsType) {
     const [position, setPosition] = useState(props.element.centre)
     const ref: RefObject<SVGPolygonElement> = useRef(null)
-    useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.setPosition, props.setViewEditor, props.setSize)
+    useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.setViewEditor, props.setSize)
     useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor, false)
 
     return (

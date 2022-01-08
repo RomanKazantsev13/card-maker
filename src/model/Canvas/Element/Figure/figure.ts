@@ -29,7 +29,7 @@ export function setColorFigure(card: Card, newColor: string): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: getSelectElement(card)
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Fill Color', 'images/square.png')

@@ -1,12 +1,13 @@
 import React, { ChangeEvent, RefObject, useRef } from 'react'
-import { dispatch } from '../../../../editor'
-import { addImage } from '../../../../model/Canvas/Element/Image/image'
-import { Size } from '../../../../model/Card/card'
+import { dispatch } from '../../../editor'
+import { addImage } from '../../../model/Canvas/Element/Image/image'
+import { Size } from '../../../model/Card/card'
 import styles from './ImageManager.module.css'
 
 interface ImageManagerPropsType {
     setSizeInsertImage: (insertImage: {image: {size: {width: number, height: number}, url: string}, view: boolean}) => void,
     canvasSize: {width: number, height: number},
+    setNotification: (viewResize: boolean) => void,
 }
 
 export function ImageManager(props: ImageManagerPropsType) {
@@ -44,7 +45,9 @@ export function ImageManager(props: ImageManagerPropsType) {
                         event.target.value = "";
                     }
                 }} />
-            <div className={styles.button}>
+            <div className={styles.button} onClick={() => {
+                props.setNotification(true)
+            }}>
                 <div className={styles.text}>Pixels</div>
             </div>
         </div>

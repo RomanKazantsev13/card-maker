@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './InsertImage.module.css'
 import { Button } from '../SaveComputer/Button';
-import { dispatch } from '../../editor';
-import { addImage } from '../../model/Canvas/Element/Image/image';
-import { setSizeCanvas } from '../../model/Canvas/canvas';
+import { dispatch } from '../../../editor';
+import { addImage } from '../../../model/Canvas/Element/Image/image';
+import { setSizeCanvas } from '../../../model/Canvas/canvas';
 
 interface InsertImagePropsType {
     stateSizeInsertImage: {

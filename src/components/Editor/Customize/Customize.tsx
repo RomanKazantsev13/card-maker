@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useRef, useState } from 'react'
-import useComponentVisible from '../../../../customHooks/useComponentVisible';
-import { setBackgroundColor } from '../../../../model/Canvas/canvas';
-import { ColorPicker } from '../../../ColorPicker/ColorPicker'
+import useComponentVisible from '../../../customHooks/useComponentVisible';
+import { setBackgroundColor } from '../../../model/Canvas/canvas';
+import { ColorPicker } from '../../ColorPicker/ColorPicker'
 import { ButtonColor } from './ButtonColor';
 import styles from './Customize.module.css'
 

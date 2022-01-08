@@ -58,7 +58,7 @@ export function changeFirstPoint(card: Card, mousePoint: Point): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: getSelectElement(card)
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Resize Graphic', 'images/triangle.png')
@@ -92,7 +92,7 @@ export function changeSecondPoint(card: Card, mousePoint: Point): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: getSelectElement(card)
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Resize Graphic', 'images/triangle.png')
@@ -126,7 +126,7 @@ export function changeThirdPoint(card: Card, mousePoint: Point): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: getSelectElement(card)
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Resize Graphic', 'images/triangle.png')

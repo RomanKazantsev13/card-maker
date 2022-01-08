@@ -1,6 +1,6 @@
 import React from 'react'
-import { dispatch } from '../../../../editor'
-import { setBackgroundColor } from '../../../../model/Canvas/canvas'
+import { dispatch } from '../../../editor'
+import { setBackgroundColor } from '../../../model/Canvas/canvas'
 import styles from './ButtonColor.module.css'
 
 interface ButtonColorPropsType {

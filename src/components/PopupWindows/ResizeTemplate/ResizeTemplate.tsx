@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { dispatch } from '../../editor';
-import { setSizeCanvas } from '../../model/Canvas/canvas';
+import { dispatch } from '../../../editor';
+import { setSizeCanvas } from '../../../model/Canvas/canvas';
 import { Button as SaveButton } from '../SaveComputer/Button';
 import { Button } from './Button';
 import { fonts } from './fonts';

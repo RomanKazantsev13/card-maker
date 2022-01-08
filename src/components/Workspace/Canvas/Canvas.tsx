@@ -1,9 +1,11 @@
-import React, { MutableRefObject, useRef, useState } from 'react'
+import React, { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
 import styles from './Canvas.module.css'
 import { Canvas as CanvasType } from './../../../model/Canvas/canvas'
 import { SelectElement } from './SelectElement/SelectElement'
 import { InputText } from './InputText/InputText'
 import Elements from './Elements/Elements'
+import { dispatch } from '../../../editor'
+import { deleteSelectElement, getSelectElement } from '../../../model/Canvas/Element/element'
 
 interface CanvasPropsType {
     canvas: CanvasType,
@@ -21,10 +23,46 @@ interface CanvasPropsType {
 }
 
 export function Canvas(props: CanvasPropsType) {
+    const [positionPoints, setPositionPoints] = useState({
+        border: {x: 0, y: 0},
+        pointTopLeft: {x: 0, y: 0},
+        pointTopRight: {x: 0, y: 0},
+        pointBottomLeft: {x: 0, y: 0},
+        pointBottomRight: {x: 0, y: 0},
+        blockTop: {x: 0, y: 0},
+        blockLeft: {x: 0, y: 0},
+        blockRight: {x: 0, y: 0},
+        blockBottom: {x: 0, y: 0},
+    })
+    const borderRef = useRef(null)
+    const pointTopLeftRef = useRef(null)
+    let refs = [borderRef, pointTopLeftRef]
     const refInputText: MutableRefObject<HTMLInputElement | null> = useRef(null)
     const [viewInput, setViewInput] = useState(false)
-    const [positionSelectElement, setPositionSelectElement] = useState({ x: 0, y: 0 })
     const [inputValue, setInputValue] = useState('')
+
+    const escFunction = (event: any) => {
+        if (event.keyCode === 46 && props.canvas.selectElement !== null) {
+            dispatch(deleteSelectElement)
+            if (props.stateViewEditor.viewEditor.state == 'Figure Properties') {
+                props.stateViewEditor.setViewEditor({view: true, state: 'Graphics'})
+            }
+            if (props.stateViewEditor.viewEditor.state == 'Text Properties') {
+                props.stateViewEditor.setViewEditor({view: true, state: 'Text'})
+            }
+            if (props.stateViewEditor.viewEditor.state == 'FontChoose') {
+                props.stateViewEditor.setViewEditor({view: true, state: 'Text'})
+            }
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("keydown", escFunction, false);
+        return () => {
+            document.removeEventListener("keydown", escFunction, false);
+        };
+    });
+
     return (
         <div style={{
             width: props.canvas.size.width,
@@ -44,22 +82,22 @@ export function Canvas(props: CanvasPropsType) {
                     refEditor={props.refEditor}
                     refInputText={refInputText}
                     setRefText={props.setRefText}
-                    positionSelectElement={positionSelectElement}
-                    setPositionSelectElement={setPositionSelectElement}
+                    statePointsSelectElement={{positionPoints, setPositionPoints}}
                     stateViewInput={{ viewInput, setViewInput }}
                     setSize={props.stateSizeSelectElement.setSizeSelectElement}
+                    pointTopLeftRef={pointTopLeftRef}
                 />
                 {props.canvas.selectElement !== null && <SelectElement
                     selectElement={props.canvas.selectElement}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     setViewInput={setViewInput}
-                    positionSelectElement={positionSelectElement}
-                    setPositionSelectElement={setPositionSelectElement}
+                    statePointsSelectElement={{positionPoints, setPositionPoints}}
                     size={props.stateSizeSelectElement.sizeSelectElement}
+                    pointTopLeftRef={pointTopLeftRef}
                 />}
                 {viewInput && <InputText
                     selectElement={props.canvas.selectElement}
-                    positionSelectElement={positionSelectElement}
+                    positionSelectElement={positionPoints.pointTopLeft}
                     refInputText={refInputText}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     stateInputValue={{ inputValue, setInputValue }}

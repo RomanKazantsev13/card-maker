@@ -7,12 +7,13 @@ import { CanvasTools } from './CanvasTools/CanvasTools'
 import { NavigationBar } from './NavigationBar/NavigationBar'
 import { PrimaryPanel } from './PrimaryPanel/PrimaryPanel'
 import { Workspace } from './Workspace/Workspace'
-import { Editor } from './PrimaryPanel/Editor/Editor'
-import { SaveComputer } from './SaveComputer/SaveComputer'
-import { ResizeTemplate } from './ResizeTemplate/ResizeTemplate'
-import { ResetCanvas } from './ResetCanvas/ResetCanvas'
+import { Editor } from './Editor/Editor'
+import { SaveComputer } from './PopupWindows/SaveComputer/SaveComputer'
+import { ResizeTemplate } from './PopupWindows/ResizeTemplate/ResizeTemplate'
+import { ResetCanvas } from './PopupWindows/ResetCanvas/ResetCanvas'
 import { dispatch } from '../editor'
-import { InsertImage } from './InsertImage/InsertImage'
+import { InsertImage } from './PopupWindows/InsertImage/InsertImage'
+import { UnavailableContent } from './PopupWindows/UnavailableContent/UnavailableContent'
 
 interface CardPropsType {
     card: {
@@ -36,6 +37,7 @@ export function Card(props: CardPropsType) {
     const [viewSave, setViewSave] = useState(false)
     const [viewResize, setViewResize] = useState(false)
     const [viewReset, setViewReset] = useState(false)
+    const [viewNotification, setViewNotification] = useState(false)
     const [viewEditor, setViewEditor] = useState({ view: false, state: '' })
 
     const [sizeInsertImage, setSizeInsertImage] = useState({image: {size: {width: 0, height: 0}, url: ''}, view: false})
@@ -109,6 +111,7 @@ export function Card(props: CardPropsType) {
                             canvas={props.card.canvas}
                             setSizeInsertImage={setSizeInsertImage}
                             setSizeSelectElement={setSizeSelectElement}
+                            setNotification={setViewNotification}
                             refText={refText}
                         />
                         <Workspace
@@ -124,11 +127,12 @@ export function Card(props: CardPropsType) {
                     <CanvasTools canvas={props.card.canvas} history={props.card.history} setViewReset={setViewReset} />
                 </div>
             </div>
-            {(viewSave || viewResize || viewReset || sizeInsertImage.view) && <div className={styles.shadow}></div>}
+            {(viewSave || viewResize || viewReset || sizeInsertImage.view || viewNotification) && <div className={styles.shadow}></div>}
             {viewSave && <SaveComputer setView={setViewSave} size={props.card.canvas.size} refSvg={refSvg} /> }
             {viewResize && <ResizeTemplate setView={setViewResize} size={props.card.canvas.size} />}
             {viewReset && <ResetCanvas setView={setViewReset} setViewEditor={setViewEditor} />}
             {sizeInsertImage.view && <InsertImage stateSizeInsertImage={{sizeInsertImage, setSizeInsertImage}} />}
+            {viewNotification && <UnavailableContent setView={setViewNotification} />}
         </div>
     )
 }

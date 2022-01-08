@@ -1,4 +1,5 @@
 import { RefObject, useEffect, useState } from "react"
+import { pointsSelectElement } from "../components/Workspace/Canvas/Elements/Elements"
 import { getCentreAndSizeOfElement } from "../components/Workspace/Canvas/SelectElement/SelectElementFunction"
 import { dispatch } from "../editor"
 import { Element, setCentre, setSelectElement } from "../model/Canvas/Element/element"
@@ -11,7 +12,7 @@ export function useDragAndDrop(
   elementRef: RefObject<SVGRectElement | SVGEllipseElement | SVGPolygonElement | SVGTextElement | SVGImageElement | null>,
   position: { x: number; y: number },
   setPosition: (position: { x: number; y: number }) => void,
-  setPositionSelectElement: (position: { x: number; y: number }) => void,
+  setPositionSelectElement: (points: pointsSelectElement) => void,
   setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
   setSize: (size: { width: number, height: number }) => void,
 ) {
@@ -20,8 +21,7 @@ export function useDragAndDrop(
   let newPos: { x: number; y: number } = position
 
   useEffect(() => {
-    // console.log('drag')
-    // {!isMoving && setPosition(position)}
+    {!isMoving && setPosition(position)}
     if (elementRef.current !== null) {
       elementRef.current.addEventListener("mousedown", MouseDownListener)
     }
@@ -35,11 +35,32 @@ export function useDragAndDrop(
   const MouseDownListener = (e: any) => {
     { !isMoving && setPosition(position) }
     if (element !== null && isText(element.object)) {
-      setPositionSelectElement({ x: position.x, y: position.y - element.object.sizeText })
+      const textPosition = { x: position.x, y: position.y - element.object.sizeText }
+      setPositionSelectElement({
+        border: textPosition,
+        pointTopLeft: textPosition,
+        pointTopRight: textPosition,
+        pointBottomLeft: textPosition,
+        pointBottomRight: textPosition,
+        blockTop: textPosition,
+        blockLeft: textPosition,
+        blockRight: textPosition,
+        blockBottom: textPosition
+      })
       setSize(getCentreAndSizeOfElement(element, elementRef).size)
       setViewEditor({ view: true, state: 'Text Properties' })
     } else {
-      setPositionSelectElement(position)
+      setPositionSelectElement({
+        border: position,
+        pointTopLeft: position,
+        pointTopRight: position,
+        pointBottomLeft: position,
+        pointBottomRight: position,
+        blockTop: position,
+        blockLeft: position,
+        blockRight: position,
+        blockBottom: position
+      })
       setSize(getCentreAndSizeOfElement(element, null).size)
       if (element !== null && isFigure(element.object)) {
         setViewEditor({ view: true, state: 'Figure Properties' })
@@ -69,9 +90,30 @@ export function useDragAndDrop(
     }
     setPosition(newPos)
     if (element !== null && isText(element.object)) {
-      setPositionSelectElement({ x: newPos.x, y: newPos.y - element.object.sizeText })
+      const textPosition = { x: newPos.x, y: newPos.y - element.object.sizeText }
+      setPositionSelectElement({
+        border: textPosition,
+        pointTopLeft: textPosition,
+        pointTopRight: textPosition,
+        pointBottomLeft: textPosition,
+        pointBottomRight: textPosition,
+        blockTop: textPosition,
+        blockLeft: textPosition,
+        blockRight: textPosition,
+        blockBottom: textPosition
+      })
     } else {
-      setPositionSelectElement(newPos)
+      setPositionSelectElement({
+        border: newPos,
+        pointTopLeft: newPos,
+        pointTopRight: newPos,
+        pointBottomLeft: newPos,
+        pointBottomRight: newPos,
+        blockTop: newPos,
+        blockLeft: newPos,
+        blockRight: newPos,
+        blockBottom: newPos
+      })
     }
   }
 

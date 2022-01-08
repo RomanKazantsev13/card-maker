@@ -8,9 +8,9 @@ import { Text } from './Text/Text'
 import { FigureProperties } from './FigureProperties/FigurePropeties'
 import { TextProperties } from './TextProperties/TextProperties'
 import { FontChoose } from './FontChoose/FontChoose'
-import { isText } from '../../../model/Canvas/Element/Text/text'
-import { isFigure } from '../../../model/Canvas/Element/Figure/figure'
-import { Canvas } from '../../../model/Canvas/canvas'
+import { isText } from '../../model/Canvas/Element/Text/text'
+import { isFigure } from '../../model/Canvas/Element/Figure/figure'
+import { Canvas } from '../../model/Canvas/canvas'
 
 interface EditorPropsType {
     stateViewEditor: {
@@ -21,6 +21,7 @@ interface EditorPropsType {
         setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     }
     setViewResize: (viewResize: boolean) => void,
+    setNotification: (viewResize: boolean) => void,
     canvas: Canvas,
     refEditor: MutableRefObject<HTMLDivElement | null>,
     setSizeInsertImage: (insertImage: {image: {size: {width: number, height: number}, url: string}, view: boolean}) => void,
@@ -33,13 +34,13 @@ export function Editor(props: EditorPropsType) {
     const [font, setFont] = useState('Times New Roman')
     const State: JSX.Element | undefined = (() => {
         if (props.stateViewEditor.viewEditor.state == 'Image Manager') {
-            return <ImageManager setSizeInsertImage={props.setSizeInsertImage} canvasSize={props.canvas.size} />
+            return <ImageManager setSizeInsertImage={props.setSizeInsertImage} canvasSize={props.canvas.size} setNotification={props.setNotification} />
         }
         if (props.stateViewEditor.viewEditor.state == 'Customize') {
             return <Customize setViewResize={props.setViewResize} canvas={props.canvas} />
         }
         if (props.stateViewEditor.viewEditor.state == 'Templates') {
-            return <Templates />
+            return <Templates setNotification={props.setNotification} />
         }
         if (props.stateViewEditor.viewEditor.state == 'Graphics') {
             return <Graphics setViewEditor={props.stateViewEditor.setViewEditor} />
@@ -73,6 +74,7 @@ export function Editor(props: EditorPropsType) {
                     setFont={setFont} 
                     setSizeSelectElement={props.setSizeSelectElement}
                     refText={props.refText}
+                    setNotification={props.setNotification}
                 />
             }
         }

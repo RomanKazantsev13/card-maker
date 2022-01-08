@@ -53,7 +53,7 @@ export function resizeText(card: Card, newSize: Size): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: getSelectElement(card)
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Font Size', 'images/text__hover.png')
@@ -62,21 +62,19 @@ export function resizeText(card: Card, newSize: Size): Card {
 
 export function setSizeText(card: Card, newSize: number): Card {
     const oldElement = getSelectElement(card)
-    let newElement = oldElement
     const changeCard = {
         ...card,
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
                 if (element === oldElement) {
-                    newElement = {
+                    return {
                         ...element,
                         object: {
                             ...element.object,
                             sizeText: newSize
                         }
                     }
-                    return newElement
                 }
                 return element
             })
@@ -86,7 +84,7 @@ export function setSizeText(card: Card, newSize: number): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: newElement
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Font Size', 'images/text__hover.png')
@@ -117,7 +115,7 @@ export function setFontText(card: Card, newFont: string): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: getSelectElement(card)
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Font Family', 'images/text__hover.png')
@@ -126,21 +124,19 @@ export function setFontText(card: Card, newFont: string): Card {
 
 export function setColorText(card: Card, newColor: string): Card {
     const oldElement = getSelectElement(card)
-    let newElement = oldElement
     const changeCard = {
         ...card,
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
                 if (element === oldElement) {
-                    newElement = {
+                    return {
                         ...element,
                         object: {
                             ...element.object,
                             color: newColor
                         }
                     }
-                    return newElement
                 }
                 return element
             })
@@ -150,7 +146,7 @@ export function setColorText(card: Card, newColor: string): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: newElement
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Text Color', 'images/text__hover.png')
@@ -159,21 +155,19 @@ export function setColorText(card: Card, newColor: string): Card {
 
 export function changeText(card: Card, newText: string): Card {
     const oldElement = getSelectElement(card)
-    let newElement = oldElement
     const changeCard = {
         ...card,
         canvas: {
             ...card.canvas,
             elements: card.canvas.elements.map(element => {
                 if (element === oldElement) {
-                    newElement = {
+                    return {
                         ...element,
                         object: {
                             ...element.object,
                             str: newText
                         }
                     }
-                    return newElement
                 }
                 return element
             })
@@ -183,7 +177,7 @@ export function changeText(card: Card, newText: string): Card {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
-            selectElement: newElement
+            selectElement: getSelectElement(changeCard)
         }
     }
     madeChange(newCard, 'Edit Text', 'images/text__hover.png')

@@ -1,9 +1,9 @@
 import React from 'react'
-import useComponentVisible from '../../../../customHooks/useComponentVisible'
-import { dispatch } from '../../../../editor'
-import { deleteSelectElement } from '../../../../model/Canvas/Element/element'
-import { Figure, setColorFigure } from '../../../../model/Canvas/Element/Figure/figure'
-import { ColorPicker } from '../../../ColorPicker/ColorPicker'
+import useComponentVisible from '../../../customHooks/useComponentVisible'
+import { dispatch } from '../../../editor'
+import { deleteSelectElement } from '../../../model/Canvas/Element/element'
+import { Figure, setColorFigure } from '../../../model/Canvas/Element/Figure/figure'
+import { ColorPicker } from '../../ColorPicker/ColorPicker'
 import styles from './FigureProperties.module.css'
 
 interface FigurePropertiesPropsType {

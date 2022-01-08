@@ -1,6 +1,6 @@
 import React, { MutableRefObject, useRef, useState } from 'react'
 import { uuid } from 'uuidv4'
-import { Element } from '../../../../model/Canvas/Element/element'
+import { Element } from '../../../model/Canvas/Element/element'
 import { ButtonFont } from './ButtonFont'
 import styles from './FontChoose.module.css'
 import { fonts } from './fonts'
@@ -12,6 +12,7 @@ interface FontChoosePropsType {
     setFont: (font: string) => void,
     setSizeSelectElement: (size: {width: number, height: number}) => void,
     refText: MutableRefObject<SVGTextElement | null>,
+    setNotification: (viewResize: boolean) => void,
 }
 
 export function FontChoose(props: FontChoosePropsType) {
@@ -41,7 +42,10 @@ export function FontChoose(props: FontChoosePropsType) {
 
             <div className={styles.search}>
                 <img className={styles.search_image} src="images/search.png" />
-                <input className={styles.search_input} type="text" placeholder="Search Fonts" onChange={handleChangeFont} />
+                <input className={styles.search_input} type="text" placeholder="Search Fonts" onChange={handleChangeFont} onFocus={() => {
+                    props.setNotification(true)
+                    props.setViewEditor({view: true, state: 'Text Properties'})
+                }} />
             </div>
 
             <div className={styles.header_font}>Selected Font</div>

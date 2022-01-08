@@ -1,12 +1,12 @@
 import React, { MutableRefObject, useState } from 'react'
-import useComponentVisible from '../../../../customHooks/useComponentVisible'
-import { dispatch } from '../../../../editor'
-import { deleteSelectElement, Element } from '../../../../model/Canvas/Element/element'
-import { isText, resizeText, setColorText, setFontText, setSizeText, Text } from '../../../../model/Canvas/Element/Text/text'
-import { Point } from '../../../../model/Card/card'
-import { ColorPicker } from '../../../ColorPicker/ColorPicker'
-import { SelectElement } from '../../../Workspace/Canvas/SelectElement/SelectElement'
-import { getCentreAndSizeOfElement } from '../../../Workspace/Canvas/SelectElement/SelectElementFunction'
+import useComponentVisible from '../../../customHooks/useComponentVisible'
+import { dispatch } from '../../../editor'
+import { deleteSelectElement, Element } from '../../../model/Canvas/Element/element'
+import { isText, resizeText, setColorText, setFontText, setSizeText, Text } from '../../../model/Canvas/Element/Text/text'
+import { Point } from '../../../model/Card/card'
+import { ColorPicker } from '../../ColorPicker/ColorPicker'
+import { SelectElement } from '../../Workspace/Canvas/SelectElement/SelectElement'
+import { getCentreAndSizeOfElement } from '../../Workspace/Canvas/SelectElement/SelectElementFunction'
 import styles from './TextProperties.module.css'
 
 interface TextPropertiesPropsType {
@@ -20,10 +20,13 @@ interface TextPropertiesPropsType {
 
 export function TextProperties(props: TextPropertiesPropsType) {
     const { ref, isComponentVisible, setIsComponentVisible } = useComponentVisible(false)
+    const sizeText = isText(props.selectElement.object) ? props.selectElement.object.sizeText : 0
+    const [size, setSize] = useState(sizeText)
 
     const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
     function handleChangeFontSize(event: React.ChangeEvent<HTMLInputElement>) {
         if (digits.includes(event.target.value.slice(-1))) {
+            setSize(Number(event.target.value))
             dispatch(setSizeText, Number(event.target.value))
             props.setSizeSelectElement(getCentreAndSizeOfElement(props.selectElement, props.refText).size)
         }
@@ -43,7 +46,7 @@ export function TextProperties(props: TextPropertiesPropsType) {
             </div>
             <div className={styles.layout}>
                 <div className={styles.px}>px</div>
-                <input className={styles.size_value} maxLength={5} type="text" onChange={handleChangeFontSize} />
+                <input className={styles.size_value} maxLength={5} type="text" value={sizeText} onChange={handleChangeFontSize} />
                 <div
                     className={styles.color}
                     style={{

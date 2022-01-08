@@ -1,6 +1,6 @@
 import React from 'react'
-import { dispatch } from '../../../../editor'
-import { addText } from '../../../../model/Canvas/Element/Text/text'
+import { dispatch } from '../../../editor'
+import { addText } from '../../../model/Canvas/Element/Text/text'
 import styles from './Text.module.css'
 
 interface TextPropsType {

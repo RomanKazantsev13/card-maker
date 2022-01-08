@@ -1,8 +1,8 @@
 import React, { MutableRefObject, useRef, useState } from 'react'
-import { dispatch } from '../../../../editor'
-import { Element } from '../../../../model/Canvas/Element/element'
-import { isText, setFontText } from '../../../../model/Canvas/Element/Text/text'
-import { getCentreAndSizeOfElement } from '../../../Workspace/Canvas/SelectElement/SelectElementFunction'
+import { dispatch } from '../../../editor'
+import { Element } from '../../../model/Canvas/Element/element'
+import { isText, setFontText } from '../../../model/Canvas/Element/Text/text'
+import { getCentreAndSizeOfElement } from '../../Workspace/Canvas/SelectElement/SelectElementFunction'
 import styles from './ButtonFont.module.css'
 
 interface ButtonFontPropsType {
