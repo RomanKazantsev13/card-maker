@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
+import React, { MutableRefObject, RefObject, useCallback, useEffect, useRef, useState } from 'react'
 import styles from './Canvas.module.css'
 import { Canvas as CanvasType } from './../../../model/Canvas/canvas'
 import { SelectElement } from './SelectElement/SelectElement'
@@ -34,10 +34,16 @@ export function Canvas(props: CanvasPropsType) {
         blockRight: {x: 0, y: 0},
         blockBottom: {x: 0, y: 0},
     })
-    const borderRef = useRef(null)
-    const pointTopLeftRef = useRef(null)
-    let refs = [borderRef, pointTopLeftRef]
-    const refInputText: MutableRefObject<HTMLInputElement | null> = useRef(null)
+    const pointTopLeftRef: RefObject<HTMLDivElement> = useRef(null)
+    const pointTopRightRef: RefObject<HTMLDivElement> = useRef(null)
+    const pointBottomLeftRef: RefObject<HTMLDivElement> = useRef(null)
+    const pointBottomRightRef: RefObject<HTMLDivElement> = useRef(null)
+    const borderTopRef: RefObject<HTMLDivElement> = useRef(null)
+    const borderLeftRef: RefObject<HTMLDivElement> = useRef(null)
+    const borderRightRef: RefObject<HTMLDivElement> = useRef(null)
+    const borderBottomRef: RefObject<HTMLDivElement> = useRef(null)
+    let refs = [pointTopLeftRef, pointTopRightRef, pointBottomLeftRef, pointBottomRightRef, borderTopRef, borderLeftRef, borderRightRef, borderBottomRef]
+    const refInputText: RefObject<HTMLInputElement> = useRef(null)
     const [viewInput, setViewInput] = useState(false)
     const [inputValue, setInputValue] = useState('')
 
@@ -84,8 +90,8 @@ export function Canvas(props: CanvasPropsType) {
                     setRefText={props.setRefText}
                     statePointsSelectElement={{positionPoints, setPositionPoints}}
                     stateViewInput={{ viewInput, setViewInput }}
-                    setSize={props.stateSizeSelectElement.setSizeSelectElement}
-                    pointTopLeftRef={pointTopLeftRef}
+                    stateSizeSelectElement={{size: props.stateSizeSelectElement.sizeSelectElement, setSize: props.stateSizeSelectElement.setSizeSelectElement}}
+                    refs={refs}
                 />
                 {props.canvas.selectElement !== null && <SelectElement
                     selectElement={props.canvas.selectElement}
@@ -93,7 +99,7 @@ export function Canvas(props: CanvasPropsType) {
                     setViewInput={setViewInput}
                     statePointsSelectElement={{positionPoints, setPositionPoints}}
                     size={props.stateSizeSelectElement.sizeSelectElement}
-                    pointTopLeftRef={pointTopLeftRef}
+                    refs={refs}
                 />}
                 {viewInput && <InputText
                     selectElement={props.canvas.selectElement}

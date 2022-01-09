@@ -1,4 +1,4 @@
-import type { Card, Point } from "../../../../Card/card"
+import type { Card, Point, Size } from "../../../../Card/card"
 import { madeChange } from "../../../../Card/History/history"
 import { Element, getSelectElement } from "../../element"
 import { isFigure } from "../figure"
@@ -30,7 +30,7 @@ export function addEllipse(card: Card): Card {
     return newCard
 }
 
-export function setEllipseRx(card: Card, mousePoint: Point): Card {
+export function resizeEllipse(card: Card, ellipse: {newSize: Size, newCentre: Point}): Card {
     const oldElement = getSelectElement(card)
     const changeCard = {
         ...card,
@@ -40,45 +40,12 @@ export function setEllipseRx(card: Card, mousePoint: Point): Card {
                 if ((element === oldElement) && (isFigure(element.object)) && (isEllipse(element.object.figure))) {
                     return {
                         ...element,
+                        centre: ellipse.newCentre,
                         object: {
                             ...element.object,
                             figure: {
-                                ...element.object.figure,
-                                rx: element.object.figure.rx + mousePoint.x
-                            }
-                        }
-                    }
-                }
-                return element
-            })
-        }
-    }
-    const newCard = {
-        ...changeCard,
-        canvas: {
-            ...changeCard.canvas,
-            selectElement: getSelectElement(changeCard)
-        }
-    }
-    madeChange(newCard, 'Resize Graphic', 'images/circle.png')
-    return newCard
-}
-
-export function setEllipseRy(card: Card, mousePoint: Point): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
-        ...card,
-        canvas: {
-            ...card.canvas,
-            elements: card.canvas.elements.map(element => {
-                if ((element === oldElement) && (isFigure(element.object)) && (isEllipse(element.object.figure))) {
-                    return {
-                        ...element,
-                        object: {
-                            ...element.object,
-                            figure: {
-                                ...element.object.figure,
-                                ry: element.object.figure.ry + mousePoint.y
+                                rx: ellipse.newSize.width / 2,
+                                ry: ellipse.newSize.height / 2,
                             }
                         }
                     }

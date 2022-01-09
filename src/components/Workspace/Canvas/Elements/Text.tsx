@@ -36,7 +36,8 @@ export function Text(props: TextPropsType) {
     const { centre, size, type } = getCentreAndSizeOfElement(props.element, ref)
 
     const [position, setPosition] = useState(centre)
-    useDragAndDrop(props.element, ref, centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.setViewEditor, props.setSize)
+    const [isMoving, setIsMoving] = useState(false)
+    useDragAndDrop(props.element, ref, centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.setViewEditor, props.setSize, isMoving, setIsMoving)
     useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor, props.stateViewInput.viewInput)
     return (
         <text

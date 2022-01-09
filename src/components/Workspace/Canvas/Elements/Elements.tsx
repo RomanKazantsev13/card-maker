@@ -1,4 +1,4 @@
-import React, { MutableRefObject } from 'react'
+import React, { MutableRefObject, RefObject } from 'react'
 import { Canvas as CanvasType } from '../../../../model/Canvas/canvas'
 import { Triangle as TriangleType, isTriangle } from '../../../../model/Canvas/Element/Figure/Triangle/triangle'
 import { Rectangle as RectangleType, isRectangle } from '../../../../model/Canvas/Element/Figure/Rectangle/rectangle'
@@ -41,9 +41,12 @@ interface CanvasPropsType {
         setViewInput: (view: boolean) => void,
     },
     setInputValue: (value: string) => void,
-    setSize: (size: {width: number, height: number}) => void,
+    stateSizeSelectElement: {
+        size: {width: number, height: number},
+        setSize: (size: {width: number, height: number}) => void,
+    }
     setRefText: (refText: MutableRefObject<SVGTextElement | null>) => void,
-    pointTopLeftRef: any
+    refs: Array<RefObject<HTMLDivElement>>,
 }
 
 export default function Elements(props: CanvasPropsType): JSX.Element {
@@ -67,8 +70,10 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     refEditor={props.refEditor}
                     refInputText={props.refInputText}
+                    stateSizeSelectElement={props.stateSizeSelectElement}
                     statePointsSelectElement={props.statePointsSelectElement}
-                    setSize={props.setSize}
+                    setSize={props.stateSizeSelectElement.setSize}
+                    refs={props.refs}
                 />
             }
             if (isRectangle(figure.figure)) {
@@ -84,8 +89,8 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                     viewEditor={props.stateViewEditor.viewEditor}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     statePointsSelectElement={props.statePointsSelectElement}
-                    setSize={props.setSize}
-                    pointTopLeftRef={props.pointTopLeftRef}
+                    stateSizeSelectElement={props.stateSizeSelectElement}
+                    refs={props.refs}
                 />
             }
             if (isEllipse(figure.figure)) {
@@ -101,7 +106,9 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                     viewEditor={props.stateViewEditor.viewEditor}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     statePointsSelectElement={props.statePointsSelectElement}
-                    setSize={props.setSize}
+                    setSize={props.stateSizeSelectElement.setSize}
+                    stateSizeSelectElement={props.stateSizeSelectElement}
+                    refs={props.refs}
                 />
             }
         } else if (isImage(object)) {
@@ -116,8 +123,10 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                 refInputText={props.refInputText}
                 viewEditor={props.stateViewEditor.viewEditor}
                 statePointsSelectElement={props.statePointsSelectElement}
-                setSize={props.setSize}
+                setSize={props.stateSizeSelectElement.setSize}
+                stateSizeSelectElement={props.stateSizeSelectElement}
                 setViewEditor={props.stateViewEditor.setViewEditor}
+                refs={props.refs}
             />
         } else if (isText(object)) {
             const text: TextType = object
@@ -137,7 +146,7 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                 statePointsSelectElement={props.statePointsSelectElement}
                 setInputValue={props.setInputValue}
                 stateViewInput={props.stateViewInput}
-                setSize={props.setSize}
+                setSize={props.stateSizeSelectElement.setSize}
             />
         }
     })

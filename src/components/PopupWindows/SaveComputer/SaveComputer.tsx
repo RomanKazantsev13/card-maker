@@ -63,7 +63,6 @@ export function SaveComputer(props: SaveComputerPropsType) {
                         dispatch(setSelectElement, null)
                         var btn = refButton.current;
                         var svg = props.refSvg.current;
-                        var canvas = refCanvas.current;
                         
                         function triggerDownload(imgURI: string) {
                           var evt = new MouseEvent('click', {

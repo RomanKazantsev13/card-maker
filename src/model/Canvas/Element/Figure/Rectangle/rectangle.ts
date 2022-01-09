@@ -32,7 +32,7 @@ export function addRectangle(card: Card): Card {
     return newCard
 }
 
-export function setWidthRectangle(card: Card, mousePoint: Point): Card {
+export function resizeRectangle(card: Card, rectangle: {newSize: Size, newCentre: Point}): Card {
     const oldElement = getSelectElement(card)
     const changeCard = {
         ...card,
@@ -42,49 +42,11 @@ export function setWidthRectangle(card: Card, mousePoint: Point): Card {
                 if ((element === oldElement) && (isFigure(element.object)) && (isRectangle(element.object.figure))) {
                     return {
                         ...element,
+                        centre: rectangle.newCentre,
                         object: {
                             ...element.object,
                             figure: {
-                                size: {
-                                    ...element.object.figure.size,
-                                    width: element.object.figure.size.width + mousePoint.x
-                                }
-                            }
-                        }
-                    }
-                }
-                return element
-            })
-        }
-    }
-    const newCard = {
-        ...changeCard,
-        canvas: {
-            ...changeCard.canvas,
-            selectElement: getSelectElement(changeCard)
-        }
-    }
-    madeChange(newCard, 'Resize Graphic', 'images/square.png')
-    return newCard
-}
-
-export function setHeightRectangle(card: Card, mousePoint: Point): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
-        ...card,
-        canvas: {
-            ...card.canvas,
-            elements: card.canvas.elements.map(element => {
-                if ((element === oldElement) && (isFigure(element.object)) && (isRectangle(element.object.figure))) {
-                    return {
-                        ...element,
-                        object: {
-                            ...element.object,
-                            figure: {
-                                size: {
-                                    ...element.object.figure.size,
-                                    height: element.object.figure.size.height + mousePoint.y
-                                }
+                                size: rectangle.newSize
                             }
                         }
                     }

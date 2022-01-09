@@ -8,6 +8,7 @@ import { isTriangle } from '../../../../model/Canvas/Element/Figure/Triangle/tri
 import { isFigure } from '../../../../model/Canvas/Element/Figure/figure'
 import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
 import { pointsSelectElement } from './Elements'
+import { useResizeObject } from '../../../../customHooks/useResizeObject'
 
 interface TrianglePropsType {
     points: {
@@ -25,23 +26,37 @@ interface TrianglePropsType {
     statePointsSelectElement: {
         positionPoints: pointsSelectElement,
         setPositionPoints: (points: pointsSelectElement) => void,
-    }
+    },
+    stateSizeSelectElement: {
+        size: {width: number, height: number},
+        setSize: (size: {width: number, height: number}) => void,
+    },
     setSize: (size: {width: number, height: number}) => void,
+    refs: Array<RefObject<HTMLDivElement>>,
 }
 
 export function Triangle(props: TrianglePropsType) {
     const [position, setPosition] = useState(props.element.centre)
+    const [size, setSize] = useState({width: props.points.third.x - props.points.first.x, height: props.points.first.y - props.points.second.y})
     const ref: RefObject<SVGPolygonElement> = useRef(null)
-    useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.setViewEditor, props.setSize)
+    const [isMoving, setIsMoving] = useState(false)
+    useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.setViewEditor, props.setSize, isMoving, setIsMoving)
     useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor, false)
-
+    useResizeObject(props.element, props.selectElement, props.refs[0], 'TopLeft', {width: props.points.third.x - props.points.first.x, height: props.points.first.y - props.points.second.y}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
+    useResizeObject(props.element, props.selectElement, props.refs[1], 'TopRight', {width: props.points.third.x - props.points.first.x, height: props.points.first.y - props.points.second.y}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
+    useResizeObject(props.element, props.selectElement, props.refs[2], 'BottomLeft', {width: props.points.third.x - props.points.first.x, height: props.points.first.y - props.points.second.y}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
+    useResizeObject(props.element, props.selectElement, props.refs[3], 'BottomRight', {width: props.points.third.x - props.points.first.x, height: props.points.first.y - props.points.second.y}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
+    useResizeObject(props.element, props.selectElement, props.refs[4], 'Top', {width: props.points.third.x - props.points.first.x, height: props.points.first.y - props.points.second.y}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
+    useResizeObject(props.element, props.selectElement, props.refs[5], 'Left', {width: props.points.third.x - props.points.first.x, height: props.points.first.y - props.points.second.y}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
+    useResizeObject(props.element, props.selectElement, props.refs[6], 'Right', {width: props.points.third.x - props.points.first.x, height: props.points.first.y - props.points.second.y}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
+    useResizeObject(props.element, props.selectElement, props.refs[7], 'Bottom', {width: props.points.third.x - props.points.first.x, height: props.points.first.y - props.points.second.y}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
     return (
         <polygon
-            ref={ref}
+            ref={ref} 
             points={
-                position.x + ' ' + (position.y + props.points.first.y - props.points.second.y) + ',' +
-                (position.x + props.points.third.x - props.points.second.x) + ' ' + position.y + ',' +
-                (position.x + props.points.third.x - props.points.first.x) + ' ' + (position.y + props.points.third.y - props.points.second.y)
+                position.x + ' ' + (position.y + size.height) + ',' +
+                (position.x + (size.width / 2)) + ' ' + position.y + ',' +
+                (position.x + size.width) + ' ' + (position.y + size.height)
             }
             fill={props.color}
             onClick={() => {

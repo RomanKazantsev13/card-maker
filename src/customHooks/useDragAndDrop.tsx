@@ -15,8 +15,9 @@ export function useDragAndDrop(
   setPositionSelectElement: (points: pointsSelectElement) => void,
   setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
   setSize: (size: { width: number, height: number }) => void,
+  isMoving: boolean,
+  setIsMoving: (isMoving: boolean) => void,
 ) {
-  const [isMoving, setIsMoving] = useState(false)
   let startPos: { x: number; y: number } = position
   let newPos: { x: number; y: number } = position
 
@@ -33,7 +34,6 @@ export function useDragAndDrop(
   })
 
   const MouseDownListener = (e: any) => {
-    { !isMoving && setPosition(position) }
     if (element !== null && isText(element.object)) {
       const textPosition = { x: position.x, y: position.y - element.object.sizeText }
       setPositionSelectElement({

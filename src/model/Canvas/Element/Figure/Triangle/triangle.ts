@@ -31,7 +31,7 @@ export function addTriangle(card: Card): Card {
     return newCard
 }
 
-export function changeFirstPoint(card: Card, mousePoint: Point): Card {
+export function resizeTriangle(card: Card, triangle: {points: {firstPoint: Point, secondPoint: Point, thirdPoint: Point}, centre: Point}): Card {
     const oldElement = getSelectElement(card)
     const changeCard = {
         ...card,
@@ -41,79 +41,13 @@ export function changeFirstPoint(card: Card, mousePoint: Point): Card {
                 if ((element === oldElement) && (isFigure(element.object))) {
                     return {
                         ...element,
+                        centre: triangle.centre,
                         object: {
                             ...element.object,
                             figure: {
-                                ...element.object.figure,
-                                firstPoint: mousePoint
-                            }
-                        }
-                    }
-                }
-                return element
-            })
-        }
-    }
-    const newCard = {
-        ...changeCard,
-        canvas: {
-            ...changeCard.canvas,
-            selectElement: getSelectElement(changeCard)
-        }
-    }
-    madeChange(newCard, 'Resize Graphic', 'images/triangle.png')
-    return newCard
-}
-
-export function changeSecondPoint(card: Card, mousePoint: Point): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
-        ...card,
-        canvas: {
-            ...card.canvas,
-            elements: card.canvas.elements.map(element => {
-                if ((element === oldElement) && (isFigure(element.object))) {
-                    return {
-                        ...element,
-                        object: {
-                            ...element.object,
-                            figure: {
-                                ...element.object.figure,
-                                secondPoint: mousePoint
-                            }
-                        }
-                    }
-                }
-                return element
-            })
-        }
-    }
-    const newCard = {
-        ...changeCard,
-        canvas: {
-            ...changeCard.canvas,
-            selectElement: getSelectElement(changeCard)
-        }
-    }
-    madeChange(newCard, 'Resize Graphic', 'images/triangle.png')
-    return newCard
-}
-
-export function changeThirdPoint(card: Card, mousePoint: Point): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
-        ...card,
-        canvas: {
-            ...card.canvas,
-            elements: card.canvas.elements.map(element => {
-                if ((element === oldElement) && (isFigure(element.object))) {
-                    return {
-                        ...element,
-                        object: {
-                            ...element.object,
-                            figure: {
-                                ...element.object.figure,
-                                thirdPoint: mousePoint
+                                firstPoint: triangle.points.firstPoint, 
+                                secondPoint: triangle.points.secondPoint, 
+                                thirdPoint: triangle.points.thirdPoint
                             }
                         }
                     }

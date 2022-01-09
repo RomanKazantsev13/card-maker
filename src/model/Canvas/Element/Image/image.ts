@@ -1,4 +1,4 @@
-import type { Card, Size } from '../../../Card/card'
+import type { Card, Point, Size } from '../../../Card/card'
 import { madeChange } from '../../../Card/History/history'
 import { Element, getSelectElement } from '../element'
 import { uuid } from 'uuidv4';
@@ -26,7 +26,7 @@ export function addImage(card: Card, image: { url: string, size: Size }): Card {
     return newCard
 }
 
-export function resizeImage(card: Card, newSize: Size): Card {
+export function resizeImage(card: Card, image: {newSize: Size, newCentre: Point}): Card {
     const oldElement = getSelectElement(card)
     const changeCard = {
         ...card,
@@ -36,9 +36,10 @@ export function resizeImage(card: Card, newSize: Size): Card {
                 if (element === oldElement) {
                     return {
                         ...element,
+                        centre: image.newCentre,
                         object: {
                             ...element.object,
-                            size: newSize
+                            size: image.newSize
                         }
                     }
                 }
