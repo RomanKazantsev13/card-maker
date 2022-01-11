@@ -22,7 +22,7 @@ export default function useObjectVisible(
             element === selectElement
         ) {
             
-            if (viewEditor.state == 'Text Properties') {
+            if (viewEditor.state == 'Text Properties' || viewEditor.state == 'FontChoose') {
                 setViewEditor({ view: true, state: 'Text' })
             }
             if (viewEditor.state == 'Figure Properties') {

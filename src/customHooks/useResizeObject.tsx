@@ -85,7 +85,7 @@ export function useResizeObject(
     if (newSize.height < 1) {
       newSize.height = 1 
     } 
-    if ((newPos.y > position.y && newPos.x < position.x + stateSizeSelectElement.size.width)) {
+    if ((newPos.y > position.y - stateSizeSelectElement.size.height && newPos.x < position.x + stateSizeSelectElement.size.width)) {
       newPos = {
         x: newPos.x,
         y: position.y
@@ -128,7 +128,8 @@ export function useResizeObject(
     if (newSize.height < 1) {
       newSize.height = 1 
     } 
-    if ((newPos.y < position.y + stateSizeSelectElement.size.height && newPos.x > position.x)) {
+    
+    if (newPos.y < position.y + stateSizeSelectElement.size.height && newPos.x > position.x - stateSizeSelectElement.size.width) {
       newPos = {
         x: position.x,
         y: newPos.y
@@ -271,6 +272,7 @@ export function useResizeObject(
       y: e.pageY,
     }
     document.addEventListener("mousemove", MouseMoveListener)
+    document.addEventListener("mouseup", MouseUpListener)
   }
 
   const MouseMoveListener = (e: any) => {
@@ -303,11 +305,9 @@ export function useResizeObject(
     if (type == 'Bottom') {
       MoveBottomBlock(delta)
     }
-    document.addEventListener("mouseup", MouseUpListener)
   }
 
   const MouseUpListener = () => {
-    console.log(isMoving)
     if (!isMoving) {
       if (isFigure(element.object)) {
         if (isRectangle(element.object.figure)) {

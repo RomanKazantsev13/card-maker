@@ -5,7 +5,7 @@ import { dispatch } from '../../../../editor'
 import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
-import { pointsSelectElement } from './Elements'
+import { pointNames, pointsSelectElement } from './Elements'
 import { useResizeObject } from '../../../../customHooks/useResizeObject'
 
 interface EllipsePropsType {
@@ -36,14 +36,9 @@ export function Ellipse(props: EllipsePropsType) {
     const ref: RefObject<SVGEllipseElement> = useRef(null)
     useDragAndDrop(props.element, ref, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.setViewEditor, props.setSize, isMoving, setIsMoving)
     useObjectVisible(ref, props.element, props.selectElement, props.refEditor, props.refInputText, props.viewEditor, props.setViewEditor, false)
-    useResizeObject(props.element, props.selectElement, props.refs[0], 'TopLeft', {width: props.radius.rx * 2, height: props.radius.ry * 2}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
-    useResizeObject(props.element, props.selectElement, props.refs[1], 'TopRight', {width: props.radius.rx * 2, height: props.radius.ry * 2}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
-    useResizeObject(props.element, props.selectElement, props.refs[2], 'BottomLeft', {width: props.radius.rx * 2, height: props.radius.ry * 2}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
-    useResizeObject(props.element, props.selectElement, props.refs[3], 'BottomRight', {width: props.radius.rx * 2, height: props.radius.ry * 2}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
-    useResizeObject(props.element, props.selectElement, props.refs[4], 'Top', {width: props.radius.rx * 2, height: props.radius.ry * 2}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
-    useResizeObject(props.element, props.selectElement, props.refs[5], 'Left', {width: props.radius.rx * 2, height: props.radius.ry * 2}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
-    useResizeObject(props.element, props.selectElement, props.refs[6], 'Right', {width: props.radius.rx * 2, height: props.radius.ry * 2}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
-    useResizeObject(props.element, props.selectElement, props.refs[7], 'Bottom', {width: props.radius.rx * 2, height: props.radius.ry * 2}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
+    for (let i = 0; i < pointNames.length; i++) {
+        useResizeObject(props.element, props.selectElement, props.refs[i], pointNames[i], {width: props.radius.rx * 2, height: props.radius.ry * 2}, props.element.centre, setPosition, props.statePointsSelectElement.setPositionPoints, props.stateSizeSelectElement, setSize, isMoving, setIsMoving)
+    }
     return (
         <ellipse
             ref={ref}

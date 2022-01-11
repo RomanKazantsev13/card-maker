@@ -22,7 +22,9 @@ export function useDragAndDrop(
   let newPos: { x: number; y: number } = position
 
   useEffect(() => {
-    {!isMoving && setPosition(position)}
+    if (!isMoving && position == element.centre) {
+      setPosition(position)
+    }
     if (elementRef.current !== null) {
       elementRef.current.addEventListener("mousedown", MouseDownListener)
     }

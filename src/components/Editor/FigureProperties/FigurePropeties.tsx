@@ -1,7 +1,7 @@
 import React from 'react'
 import useComponentVisible from '../../../customHooks/useComponentVisible'
 import { dispatch } from '../../../editor'
-import { deleteSelectElement } from '../../../model/Canvas/Element/element'
+import { deleteSelectElement, setSelectElement } from '../../../model/Canvas/Element/element'
 import { Figure, setColorFigure } from '../../../model/Canvas/Element/Figure/figure'
 import { ColorPicker } from '../../ColorPicker/ColorPicker'
 import styles from './FigureProperties.module.css'
@@ -17,7 +17,10 @@ export function FigureProperties(props: FigurePropertiesPropsType) {
         <div>
             <div className={styles.header_layout}>
                 <div className={styles.header}>Figure Properties</div>
-                <div className={styles.image_wrap} onClick={() => { props.setViewEditor({ view: false, state: '' }) }}>
+                <div className={styles.image_wrap} onClick={() => { 
+                    props.setViewEditor({ view: false, state: '' })
+                    dispatch(setSelectElement, null) 
+                }}>
                     <img className={styles.image} src="images/close.png" />
                 </div>
             </div>

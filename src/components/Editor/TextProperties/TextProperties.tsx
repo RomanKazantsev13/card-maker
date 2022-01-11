@@ -1,7 +1,7 @@
 import React, { MutableRefObject, useState } from 'react'
 import useComponentVisible from '../../../customHooks/useComponentVisible'
 import { dispatch } from '../../../editor'
-import { deleteSelectElement, Element } from '../../../model/Canvas/Element/element'
+import { deleteSelectElement, Element, setSelectElement } from '../../../model/Canvas/Element/element'
 import { isText, resizeText, setColorText, setFontText, setSizeText, Text } from '../../../model/Canvas/Element/Text/text'
 import { Point } from '../../../model/Card/card'
 import { ColorPicker } from '../../ColorPicker/ColorPicker'
@@ -36,7 +36,10 @@ export function TextProperties(props: TextPropertiesPropsType) {
         <div>
             <div className={styles.header_layout}>
                 <div className={styles.header}>Text Properties</div>
-                <div className={styles.image_wrap} onClick={() => { props.setViewEditor({ view: false, state: '' }) }}>
+                <div className={styles.image_wrap} onClick={() => { 
+                    props.setViewEditor({ view: false, state: '' })
+                    dispatch(setSelectElement, null) 
+                }}>
                     <img className={styles.image} src="images/close.png" />
                 </div>
             </div>

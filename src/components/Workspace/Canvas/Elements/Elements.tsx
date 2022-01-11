@@ -49,6 +49,8 @@ interface CanvasPropsType {
     refs: Array<RefObject<HTMLDivElement>>,
 }
 
+export const pointNames: Array<string> = ['TopLeft', 'TopRight', 'BottomLeft', 'BottomRight', 'Top', 'Left', 'Right', 'Bottom']
+
 export default function Elements(props: CanvasPropsType): JSX.Element {
     let elements: Array<JSX.Element | undefined> = props.canvas.elements.map(function (element) {
         const object = element.object
