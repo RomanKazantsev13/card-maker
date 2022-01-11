@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react'
+import React, { MutableRefObject } from 'react'
 import { dispatch } from '../../../../editor';
 import { Element, setSelectElement } from '../../../../model/Canvas/Element/element';
 import { changeText, isText } from '../../../../model/Canvas/Element/Text/text';

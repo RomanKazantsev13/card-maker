@@ -1,14 +1,12 @@
-import { RefObject, useEffect, useState } from "react"
+import { RefObject, useEffect } from "react"
 import { pointsSelectElement } from "../components/Workspace/Canvas/Elements/Elements"
-import { getCentreAndSizeOfElement } from "../components/Workspace/Canvas/SelectElement/SelectElementFunction"
 import { dispatch } from "../editor"
-import { Element, setCentre, setSelectElement } from "../model/Canvas/Element/element"
+import { Element } from "../model/Canvas/Element/element"
 import { isEllipse, resizeEllipse } from "../model/Canvas/Element/Figure/Ellipse/ellipse"
 import { isFigure } from "../model/Canvas/Element/Figure/figure"
 import { isRectangle, resizeRectangle } from "../model/Canvas/Element/Figure/Rectangle/rectangle"
 import { isTriangle, resizeTriangle } from "../model/Canvas/Element/Figure/Triangle/triangle"
 import { isImage, resizeImage } from "../model/Canvas/Element/Image/image"
-import { isText } from "../model/Canvas/Element/Text/text"
 
 export function useResizeObject(
   element: Element,

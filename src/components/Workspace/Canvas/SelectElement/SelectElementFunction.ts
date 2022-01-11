@@ -1,11 +1,11 @@
-import { MutableRefObject, RefObject } from 'react'
+import { RefObject } from 'react'
 import { Element } from '../../../../model/Canvas/Element/element'
 import { Ellipse, isEllipse } from '../../../../model/Canvas/Element/Figure/Ellipse/ellipse'
 import { Figure, isFigure } from '../../../../model/Canvas/Element/Figure/figure'
 import { isRectangle, Rectangle } from '../../../../model/Canvas/Element/Figure/Rectangle/rectangle'
 import { isTriangle, Triangle } from '../../../../model/Canvas/Element/Figure/Triangle/triangle'
 import { Image, isImage } from '../../../../model/Canvas/Element/Image/image'
-import { isText, Text } from '../../../../model/Canvas/Element/Text/text'
+import { isText } from '../../../../model/Canvas/Element/Text/text'
 import { Point, Size } from '../../../../model/Card/card'
 
 export function getCentreAndSizeOfElement(

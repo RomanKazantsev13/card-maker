@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react'
+import React, { ReactElement } from 'react'
 import useComponentVisible from '../../../customHooks/useComponentVisible';
 import { setBackgroundColor } from '../../../model/Canvas/canvas';
 import { ColorPicker } from '../../ColorPicker/ColorPicker'

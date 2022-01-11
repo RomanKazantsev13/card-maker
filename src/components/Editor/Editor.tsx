@@ -46,7 +46,7 @@ export function Editor(props: EditorPropsType) {
             return <Graphics setViewEditor={props.stateViewEditor.setViewEditor} />
         }
         if (props.stateViewEditor.viewEditor.state == 'Text') {
-            return <Text setViewEditor={props.stateViewEditor.setViewEditor} />
+            return <Text />
         }
         if (props.stateViewEditor.viewEditor.state == 'Figure Properties') {
             if (props.canvas.selectElement !== null && isFigure(props.canvas.selectElement.object)) {

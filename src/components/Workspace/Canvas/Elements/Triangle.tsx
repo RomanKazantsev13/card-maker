@@ -1,11 +1,6 @@
-import React, { MutableRefObject, RefObject, useEffect, useRef, useState } from 'react'
-import { Element, setSelectElement } from '../../../../model/Canvas/Element/element'
-
-import { dispatch } from '../../../../editor'
-import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
+import React, { MutableRefObject, RefObject, useRef, useState } from 'react'
+import { Element } from '../../../../model/Canvas/Element/element'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
-import { isTriangle } from '../../../../model/Canvas/Element/Figure/Triangle/triangle'
-import { isFigure } from '../../../../model/Canvas/Element/Figure/figure'
 import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
 import { pointNames, pointsSelectElement } from './Elements'
 import { useResizeObject } from '../../../../customHooks/useResizeObject'

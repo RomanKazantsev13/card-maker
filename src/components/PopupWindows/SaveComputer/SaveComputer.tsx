@@ -1,5 +1,4 @@
-import React, { createRef, LabelHTMLAttributes, MutableRefObject, RefObject, useCallback, useEffect, useRef, useState } from 'react'
-import { InputType } from 'zlib'
+import React, { createRef, MutableRefObject, RefObject, useCallback, useEffect, useState } from 'react'
 import { dispatch } from '../../../editor'
 import { setSelectElement } from '../../../model/Canvas/Element/element'
 import { Button } from './Button'

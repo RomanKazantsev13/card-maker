@@ -1,7 +1,5 @@
 import React, { MutableRefObject, RefObject, useRef, useState } from 'react'
-import { Element, setSelectElement } from '../../../../model/Canvas/Element/element'
-
-import { dispatch } from '../../../../editor'
+import { Element } from '../../../../model/Canvas/Element/element'
 import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 import useObjectVisible from '../../../../customHooks/useObjectVisibtle'

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { dispatch } from '../../../editor';
 import { resetCanvas } from '../../../model/Canvas/canvas';
 import { Button } from '../SaveComputer/Button';

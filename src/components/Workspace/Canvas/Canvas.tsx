@@ -5,7 +5,7 @@ import { SelectElement } from './SelectElement/SelectElement'
 import { InputText } from './InputText/InputText'
 import Elements from './Elements/Elements'
 import { dispatch } from '../../../editor'
-import { deleteSelectElement, getSelectElement } from '../../../model/Canvas/Element/element'
+import { deleteSelectElement } from '../../../model/Canvas/Element/element'
 
 interface CanvasPropsType {
     canvas: CanvasType,

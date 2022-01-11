@@ -1,7 +1,6 @@
 import React, { ChangeEvent, RefObject, useRef } from 'react'
 import { dispatch } from '../../../editor'
 import { addImage } from '../../../model/Canvas/Element/Image/image'
-import { Size } from '../../../model/Card/card'
 import styles from './ImageManager.module.css'
 
 interface ImageManagerPropsType {

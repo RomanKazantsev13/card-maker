@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from "react"
+import { RefObject, useEffect } from "react"
 import { pointsSelectElement } from "../components/Workspace/Canvas/Elements/Elements"
 import { getCentreAndSizeOfElement } from "../components/Workspace/Canvas/SelectElement/SelectElementFunction"
 import { dispatch } from "../editor"

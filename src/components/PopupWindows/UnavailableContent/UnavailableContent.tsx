@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import { dispatch } from '../../../editor';
+import React, { useCallback, useEffect } from 'react'
 import { Button } from '../SaveComputer/Button';
 import styles from './UnavailableContent.module.css'
 

@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { Template } from '../../model/Card/Templates/templates'
+import React from 'react'
 import { Button } from './Button/Button'
 import styles from './PrimaryPanel.module.css'
 

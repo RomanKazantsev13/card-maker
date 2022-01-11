@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, RefObject, MutableRefObject } from 'react'
+import { useEffect, RefObject, MutableRefObject } from 'react'
 import { dispatch } from '../editor'
 import { Element, setSelectElement } from '../model/Canvas/Element/element'
 import { isText } from '../model/Canvas/Element/Text/text'
