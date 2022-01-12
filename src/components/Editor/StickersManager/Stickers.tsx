@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { isNumber } from 'util'
 import { CollectionOfStickers } from './CollectionOfStickers'
 import styles from './Stickers.module.css'
 
@@ -11,6 +12,10 @@ export function Stickers(props: StickersPropsType) {
     const [arrow, setArrow] = useState('arrow_down')
     const getHeader = () => {
         let header = props.stickersName[0]
+        const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+        if (digits.includes(header)) {
+            return props.stickersName
+        }
         for (let i = 1; i < props.stickersName.length; i++) {
             if (props.stickersName[i].toUpperCase() == props.stickersName[i]) {
                 header += ' ' + props.stickersName[i]

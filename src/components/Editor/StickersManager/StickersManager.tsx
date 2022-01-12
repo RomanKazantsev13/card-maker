@@ -2,7 +2,18 @@ import React from 'react'
 import { Stickers } from './Stickers'
 import styles from './StickersManager.module.css'
 
-const stickersName = ['Christmas', 'CuteAxolotl', 'SantaClaus']
+const stickersName = [
+    '4x4',
+    'Birthday',
+    'Christmas',
+    'ChristmasAnimals',
+    'CuteAxolotl',
+    'Expressions',
+    'Hallowen',
+    'Numbers',
+    'SantaClaus',
+    'Universe'
+]
 
 export function StickersManager() {
     const stickers = []
