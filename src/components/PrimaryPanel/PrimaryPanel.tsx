@@ -32,7 +32,8 @@ const buttons = [
     { name: 'Customize', imageName: 'customize' },
     { name: 'Templates', imageName: 'template' },
     { name: 'Graphics', imageName: 'figures' },
-    { name: 'Text', imageName: 'text' }
+    { name: 'Stickers', imageName: 'art'},
+    { name: 'Text', imageName: 'text' },
 ]
 
 export function PrimaryPanel(props: PrimaryPanelPropsType) {

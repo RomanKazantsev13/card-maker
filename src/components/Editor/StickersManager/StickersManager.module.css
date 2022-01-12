@@ -1,0 +1,33 @@
+.header
+{
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 15px;
+    margin-left: 27px;
+    margin-bottom: 15px;
+    color: #f1f1f1;
+}
+
+.stickers
+{
+    height: 600px;
+    overflow: auto;
+    border-radius: 5px;
+}
+
+.stickers::-webkit-scrollbar 
+{
+    width: 12px;               /* ширина scrollbar */
+}
+  
+.stickers::-webkit-scrollbar-track 
+{
+    background: #242631;        /* цвет дорожки */
+}
+  
+.stickers::-webkit-scrollbar-thumb 
+{
+    background-color: #adb1cc;    /* цвет плашки */
+    border-radius: 20px;       /* закругления плашки */
+    border: 3px solid #242631;  /* padding вокруг плашки */
+}

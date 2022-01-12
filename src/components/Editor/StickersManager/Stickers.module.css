@@ -1,0 +1,34 @@
+.img
+{
+    width: 10px;
+    height: 10px;
+    margin-top: 12px;
+    margin-right: 10px;
+}
+
+.subheader
+{
+    font-size: 14px;
+    color: #f1f1f1;
+    margin-top: 5px;
+    margin-left: 8px;
+}
+
+.popup
+{
+    margin: 15px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    height: 35px;
+    border:  1px solid #353948;
+    border-radius: 4px;
+}
+
+.popup:hover
+{
+    cursor: pointer;
+    background: #2e313f;
+}

@@ -67,9 +67,6 @@ export function useDragAndDrop(
       if (element !== null && isFigure(element.object)) {
         setViewEditor({ view: true, state: 'Figure Properties' })
       }
-      if (element !== null && isImage(element.object)) {
-        setViewEditor({ view: true, state: 'Image Manager' })
-      }
     }
     dispatch(setSelectElement, element)
     startPos = {

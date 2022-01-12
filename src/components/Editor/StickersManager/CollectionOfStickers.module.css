@@ -1,0 +1,44 @@
+.stickers
+{ 
+    width: 235px;
+    height: 150px;
+    margin: 0 auto;
+    border-radius: 17px;
+    background-color: #2a2c3b;
+    height: 515px;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    transition: 0.3s;
+}
+.stickers::-webkit-scrollbar 
+{
+    width: 0px;               /* ширина scrollbar */
+}
+  
+.stickers::-webkit-scrollbar-track 
+{
+    background: #242631;        /* цвет дорожки */
+}
+  
+.stickers::-webkit-scrollbar-thumb 
+{
+    background-color: #adb1cc;    /* цвет плашки */
+    border-radius: 20px;       /* закругления плашки */
+    border: 3px solid #242631;  /* padding вокруг плашки */
+}
+
+.sticker
+{
+    width: 80px;
+    height: 80px;
+    margin: 15px;
+}
+
+.sticker:hover
+{
+    cursor: pointer;
+    transform:scale(1.4);
+    z-index: 1;
+}

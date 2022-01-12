@@ -11,6 +11,7 @@ import { FontChoose } from './FontChoose/FontChoose'
 import { isText } from '../../model/Canvas/Element/Text/text'
 import { isFigure } from '../../model/Canvas/Element/Figure/figure'
 import { Canvas } from '../../model/Canvas/canvas'
+import { StickersManager } from './StickersManager/StickersManager'
 
 interface EditorPropsType {
     stateViewEditor: {
@@ -77,6 +78,9 @@ export function Editor(props: EditorPropsType) {
                     setNotification={props.setNotification}
                 />
             }
+        }
+        if (props.stateViewEditor.viewEditor.state == 'Stickers') {
+            return <StickersManager />
         }
     })()
     return (
