@@ -1,4 +1,5 @@
 import React from 'react'
+import { uuid } from 'uuidv4'
 import { Stickers } from './Stickers'
 import styles from './StickersManager.module.css'
 
@@ -19,7 +20,7 @@ export function StickersManager() {
     const stickers = []
     for (let i = 0; i < stickersName.length; i++) {
         stickers.push(
-            <Stickers stickersName={stickersName[i]} />
+            <Stickers key={uuid()} stickersName={stickersName[i]} />
         )
     }
     return(

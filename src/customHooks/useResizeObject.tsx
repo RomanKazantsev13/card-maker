@@ -253,7 +253,9 @@ export function useResizeObject(
   }
 
   useEffect(() => {
-    {!isMoving && setSize(initSize)}
+    if (!isMoving) {
+      setSize(initSize)
+    }
     if (elementRef.current !== null && element == selectElement) {
       elementRef.current.addEventListener("mousedown", MouseDownListener)
     }
@@ -262,7 +264,7 @@ export function useResizeObject(
         elementRef.current.removeEventListener("mousedown", MouseDownListener)
       }
     }
-  })
+  }, [initSize])
 
   const MouseDownListener = (e: any) => {
     startPos = {

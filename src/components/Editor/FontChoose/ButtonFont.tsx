@@ -17,16 +17,9 @@ interface ButtonFontPropsType {
 export function ButtonFont(props: ButtonFontPropsType) {
     const ref: MutableRefObject<HTMLDivElement | null> = useRef(null)
     const style = () => { return props.font == props.selectFont ? styles.selected : '' }
-    let counter = 1
     return (
         <div ref={ref} className={styles.wrap + ' ' + style()} style={{ fontFamily: props.font }} onClick={() => {
             dispatch(setFontText, props.font)
-            props.setSizeSelectElement(getCentreAndSizeOfElement(props.selectElement, props.refText).size)
-            counter++
-            if (counter == 2) {
-                counter = 0
-                {ref.current && ref.current.click()}
-            }
         }}
         >
             <div className={styles.text} >{props.font}</div>

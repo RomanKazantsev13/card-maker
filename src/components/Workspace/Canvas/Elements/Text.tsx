@@ -1,4 +1,4 @@
-import React, { MutableRefObject, RefObject, useRef, useState } from 'react'
+import React, { MutableRefObject, RefObject, useEffect, useRef, useState } from 'react'
 import { Element } from '../../../../model/Canvas/Element/element'
 import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
@@ -32,6 +32,15 @@ interface TextPropsType {
 export function Text(props: TextPropsType) {
     const ref = useRef(null)
     const { centre, size, type } = getCentreAndSizeOfElement(props.element, ref)
+
+    useEffect(() => {
+        props.setSize(getCentreAndSizeOfElement(props.element, ref).size)
+        props.statePointsSelectElement.setPositionPoints({
+            ...props.statePointsSelectElement.positionPoints,
+            // { x: position.x, y: position.y - element.object.sizeText }
+            border: {x: getCentreAndSizeOfElement(props.element, ref).centre.x, y: getCentreAndSizeOfElement(props.element, ref).centre.y - props.fontSize}
+        })
+      }, [props.fontFamily, props.fontSize])
 
     const [position, setPosition] = useState(centre)
     const [isMoving, setIsMoving] = useState(false)
