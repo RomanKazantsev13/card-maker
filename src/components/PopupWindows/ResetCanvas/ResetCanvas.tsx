@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect } from 'react'
-import { dispatch } from '../../../editor';
-import { resetCanvas } from '../../../model/Canvas/canvas';
-import { Button } from '../SaveComputer/Button';
+import { initialCard } from '../../../store/actionCreators/CardActionCreators';
+import { store } from '../../../store/store';
+import { Button } from '../SaveComputer/Button'
 import styles from './ResetCanvas.module.css'
 
 interface ResetCanvasPropsType {
     setView: (view: boolean) => void,
-    setViewEditor: (viewEditor: { view: boolean, state: string }) => void
+    stateViewEditor: {
+        viewEditor: { view: boolean, state: string },
+        setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
+    }
 }
 
 export function ResetCanvas(props: ResetCanvasPropsType) {
@@ -36,9 +39,11 @@ export function ResetCanvas(props: ResetCanvasPropsType) {
                 <div className={styles.button_layout}>
                     <Button content={"No"} background={["#353948", "#484d61"]} color={"#f1f1f1"} onclick={props.setView} />
                     <Button content={"Yes"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => {
-                        dispatch(resetCanvas, [])
+                        store.dispatch(initialCard())
                         props.setView(false)
-                        props.setViewEditor({view: true, state: 'Customize'})
+                        if (props.stateViewEditor.viewEditor.view) {
+                            props.stateViewEditor.setViewEditor({view: true, state: 'Customize'})
+                        }
                     }} />
                 </div>
             </div>

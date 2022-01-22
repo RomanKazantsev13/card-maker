@@ -1,13 +1,11 @@
 import React, { MutableRefObject } from 'react'
 import styles from './Workspace.module.css'
-import type { Canvas as CanvasType } from '../../model/Canvas/canvas'
 import { Canvas } from '../Workspace/Canvas/Canvas'
+import { store } from '../../store/store'
 
 interface WorkspacePropsType {
-    canvas: CanvasType,
     refEditor: MutableRefObject<HTMLDivElement | null>,
     refSvg: MutableRefObject<SVGSVGElement | null>,
-    width: string,
     stateSizeSelectElement: {
         sizeSelectElement: {width: number, height: number},
         setSizeSelectElement: (size: {width: number, height: number}) => void,
@@ -16,14 +14,13 @@ interface WorkspacePropsType {
         viewEditor: { view: boolean, state: string }
         setViewEditor: (viewEditor: { view: boolean, state: string }) => void
     },
-    setRefText: (refText: MutableRefObject<SVGTextElement | null>) => void,
 }
 
 export function Workspace(props: WorkspacePropsType) {
     return (
-        <div className={styles.workspace} style={{ width: props.width }}>
+        <div className={styles.workspace} style={{ width: (() => { return props.stateViewEditor.viewEditor.view ? 'calc(100% - 270px)' : '100%' })() }}>
             <Canvas
-                canvas={props.canvas}
+                canvas={store.getState().canvas}
                 stateSizeSelectElement={{
                     sizeSelectElement: props.stateSizeSelectElement.sizeSelectElement, 
                     setSizeSelectElement: props.stateSizeSelectElement.setSizeSelectElement
@@ -34,7 +31,6 @@ export function Workspace(props: WorkspacePropsType) {
                 }}
                 refSvg={props.refSvg}
                 refEditor={props.refEditor}
-                setRefText={props.setRefText}
             />
         </div>
     )

@@ -1,17 +1,14 @@
-import React, { MutableRefObject, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { uuid } from 'uuidv4'
-import { Element } from '../../../model/Canvas/Element/element'
+import { store } from '../../../store/store'
 import { ButtonFont } from './ButtonFont'
 import styles from './FontChoose.module.css'
 import { fonts } from './fonts'
 
 interface FontChoosePropsType {
-    selectElement: Element,
     setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     font: string,
     setFont: (font: string) => void,
-    setSizeSelectElement: (size: {width: number, height: number}) => void,
-    refText: MutableRefObject<SVGTextElement | null>,
     setNotification: (viewResize: boolean) => void,
 }
 
@@ -23,9 +20,7 @@ export function FontChoose(props: FontChoosePropsType) {
                 font={font} 
                 selectFont={props.font} 
                 setFont={props.setFont} 
-                selectElement={props.selectElement} 
-                refText={props.refText}
-                setSizeSelectElement={props.setSizeSelectElement}
+                selectElement={store.getState().canvas.selectElement} 
             />
     })
     function handleChangeFont(event: React.ChangeEvent<HTMLInputElement>) {
@@ -49,7 +44,7 @@ export function FontChoose(props: FontChoosePropsType) {
             </div>
 
             <div className={styles.header_font}>Selected Font</div>
-            <ButtonFont font={props.font} selectFont={props.font} setFont={props.setFont} selectElement={props.selectElement} refText={props.refText} setSizeSelectElement={props.setSizeSelectElement} />
+            <ButtonFont font={props.font} selectFont={props.font} setFont={props.setFont} selectElement={store.getState().canvas.selectElement} />
 
             <div className={styles.header_font}>All Fonts</div>
             <div className={styles.fonts}>

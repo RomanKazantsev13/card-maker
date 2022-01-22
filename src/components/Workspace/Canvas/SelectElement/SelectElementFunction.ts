@@ -1,12 +1,6 @@
 import { RefObject } from 'react'
-import { Element } from '../../../../model/Canvas/Element/element'
-import { Ellipse, isEllipse } from '../../../../model/Canvas/Element/Figure/Ellipse/ellipse'
-import { Figure, isFigure } from '../../../../model/Canvas/Element/Figure/figure'
-import { isRectangle, Rectangle } from '../../../../model/Canvas/Element/Figure/Rectangle/rectangle'
-import { isTriangle, Triangle } from '../../../../model/Canvas/Element/Figure/Triangle/triangle'
-import { Image, isImage } from '../../../../model/Canvas/Element/Image/image'
-import { isText } from '../../../../model/Canvas/Element/Text/text'
-import { Point, Size } from '../../../../model/Card/card'
+import { isEllipse, isFigure, isImage, isRectangle, isText, isTriangle } from '../../../../utils/typeGuards'
+import { Element, Ellipse, Figure, Image, Point, Rectangle, Size, Triangle } from '../../../../utils/types'
 
 export function getCentreAndSizeOfElement(
     selectElement: Element | null, 

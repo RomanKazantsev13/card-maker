@@ -1,11 +1,11 @@
-import type { Card, Point } from '../../../../Card/card'
 import { madeChange } from '../../../../Card/History/history'
-import { Element, getSelectElement } from '../../element'
-import { isFigure } from '../figure'
+import { getSelectElement } from '../../element'
 import { uuid } from 'uuidv4';
+import { Card, Element, Point } from '../../../../../types';
+import { isFigure } from '../../../../../typeGuards';
 
 export function addTriangle(card: Card): Card {
-    const newCard = {
+    const newCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -32,8 +32,8 @@ export function addTriangle(card: Card): Card {
 }
 
 export function resizeTriangle(card: Card, triangle: {points: {firstPoint: Point, secondPoint: Point, thirdPoint: Point}, centre: Point}): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
+    const oldElement: Element | null = getSelectElement(card)
+    const changeCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -56,7 +56,7 @@ export function resizeTriangle(card: Card, triangle: {points: {firstPoint: Point
             })
         }
     }
-    const newCard = {
+    const newCard: Card = {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
@@ -66,14 +66,3 @@ export function resizeTriangle(card: Card, triangle: {points: {firstPoint: Point
     madeChange(newCard, 'Resize Graphic', 'images/triangle.png')
     return newCard
 }
-
-export function isTriangle(object: any): object is Triangle {
-    return (object as Triangle).firstPoint !== undefined && (object as Triangle).secondPoint !== undefined && (object as Triangle).thirdPoint !== undefined
-}
-
-export type Triangle = {
-    firstPoint: Point,
-    secondPoint: Point,
-    thirdPoint: Point
-}
-

@@ -1,9 +1,9 @@
 import React, { MutableRefObject, RefObject, useRef, useState } from 'react'
-import { Element } from '../../../../model/Canvas/Element/element'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
 import { pointNames, pointsSelectElement } from './Elements'
 import { useResizeObject } from '../../../../customHooks/useResizeObject'
+import { Element } from '../../../../utils/types'
 
 interface ImagePropsType {
     size: { width: number, height: number },
@@ -45,8 +45,6 @@ export function Image(props: ImagePropsType) {
             y={position.y}
             width={size.width}
             height={size.height}
-            onClick={() => {
-            }}
         />
     )
 }

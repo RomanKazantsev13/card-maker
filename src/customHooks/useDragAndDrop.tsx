@@ -1,11 +1,10 @@
 import { RefObject, useEffect } from "react"
 import { pointsSelectElement } from "../components/Workspace/Canvas/Elements/Elements"
 import { getCentreAndSizeOfElement } from "../components/Workspace/Canvas/SelectElement/SelectElementFunction"
-import { dispatch } from "../editor"
-import { Element, setCentre, setSelectElement } from "../model/Canvas/Element/element"
-import { isFigure } from "../model/Canvas/Element/Figure/figure"
-import { isImage } from "../model/Canvas/Element/Image/image"
-import { isText } from "../model/Canvas/Element/Text/text"
+import { setCentreElement, setSelectElement } from "../store/actionCreators/ElementsActionCreators"
+import { store } from "../store/store"
+import { isFigure, isText } from "../utils/typeGuards"
+import { Element } from "../utils/types"
 
 export function useDragAndDrop(
   element: Element,
@@ -24,6 +23,7 @@ export function useDragAndDrop(
   useEffect(() => {
     if (!isMoving) {
       setPosition(position)
+      console.log('move')
     }
     if (elementRef.current !== null) {
       elementRef.current.addEventListener("mousedown", MouseDownListener)
@@ -33,11 +33,11 @@ export function useDragAndDrop(
         elementRef.current.removeEventListener("mousedown", MouseDownListener)
       }
     }
-  }, [position])
+  })
 
   const MouseDownListener = (e: any) => {
     if (element !== null && isText(element.object)) {
-      const textPosition = { x: position.x, y: position.y - element.object.sizeText }
+      const textPosition = { x: position.x, y: position.y - element.object.fontSize }
       setPositionSelectElement({
         border: textPosition,
         pointTopLeft: textPosition,
@@ -68,7 +68,7 @@ export function useDragAndDrop(
         setViewEditor({ view: true, state: 'Figure Properties' })
       }
     }
-    dispatch(setSelectElement, element)
+    store.dispatch(setSelectElement(element))
     startPos = {
       x: e.pageX,
       y: e.pageY,
@@ -89,7 +89,7 @@ export function useDragAndDrop(
     }
     setPosition(newPos)
     if (element !== null && isText(element.object)) {
-      const textPosition = { x: newPos.x, y: newPos.y - element.object.sizeText }
+      const textPosition = { x: newPos.x, y: newPos.y - element.object.fontSize }
       setPositionSelectElement({
         border: textPosition,
         pointTopLeft: textPosition,
@@ -118,7 +118,7 @@ export function useDragAndDrop(
 
   const MouseUpListener = () => {
     if (newPos !== position) {
-      dispatch(setCentre, newPos)
+      store.dispatch(setCentreElement(newPos))
     }
     document.removeEventListener("mousemove", MouseMoveListener)
     document.removeEventListener("mouseup", MouseUpListener)

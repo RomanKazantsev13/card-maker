@@ -1,6 +1,6 @@
 import React from 'react'
-import { dispatch } from '../../../editor'
-import { addText } from '../../../model/Canvas/Element/Text/text'
+import { addText } from '../../../store/actionCreators/TextActionCreators'
+import { store } from '../../../store/store'
 import styles from './Text.module.css'
 
 export function Text() {
@@ -8,7 +8,7 @@ export function Text() {
         <div>
             <div className={styles.header}>Text</div>
             <div className={styles.button} onClick={() => {
-                dispatch(addText)
+                store.dispatch(addText())
             }}>
                 <div className={styles.text}>Add Text</div>
             </div>

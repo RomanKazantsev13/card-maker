@@ -1,8 +1,7 @@
-import React, { MutableRefObject, RefObject, useRef } from 'react'
+import React, { RefObject } from 'react'
+import { isText } from '../../../../utils/typeGuards'
+import { Element } from '../../../../utils/types'
 import styles from './SelectElement.module.css'
-import type { Element } from '../../../../model/Canvas/Element/element'
-import { getCentreAndSizeOfElement } from './SelectElementFunction'
-import { isText } from '../../../../model/Canvas/Element/Text/text'
 
 interface pointsSelectElement {
     border: {x: number, y: number},

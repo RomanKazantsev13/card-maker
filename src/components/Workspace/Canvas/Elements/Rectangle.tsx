@@ -1,9 +1,9 @@
 import React, { MutableRefObject, RefObject, useRef, useState } from 'react'
-import { Element } from '../../../../model/Canvas/Element/element'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
 import { pointNames, pointsSelectElement } from './Elements'
 import { useResizeObject } from '../../../../customHooks/useResizeObject'
+import { Element } from '../../../../utils/types'
 
 interface RectanglePropsType {
     size: { width: number, height: number },

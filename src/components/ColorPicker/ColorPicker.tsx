@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { ChromePicker, ColorResult } from 'react-color'
-import { dispatch } from '../../editor'
-import { Card } from '../../model/Card/card'
+import { store } from '../../store/store'
 import styles from './ColorPicker.module.css'
 
 interface ColorPickerPropstype {
     color: string,
-    function: (card: Card, newColor: string) => Card,
+    function: (color: string) => {type: string, color: string},
 }
 
 export function ColorPicker(props: ColorPickerPropstype) {
@@ -28,7 +27,7 @@ export function ColorPicker(props: ColorPickerPropstype) {
             <ChromePicker
                 color={props.color}
                 onChange={(newColor: ColorResult, event: React.ChangeEvent<HTMLInputElement>) => {
-                    dispatch(props.function, newColor.hex)
+                    store.dispatch(props.function(newColor.hex))
                 }}
                 styles={chromePickerStyles}
             />

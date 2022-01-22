@@ -1,11 +1,10 @@
 import React, { ChangeEvent, RefObject, useRef } from 'react'
-import { dispatch } from '../../../editor'
-import { addImage } from '../../../model/Canvas/Element/Image/image'
+import { addImage } from '../../../store/actionCreators/ImageActionCreators';
+import { store } from '../../../store/store'
 import styles from './ImageManager.module.css'
 
 interface ImageManagerPropsType {
     setSizeInsertImage: (insertImage: {image: {size: {width: number, height: number}, url: string}, view: boolean}) => void,
-    canvasSize: {width: number, height: number},
     setNotification: (viewResize: boolean) => void,
 }
 
@@ -34,11 +33,11 @@ export function ImageManager(props: ImageManagerPropsType) {
                 (event: ChangeEvent<HTMLInputElement>) => {
                     if (event.currentTarget.files) {
                         const imgUrl = URL.createObjectURL(event.currentTarget.files[0])
-                        getSize(imgUrl).then(size => {
-                            if (props.canvasSize.width < size.width || props.canvasSize.height < size.height) {
+                        getSize(imgUrl).then(size => { 
+                            if (store.getState().canvas.size.width < size.width || store.getState().canvas.size.height < size.height) {
                                 props.setSizeInsertImage({image: {size: size, url: imgUrl}, view: true})
                             } else {
-                                dispatch(addImage, { url: imgUrl, size: size })
+                                store.dispatch(addImage(imgUrl, size))
                             }
                         })
                         event.target.value = "";

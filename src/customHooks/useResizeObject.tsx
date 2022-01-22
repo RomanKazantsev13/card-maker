@@ -1,12 +1,10 @@
 import { RefObject, useEffect } from "react"
 import { pointsSelectElement } from "../components/Workspace/Canvas/Elements/Elements"
-import { dispatch } from "../editor"
-import { Element } from "../model/Canvas/Element/element"
-import { isEllipse, resizeEllipse } from "../model/Canvas/Element/Figure/Ellipse/ellipse"
-import { isFigure } from "../model/Canvas/Element/Figure/figure"
-import { isRectangle, resizeRectangle } from "../model/Canvas/Element/Figure/Rectangle/rectangle"
-import { isTriangle, resizeTriangle } from "../model/Canvas/Element/Figure/Triangle/triangle"
-import { isImage, resizeImage } from "../model/Canvas/Element/Image/image"
+import { resizeEllipse, resizeRectangle, resizeTriangle } from "../store/actionCreators/FigureActionCreators"
+import { resizeImage } from "../store/actionCreators/ImageActionCreators"
+import { store } from "../store/store"
+import { isEllipse, isFigure, isImage, isRectangle, isTriangle } from "../utils/typeGuards"
+import { Element } from "../utils/types"
 
 export function useResizeObject(
   element: Element,
@@ -28,6 +26,21 @@ export function useResizeObject(
   let startPos: { x: number; y: number } = position
   let newPos: { x: number; y: number } = position
   let newSize = stateSizeSelectElement.size
+
+  useEffect(() => {
+    if (!isMoving) {
+      setSize(initSize)
+      console.log('resize')
+    }
+    if (elementRef.current !== null && element == selectElement) {
+      elementRef.current.addEventListener("mousedown", MouseDownListener)
+    }
+    return () => {
+      if (elementRef.current !== null) {
+        elementRef.current.removeEventListener("mousedown", MouseDownListener)
+      }
+    }
+  })
 
   function MoveTopLeftPoint(delta: {x: number, y: number}) {
     newPos = {
@@ -252,20 +265,6 @@ export function useResizeObject(
     setSize(newSize)
   }
 
-  useEffect(() => {
-    if (!isMoving) {
-      setSize(initSize)
-    }
-    if (elementRef.current !== null && element == selectElement) {
-      elementRef.current.addEventListener("mousedown", MouseDownListener)
-    }
-    return () => {
-      if (elementRef.current !== null) {
-        elementRef.current.removeEventListener("mousedown", MouseDownListener)
-      }
-    }
-  }, [initSize])
-
   const MouseDownListener = (e: any) => {
     startPos = {
       x: e.pageX,
@@ -311,21 +310,21 @@ export function useResizeObject(
     if (!isMoving) {
       if (isFigure(element.object)) {
         if (isRectangle(element.object.figure)) {
-          dispatch(resizeRectangle, {newSize: newSize, newCentre: newPos})
+          store.dispatch(resizeRectangle(newSize, newPos))
         }
         if (isTriangle(element.object.figure)) {
-          dispatch(resizeTriangle, {points: {
+          store.dispatch(resizeTriangle({
             firstPoint: {x: newPos.x, y: newPos.y + newSize.height}, 
             secondPoint: {x: newPos.x + newSize.width / 2, y: newPos.y }, 
             thirdPoint: {x: newPos.x + newSize.width , y: newPos.y + newSize.height}
-          }, centre: newPos})
+          }, newPos))
         }
         if (isEllipse(element.object.figure)) {
-          dispatch(resizeEllipse, {newSize: newSize, newCentre: newPos})
+          store.dispatch(resizeEllipse(newSize, newPos))
         }
       }
       if (isImage(element.object)) {
-        dispatch(resizeImage, {newSize: newSize, newCentre: newPos})
+        store.dispatch(resizeImage(newSize, newPos))
       }
     }
     setIsMoving(false)

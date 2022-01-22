@@ -1,7 +1,7 @@
 import React from 'react'
 import { uuid } from 'uuidv4'
-import { dispatch } from '../../../editor'
-import { addImage } from '../../../model/Canvas/Element/Image/image'
+import { addImage } from '../../../store/actionCreators/ImageActionCreators'
+import { store } from '../../../store/store'
 import styles from './CollectionOfStickers.module.css'
 
 interface CollectionOfStickersPropsType {
@@ -15,7 +15,7 @@ export function CollectionOfStickers(props: CollectionOfStickersPropsType) {
             let path: string = "stickers/" + props.stickersName + "/" + i + ".png"
             stickers.push(
                 <img key={uuid()} className={styles.sticker} src={path} onClick={() => {
-                    dispatch(addImage, {url: path, size: {width: 128, height: 128}})
+                    store.dispatch(addImage(path, {width: 128, height: 128}))
                 }} />
             )
         }

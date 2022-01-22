@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './InsertImage.module.css'
-import { Button } from '../SaveComputer/Button';
-import { dispatch } from '../../../editor';
-import { addImage } from '../../../model/Canvas/Element/Image/image';
-import { setSizeCanvas } from '../../../model/Canvas/canvas';
+import { Button } from '../SaveComputer/Button'
+import { store } from '../../../store/store'
+import { addImage } from '../../../store/actionCreators/ImageActionCreators'
+import { setSizeCanvas } from '../../../store/actionCreators/CanvasActionCreators'
 
 interface InsertImagePropsType {
     stateSizeInsertImage: {
@@ -31,21 +31,21 @@ export function InsertImage(props: InsertImagePropsType) {
                         })
                     }} />
                     <Button content={"Save"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => {
-                        dispatch(addImage, { 
-                            url: props.stateSizeInsertImage.sizeInsertImage.image.url, 
-                            size: props.stateSizeInsertImage.sizeInsertImage.image.size
-                        })
+                        store.dispatch(addImage( 
+                            props.stateSizeInsertImage.sizeInsertImage.image.url, 
+                            props.stateSizeInsertImage.sizeInsertImage.image.size
+                        ))
                         props.stateSizeInsertImage.setSizeInsertImage({
                             image: {size: props.stateSizeInsertImage.sizeInsertImage.image.size, url: ''}, 
                             view: false
                         })
                     }} />
                     <Button content={"Increase"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => {
-                        dispatch(setSizeCanvas, props.stateSizeInsertImage.sizeInsertImage.image.size)
-                        dispatch(addImage, { 
-                            url: props.stateSizeInsertImage.sizeInsertImage.image.url, 
-                            size: props.stateSizeInsertImage.sizeInsertImage.image.size
-                        })
+                        store.dispatch(setSizeCanvas(props.stateSizeInsertImage.sizeInsertImage.image.size))
+                        store.dispatch(addImage(
+                            props.stateSizeInsertImage.sizeInsertImage.image.url, 
+                            props.stateSizeInsertImage.sizeInsertImage.image.size
+                        ))
                         props.stateSizeInsertImage.setSizeInsertImage({
                             image: {size: props.stateSizeInsertImage.sizeInsertImage.image.size, url: ''}, 
                             view: false

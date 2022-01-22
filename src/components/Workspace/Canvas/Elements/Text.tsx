@@ -1,9 +1,9 @@
 import React, { MutableRefObject, RefObject, useEffect, useRef, useState } from 'react'
-import { Element } from '../../../../model/Canvas/Element/element'
 import { getCentreAndSizeOfElement } from '../SelectElement/SelectElementFunction'
 import { useDragAndDrop } from '../../../../customHooks/useDragAndDrop'
 import useObjectVisible from '../../../../customHooks/useObjectVisibtle'
 import { pointsSelectElement } from './Elements'
+import { Element } from '../../../../utils/types'
 
 interface TextPropsType {
     string: string,
@@ -26,7 +26,6 @@ interface TextPropsType {
         setViewInput: (view: boolean) => void,
     },
     setSize: (size: {width: number, height: number}) => void,
-    setRefText: (refText: MutableRefObject<SVGTextElement | null>) => void,
 }
 
 export function Text(props: TextPropsType) {
@@ -37,7 +36,6 @@ export function Text(props: TextPropsType) {
         props.setSize(getCentreAndSizeOfElement(props.element, ref).size)
         props.statePointsSelectElement.setPositionPoints({
             ...props.statePointsSelectElement.positionPoints,
-            // { x: position.x, y: position.y - element.object.sizeText }
             border: {x: getCentreAndSizeOfElement(props.element, ref).centre.x, y: getCentreAndSizeOfElement(props.element, ref).centre.y - props.fontSize}
         })
       }, [props.fontFamily, props.fontSize])
@@ -53,7 +51,6 @@ export function Text(props: TextPropsType) {
             y={position.y}
             style={{ fontFamily: props.fontFamily, fontSize: props.fontSize, fill: props.color }}
             onClick={() => {
-                props.setRefText(ref)
                 props.setInputValue(props.string)
                 props.stateViewInput.setViewInput(false)
             }}

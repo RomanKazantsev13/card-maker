@@ -1,7 +1,6 @@
-import type { Canvas } from './../../Canvas/canvas'
-import type { Card } from '../card'
+import { Canvas, Card, Stack } from '../../../types'
 
-const maxStackValue = 500
+const maxStackValue: number = 500
 
 function pushStack(stack: Array<Stack>, data: { canvas: Canvas, name: string, image: string }): void {
     if (stack.length > maxStackValue) {
@@ -21,11 +20,11 @@ export function madeChange(card: Card, name: string, image: string): void {
 }
 
 export function undo(card: Card): Card {
-    const data = card.history.undo.pop()
+    const data: Stack | undefined = card.history.undo.pop()
     if (data !== undefined) {
         pushStack(card.history.redo, data)
     }
-    const newCanvas = card.history.undo[card.history.undo.length - 1].canvas
+    const newCanvas: Canvas = card.history.undo[card.history.undo.length - 1].canvas
     return {
         ...card,
         canvas: {
@@ -36,11 +35,11 @@ export function undo(card: Card): Card {
 }
 
 export function redo(card: Card): Card {
-    const data = card.history.redo.pop()
+    const data: Stack | undefined = card.history.redo.pop()
     if (data !== undefined) {
         pushStack(card.history.undo, data)
     }
-    const newCanvas = card.history.undo[card.history.undo.length - 1].canvas
+    const newCanvas: Canvas = card.history.undo[card.history.undo.length - 1].canvas
     return {
         ...card,
         canvas: {
@@ -48,10 +47,4 @@ export function redo(card: Card): Card {
             selectElement: null
         }
     }
-}
-
-export type Stack = {
-    canvas: Canvas,
-    name: string,
-    image: string,
 }

@@ -1,11 +1,11 @@
-import type { Card, Point, Size } from '../../../../Card/card'
 import { madeChange } from '../../../../Card/History/history'
-import { Element, getSelectElement } from '../../element'
-import { isFigure } from '../figure'
+import { getSelectElement } from '../../element'
 import { uuid } from 'uuidv4';
+import { Card, Element, Point, Size } from '../../../../../types';
+import { isFigure, isRectangle } from '../../../../../typeGuards';
 
 export function addRectangle(card: Card): Card {
-    const newCard = {
+    const newCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -33,8 +33,8 @@ export function addRectangle(card: Card): Card {
 }
 
 export function resizeRectangle(card: Card, rectangle: {newSize: Size, newCentre: Point}): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
+    const oldElement: Element | null = getSelectElement(card)
+    const changeCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -55,7 +55,7 @@ export function resizeRectangle(card: Card, rectangle: {newSize: Size, newCentre
             })
         }
     }
-    const newCard = {
+    const newCard: Card = {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
@@ -64,13 +64,5 @@ export function resizeRectangle(card: Card, rectangle: {newSize: Size, newCentre
     }
     madeChange(newCard, 'Resize Graphic', 'images/square.png')
     return newCard
-}
-
-export function isRectangle(object: any): object is Rectangle {
-     return (object as Rectangle).size !== undefined
-}
-
-export type Rectangle = {
-    size: Size
 }
 

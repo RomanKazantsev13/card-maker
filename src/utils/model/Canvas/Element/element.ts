@@ -1,11 +1,8 @@
-import type { Card, Point } from '../../Card/card'
-import type { Text } from './Text/text'
-import type { Image } from './Image/image'
-import { Figure } from './Figure/figure'
+import { Card, Element, Point } from '../../../types'
 import { madeChange } from '../../Card/History/history'
 
 export function setCentre(card: Card, position: Point): Card {
-    const selectElement = getSelectElement(card)
+    const selectElement: Element | null = getSelectElement(card)
     const changeCard: Card = {
         ...card,
         canvas: {
@@ -21,7 +18,7 @@ export function setCentre(card: Card, position: Point): Card {
             })
         }
     }
-    const newCard = {
+    const newCard: Card = {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
@@ -33,12 +30,12 @@ export function setCentre(card: Card, position: Point): Card {
 }
 
 export function deleteSelectElement(card: Card): Card {
-    const newElements = card.canvas.elements.filter(element => {
+    const newElements: Array<Element> = card.canvas.elements.filter(element => {
         if (element !== card.canvas.selectElement) {
             return element
         }
     })
-    const newCard = {
+    const newCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -66,10 +63,3 @@ export function getSelectElement(card: Card): Element | null {
     )
     return newSelectElement || null
 }
-
-export type Element = {
-    centre: Point,
-    id: string,
-    object: Text | Image | Figure
-}
-

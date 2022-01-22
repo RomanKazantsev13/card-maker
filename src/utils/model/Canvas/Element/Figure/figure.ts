@@ -1,13 +1,10 @@
-import type { Triangle } from './Triangle/triangle'
-import type { Rectangle } from './Rectangle/rectangle'
-import type { Ellipse } from './Ellipse/ellipse'
-import type { Card } from '../../../Card/card'
 import { getSelectElement } from '../element'
 import { madeChange } from '../../../Card/History/history'
+import { Card, Element } from '../../../../types'
 
 export function setColorFigure(card: Card, newColor: string): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = { 
+    const oldElement: Element | null = getSelectElement(card)
+    const changeCard: Card = { 
         ...card,
         canvas: {
             ...card.canvas,
@@ -25,7 +22,7 @@ export function setColorFigure(card: Card, newColor: string): Card {
             })
         }
     }
-    const newCard = {
+    const newCard: Card = {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
@@ -34,13 +31,4 @@ export function setColorFigure(card: Card, newColor: string): Card {
     }
     madeChange(newCard, 'Fill Color', 'images/square.png')
     return newCard
-}
-
-export function isFigure(element: any): element is Figure {
-    return (element as Figure).color !== undefined && (element as Figure).figure !== undefined
-}
-
-export type Figure = {
-    color: string,
-    figure: Triangle | Rectangle | Ellipse
 }

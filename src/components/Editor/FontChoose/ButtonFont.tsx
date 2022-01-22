@@ -1,17 +1,14 @@
-import React, { MutableRefObject, useRef, useState } from 'react'
-import { dispatch } from '../../../editor'
-import { Element } from '../../../model/Canvas/Element/element'
-import { isText, setFontText } from '../../../model/Canvas/Element/Text/text'
-import { getCentreAndSizeOfElement } from '../../Workspace/Canvas/SelectElement/SelectElementFunction'
+import React, { MutableRefObject, useRef } from 'react'
+import { setFontText } from '../../../store/actionCreators/TextActionCreators'
+import { store } from '../../../store/store'
+import { Element } from '../../../utils/types'
 import styles from './ButtonFont.module.css'
 
 interface ButtonFontPropsType {
-    selectElement: Element,
+    selectElement: Element | null,
     font: string,
     selectFont: string;
     setFont: (font: string) => void,
-    setSizeSelectElement: (size: {width: number, height: number}) => void,
-    refText: MutableRefObject<SVGTextElement | null>,
 }
 
 export function ButtonFont(props: ButtonFontPropsType) {
@@ -19,7 +16,7 @@ export function ButtonFont(props: ButtonFontPropsType) {
     const style = () => { return props.font == props.selectFont ? styles.selected : '' }
     return (
         <div ref={ref} className={styles.wrap + ' ' + style()} style={{ fontFamily: props.font }} onClick={() => {
-            dispatch(setFontText, props.font)
+            store.dispatch(setFontText(props.font))
         }}
         >
             <div className={styles.text} >{props.font}</div>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { isNumber } from 'util'
 import { CollectionOfStickers } from './CollectionOfStickers'
 import styles from './Stickers.module.css'
 

@@ -1,15 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 import './index.css'
 import { Card } from './components/Card'
-import { addEditorChangeHandler, getEditor } from './editor'
+import { store } from './store/store'
 
-function render() {
-  ReactDOM.render(
-    <Card card={getEditor()} />,
-    document.getElementById('root')
-  )
-}
 
-addEditorChangeHandler(render)
-render()
+ReactDOM.render(
+  <Provider store={store}>
+    <Card />
+  </Provider>,
+  document.getElementById('root')
+)

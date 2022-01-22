@@ -1,6 +1,6 @@
 import React from 'react'
-import { dispatch } from '../../../editor'
-import { setBackgroundColor } from '../../../model/Canvas/canvas'
+import { setBackgroundColor } from '../../../store/actionCreators/CanvasActionCreators'
+import { store } from '../../../store/store'
 import styles from './ButtonColor.module.css'
 
 interface ButtonColorPropsType {
@@ -13,7 +13,7 @@ export function ButtonColor(props: ButtonColorPropsType) {
             className={styles.color}
             style={{ backgroundColor: props.color }}
             onClick={() => {
-                dispatch(setBackgroundColor, props.color)
+                store.dispatch(setBackgroundColor(props.color))
             }}
         >
         </div>

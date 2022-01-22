@@ -1,10 +1,9 @@
-import type { Element } from './Element/element'
-import { Card, initializationCard } from '../Card/card'
-import { Template } from '../Card/Templates/templates'
+import { Card, Size } from '../../types'
+import { initializationCard } from '../Card/card'
 import { madeChange } from '../Card/History/history'
 
 export function setSizeCanvas(card: Card, newSize: Size): Card {
-    const newCard = {
+    const newCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -15,12 +14,12 @@ export function setSizeCanvas(card: Card, newSize: Size): Card {
     return newCard
 }
 
-export function resetCanvas(templates: Array<Template>): Card {
-    return initializationCard(templates)
+export function resetCanvas(): Card {
+    return initializationCard()
 }
 
 export function setBackgroundColor(card: Card, color: string): Card {
-    const newCard = {
+    const newCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -32,7 +31,7 @@ export function setBackgroundColor(card: Card, color: string): Card {
 }
 
 export function setBackgroundImage(card: Card, url: string): Card {
-    const newCard = {
+    const newCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -41,17 +40,4 @@ export function setBackgroundImage(card: Card, url: string): Card {
     }
     madeChange(newCard, 'Background Image', 'images/image.png')
     return newCard
-}
-
-
-export type Canvas = {
-    size: Size,
-    selectElement: Element | null,
-    background: string,
-    elements: Array<Element>
-}
-
-type Size = {
-    height: number,
-    width: number
 }

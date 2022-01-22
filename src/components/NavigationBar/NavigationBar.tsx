@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { Canvas } from '../../model/Canvas/canvas'
+import React from 'react'
 import { Menu } from './Menu/Menu'
 import { Logo } from './Logo/Logo'
 import styles from './NavigationBar.module.css'

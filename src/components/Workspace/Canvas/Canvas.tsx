@@ -1,17 +1,17 @@
-import React, { MutableRefObject, RefObject, useCallback, useEffect, useRef, useState } from 'react'
+import React, { MutableRefObject, RefObject, useEffect, useRef, useState } from 'react'
 import styles from './Canvas.module.css'
-import { Canvas as CanvasType } from './../../../model/Canvas/canvas'
 import { SelectElement } from './SelectElement/SelectElement'
 import { InputText } from './InputText/InputText'
 import Elements from './Elements/Elements'
-import { dispatch } from '../../../editor'
-import { deleteSelectElement } from '../../../model/Canvas/Element/element'
+import { Canvas as CanvasType } from '../../../utils/types'
+import { store } from '../../../store/store'
+import { deleteSelectElement } from '../../../store/actionCreators/ElementsActionCreators'
 
 interface CanvasPropsType {
     canvas: CanvasType,
     stateSizeSelectElement: {
-        sizeSelectElement: {width: number, height: number},
-        setSizeSelectElement: (size: {width: number, height: number}) => void,
+        sizeSelectElement: { width: number, height: number },
+        setSizeSelectElement: (size: { width: number, height: number }) => void,
     },
     stateViewEditor: {
         viewEditor: { view: boolean, state: string }
@@ -19,55 +19,57 @@ interface CanvasPropsType {
     }
     refSvg: MutableRefObject<SVGSVGElement | null>,
     refEditor: MutableRefObject<HTMLDivElement | null>,
-    setRefText: (refText: MutableRefObject<SVGTextElement | null>) => void,
 }
 
 export function Canvas(props: CanvasPropsType) {
     const [positionPoints, setPositionPoints] = useState({
-        border: {x: 0, y: 0},
-        pointTopLeft: {x: 0, y: 0},
-        pointTopRight: {x: 0, y: 0},
-        pointBottomLeft: {x: 0, y: 0},
-        pointBottomRight: {x: 0, y: 0},
-        blockTop: {x: 0, y: 0},
-        blockLeft: {x: 0, y: 0},
-        blockRight: {x: 0, y: 0},
-        blockBottom: {x: 0, y: 0},
+        border: { x: 0, y: 0 },
+        pointTopLeft: { x: 0, y: 0 },
+        pointTopRight: { x: 0, y: 0 },
+        pointBottomLeft: { x: 0, y: 0 },
+        pointBottomRight: { x: 0, y: 0 },
+        blockTop: { x: 0, y: 0 },
+        blockLeft: { x: 0, y: 0 },
+        blockRight: { x: 0, y: 0 },
+        blockBottom: { x: 0, y: 0 },
     })
-    const pointTopLeftRef: RefObject<HTMLDivElement> = useRef(null)
-    const pointTopRightRef: RefObject<HTMLDivElement> = useRef(null)
-    const pointBottomLeftRef: RefObject<HTMLDivElement> = useRef(null)
-    const pointBottomRightRef: RefObject<HTMLDivElement> = useRef(null)
-    const borderTopRef: RefObject<HTMLDivElement> = useRef(null)
-    const borderLeftRef: RefObject<HTMLDivElement> = useRef(null)
-    const borderRightRef: RefObject<HTMLDivElement> = useRef(null)
-    const borderBottomRef: RefObject<HTMLDivElement> = useRef(null)
-    let refs = [pointTopLeftRef, pointTopRightRef, pointBottomLeftRef, pointBottomRightRef, borderTopRef, borderLeftRef, borderRightRef, borderBottomRef]
     const refInputText: RefObject<HTMLInputElement> = useRef(null)
     const [viewInput, setViewInput] = useState(false)
     const [inputValue, setInputValue] = useState('')
 
     const escFunction = (event: any) => {
         if (event.keyCode === 46 && props.canvas.selectElement !== null) {
-            dispatch(deleteSelectElement)
+            store.dispatch(deleteSelectElement())
             if (props.stateViewEditor.viewEditor.state == 'Figure Properties') {
-                props.stateViewEditor.setViewEditor({view: true, state: 'Graphics'})
+                props.stateViewEditor.setViewEditor({ view: true, state: 'Graphics' })
             }
             if (props.stateViewEditor.viewEditor.state == 'Text Properties') {
-                props.stateViewEditor.setViewEditor({view: true, state: 'Text'})
+                props.stateViewEditor.setViewEditor({ view: true, state: 'Text' })
             }
             if (props.stateViewEditor.viewEditor.state == 'FontChoose') {
-                props.stateViewEditor.setViewEditor({view: true, state: 'Text'})
+                props.stateViewEditor.setViewEditor({ view: true, state: 'Text' })
             }
         }
     };
 
     useEffect(() => {
-        document.addEventListener("keydown", escFunction, false);
+        document.addEventListener("keydown", escFunction, false)
         return () => {
-            document.removeEventListener("keydown", escFunction, false);
-        };
-    });
+            document.removeEventListener("keydown", escFunction, false)
+        }
+    })
+
+    function getRefs(): Array<RefObject<HTMLDivElement>> {
+        const pointTopLeftRef: RefObject<HTMLDivElement> = useRef(null)
+        const pointTopRightRef: RefObject<HTMLDivElement> = useRef(null)
+        const pointBottomLeftRef: RefObject<HTMLDivElement> = useRef(null)
+        const pointBottomRightRef: RefObject<HTMLDivElement> = useRef(null)
+        const borderTopRef: RefObject<HTMLDivElement> = useRef(null)
+        const borderLeftRef: RefObject<HTMLDivElement> = useRef(null)
+        const borderRightRef: RefObject<HTMLDivElement> = useRef(null)
+        const borderBottomRef: RefObject<HTMLDivElement> = useRef(null)
+        return [pointTopLeftRef, pointTopRightRef, pointBottomLeftRef, pointBottomRightRef, borderTopRef, borderLeftRef, borderRightRef, borderBottomRef]
+    }
 
     return (
         <div style={{
@@ -75,7 +77,7 @@ export function Canvas(props: CanvasPropsType) {
             height: props.canvas.size.height,
             zoom: 0.8
         }}
-            className={styles.canvas}   
+            className={styles.canvas}
         >
             <svg style={{ width: props.canvas.size.width, height: props.canvas.size.height, background: props.canvas.background }} ref={props.refSvg}>
                 <Elements
@@ -87,19 +89,18 @@ export function Canvas(props: CanvasPropsType) {
                     }}
                     refEditor={props.refEditor}
                     refInputText={refInputText}
-                    setRefText={props.setRefText}
-                    statePointsSelectElement={{positionPoints, setPositionPoints}}
+                    statePointsSelectElement={{ positionPoints, setPositionPoints }}
                     stateViewInput={{ viewInput, setViewInput }}
-                    stateSizeSelectElement={{size: props.stateSizeSelectElement.sizeSelectElement, setSize: props.stateSizeSelectElement.setSizeSelectElement}}
-                    refs={refs}
+                    stateSizeSelectElement={{ size: props.stateSizeSelectElement.sizeSelectElement, setSize: props.stateSizeSelectElement.setSizeSelectElement }}
+                    refs={getRefs()}
                 />
                 {props.canvas.selectElement !== null && <SelectElement
                     selectElement={props.canvas.selectElement}
                     setViewEditor={props.stateViewEditor.setViewEditor}
                     setViewInput={setViewInput}
-                    statePointsSelectElement={{positionPoints, setPositionPoints}}
+                    statePointsSelectElement={{ positionPoints, setPositionPoints }}
                     size={props.stateSizeSelectElement.sizeSelectElement}
-                    refs={refs}
+                    refs={getRefs()}
                 />}
                 {viewInput && <InputText
                     selectElement={props.canvas.selectElement}
@@ -109,7 +110,7 @@ export function Canvas(props: CanvasPropsType) {
                     stateInputValue={{ inputValue, setInputValue }}
                     stateViewInput={{ viewInput, setViewInput }}
                     stateSize={{
-                        size: props.stateSizeSelectElement.sizeSelectElement, 
+                        size: props.stateSizeSelectElement.sizeSelectElement,
                         setSize: props.stateSizeSelectElement.setSizeSelectElement
                     }}
                 />}

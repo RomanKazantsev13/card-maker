@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
-import useComponentVisible from '../../../customHooks/useComponentVisible';
-import { setBackgroundColor } from '../../../model/Canvas/canvas';
+import useComponentVisible from '../../../customHooks/useComponentVisible'
+import { setBackgroundColor } from '../../../store/actionCreators/CanvasActionCreators'
+import { store } from '../../../store/store'
 import { ColorPicker } from '../../ColorPicker/ColorPicker'
-import { ButtonColor } from './ButtonColor';
+import { ButtonColor } from './ButtonColor'
 import styles from './Customize.module.css'
 
 const colors: Array<string> = [
@@ -19,13 +20,6 @@ const colors: Array<string> = [
 
 interface CustomizePropsType {
     setViewResize: (viewResize: boolean) => void,
-    canvas: {
-        size: {
-            height: number,
-            width: number,
-        },
-        background: string,
-    },
 }
 
 export function Customize(props: CustomizePropsType) {
@@ -41,13 +35,13 @@ export function Customize(props: CustomizePropsType) {
             <div className={styles.button} onClick={() => { props.setViewResize(true) }}>
                 <div className={styles.text}>Resize Template</div>
             </div>
-            <div className={styles.size}>{props.canvas.size.width} × {props.canvas.size.height} px</div>
+            <div className={styles.size}>{store.getState().canvas.size.width} × {store.getState().canvas.size.height} px</div>
             <div className={styles.colors}>
                 <div className={styles.color_text}>Background Color</div>
                 <div className={styles.colors__layout}>
                     <div
                         className={styles.color}
-                        style={{ backgroundColor: props.canvas.background, position: 'relative' }}
+                        style={{ backgroundColor: store.getState().canvas.background, position: 'relative' }}
                         onClick={() => { setIsComponentVisible(true) }}
                     >
                         <span className={styles.color_triangle}></span>
@@ -55,7 +49,7 @@ export function Customize(props: CustomizePropsType) {
                     {ButtonsColor}
                 </div>
                 <div ref={ref} className={(() => { return isComponentVisible ? styles.pickerWrap : '' })()} >
-                    {isComponentVisible && <ColorPicker color={props.canvas.background} function={setBackgroundColor} />}
+                    {isComponentVisible && <ColorPicker color={store.getState().canvas.background} function={setBackgroundColor} />}
                 </div>
             </div>
         </div>

@@ -1,16 +1,11 @@
 import React, { MutableRefObject, RefObject } from 'react'
-import { Canvas as CanvasType } from '../../../../model/Canvas/canvas'
-import { Triangle as TriangleType, isTriangle } from '../../../../model/Canvas/Element/Figure/Triangle/triangle'
-import { Rectangle as RectangleType, isRectangle } from '../../../../model/Canvas/Element/Figure/Rectangle/rectangle'
-import { Ellipse as EllipseType, isEllipse } from '../../../../model/Canvas/Element/Figure/Ellipse/ellipse'
-import { Image as ImageType, isImage } from '../../../../model/Canvas/Element/Image/image'
-import { Text as TextType, isText } from '../../../../model/Canvas/Element/Text/text'
-import { Figure as FigureType, isFigure } from '../../../../model/Canvas/Element/Figure/figure'
 import { Triangle } from './Triangle'
 import { Rectangle } from './Rectangle'
 import { Ellipse } from './Ellipse'
 import { Image } from './Image'
 import { Text } from './Text'
+import { Canvas, Element, Ellipse as EllipseType, Figure, Image as ImageType, Rectangle as RectangleType, Text as TextType, Triangle as TriangleType } from '../../../../utils/types'
+import { isEllipse, isFigure, isImage, isRectangle, isText, isTriangle } from '../../../../utils/typeGuards'
 
 export interface pointsSelectElement {
     border: {x: number, y: number},
@@ -25,7 +20,7 @@ export interface pointsSelectElement {
 }
 
 interface CanvasPropsType {
-    canvas: CanvasType,
+    canvas: Canvas,
     stateViewEditor: {
         viewEditor: { view: boolean, state: string }
         setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
@@ -45,17 +40,16 @@ interface CanvasPropsType {
         size: {width: number, height: number},
         setSize: (size: {width: number, height: number}) => void,
     }
-    setRefText: (refText: MutableRefObject<SVGTextElement | null>) => void,
     refs: Array<RefObject<HTMLDivElement>>,
 }
 
 export const pointNames: Array<string> = ['TopLeft', 'TopRight', 'BottomLeft', 'BottomRight', 'Top', 'Left', 'Right', 'Bottom']
 
 export default function Elements(props: CanvasPropsType): JSX.Element {
-    let elements: Array<JSX.Element | undefined> = props.canvas.elements.map(function (element) {
+    let elements: Array<JSX.Element | undefined> = props.canvas.elements.map(function (element: Element) {
         const object = element.object
         if (isFigure(object)) {
-            const figure: FigureType = object
+            const figure: Figure = object
             if (isTriangle(figure.figure)) {
                 const triangle: TriangleType = figure.figure
                 return <Triangle
@@ -136,13 +130,12 @@ export default function Elements(props: CanvasPropsType): JSX.Element {
                 key={element.id}
                 string={text.str}
                 fontFamily={text.font}
-                fontSize={text.sizeText}
+                fontSize={text.fontSize}
                 color={text.color}
                 element={element}
                 selectElement={props.canvas.selectElement}
                 refEditor={props.refEditor}
                 refInputText={props.refInputText}
-                setRefText={props.setRefText}
                 viewEditor={props.stateViewEditor.viewEditor}
                 setViewEditor={props.stateViewEditor.setViewEditor}
                 statePointsSelectElement={props.statePointsSelectElement}

@@ -1,11 +1,11 @@
-import type { Card, Point, Size } from "../../../../Card/card"
 import { madeChange } from "../../../../Card/History/history"
-import { Element, getSelectElement } from "../../element"
-import { isFigure } from "../figure"
+import { getSelectElement } from "../../element"
 import { uuid } from 'uuidv4';
+import { Card, Element, Point, Size } from "../../../../../types";
+import { isEllipse, isFigure } from "../../../../../typeGuards";
 
 export function addEllipse(card: Card): Card {
-    const newCard = {
+    const newCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -31,8 +31,8 @@ export function addEllipse(card: Card): Card {
 }
 
 export function resizeEllipse(card: Card, ellipse: {newSize: Size, newCentre: Point}): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
+    const oldElement: Element | null = getSelectElement(card)
+    const changeCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -54,7 +54,7 @@ export function resizeEllipse(card: Card, ellipse: {newSize: Size, newCentre: Po
             })
         }
     }
-    const newCard = {
+    const newCard: Card = {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
@@ -63,13 +63,4 @@ export function resizeEllipse(card: Card, ellipse: {newSize: Size, newCentre: Po
     }
     madeChange(newCard, 'Resize Graphic', 'images/circle.png')
     return newCard
-}
-
-export function isEllipse(object: any): object is Ellipse {
-    return (object as Ellipse).rx !== undefined && (object as Ellipse).ry !== undefined
-}
-
-export type Ellipse = {
-    rx: number,
-    ry: number
 }

@@ -15,11 +15,11 @@ export function addEditorChangeHandler(handler) {
     editorChangeHandler = handler
 }
 
-export function dispatch(modifyFn, payload) {
-    const newEditor = modifyFn(editor, payload)
-    setEditor(newEditor)
+// export function dispatch(modifyFn, payload) {
+//     const newEditor = modifyFn(editor, payload)
+//     setEditor(newEditor)
 
-    if(editorChangeHandler) {
-        editorChangeHandler()
-    }
-}
+//     if(editorChangeHandler) {
+//         editorChangeHandler()
+//     }
+// }

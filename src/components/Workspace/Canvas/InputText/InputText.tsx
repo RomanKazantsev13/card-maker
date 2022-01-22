@@ -1,7 +1,9 @@
 import React, { MutableRefObject } from 'react'
-import { dispatch } from '../../../../editor';
-import { Element, setSelectElement } from '../../../../model/Canvas/Element/element';
-import { changeText, isText } from '../../../../model/Canvas/Element/Text/text';
+import { setSelectElement } from '../../../../store/actionCreators/ElementsActionCreators'
+import { changeText } from '../../../../store/actionCreators/TextActionCreators'
+import { store } from '../../../../store/store'
+import { isText } from '../../../../utils/typeGuards'
+import { Element } from '../../../../utils/types'
 import styles from './InputText.module.css'
 
 interface InputTextPropsType {
@@ -61,10 +63,19 @@ export function InputText(props: InputTextPropsType) {
                 value={props.stateInputValue.inputValue}
                 className={styles.input}
                 type="text"
-                style={{ width: props.stateSize.size.width + 40, height: props.stateSize.size.height + 40 }}
+                style={{ 
+                    width: props.stateSize.size.width + 40, 
+                    height: props.stateSize.size.height + 40,
+                    fontSize: (() => {
+                        if (props.selectElement && isText(props.selectElement.object)) {
+                            return (props.selectElement.object.fontSize / 1.5)
+                        }
+                        return 10
+                    })()
+                }}
                 onBlur={() => {
-                    dispatch(changeText, props.stateInputValue.inputValue)
-                    dispatch(setSelectElement, null)
+                    store.dispatch(changeText(props.stateInputValue.inputValue))
+                    store.dispatch(setSelectElement(null))
                     props.stateViewInput.setViewInput(false)
                     props.setViewEditor({view: true, state: 'Text'})
                 }}

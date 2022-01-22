@@ -1,10 +1,10 @@
-import type { Card, Size } from "../../../Card/card"
 import { madeChange } from "../../../Card/History/history"
-import { Element, getSelectElement } from "../element"
+import { getSelectElement } from "../element"
 import { uuid } from 'uuidv4';
+import { Card, Element } from "../../../../types";
 
 export function addText(card: Card): Card {
-    const newCard = {
+    const newCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -15,8 +15,7 @@ export function addText(card: Card): Card {
                     centre: { x: 30, y: 350 },
                     id: uuid(),
                     object: {
-                        size: { width: 75, height: 20 },
-                        sizeText: 20,
+                        fontSize: 20,
                         font: 'TimeNewRoman',
                         color: '#000',
                         str: 'Введите свой текст'
@@ -29,40 +28,9 @@ export function addText(card: Card): Card {
     return newCard
 }
 
-export function resizeText(card: Card, newSize: Size): Card {
-    const selectElement = getSelectElement(card)
-    const changeCard = {
-        ...card,
-        canvas: {
-            ...card.canvas,
-            elements: card.canvas.elements.map(element => {
-                if (element === selectElement) {
-                    return {
-                        ...element,
-                        object: {
-                            ...element.object,
-                            size: newSize
-                        }
-                    }
-                }
-                return element
-            })
-        }
-    }
-    const newCard = {
-        ...changeCard,
-        canvas: {
-            ...changeCard.canvas,
-            selectElement: getSelectElement(changeCard)
-        }
-    }
-    madeChange(newCard, 'Font Size', 'images/text__hover.png')
-    return newCard
-}
-
 export function setSizeText(card: Card, newSize: number): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
+    const oldElement: Element | null = getSelectElement(card)
+    const changeCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -72,7 +40,7 @@ export function setSizeText(card: Card, newSize: number): Card {
                         ...element,
                         object: {
                             ...element.object,
-                            sizeText: newSize
+                            fontSize: newSize
                         }
                     }
                 }
@@ -80,7 +48,7 @@ export function setSizeText(card: Card, newSize: number): Card {
             })
         }
     }
-    const newCard = {
+    const newCard: Card = {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
@@ -92,8 +60,8 @@ export function setSizeText(card: Card, newSize: number): Card {
 }
 
 export function setFontText(card: Card, newFont: string): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
+    const oldElement: Element | null = getSelectElement(card)
+    const changeCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -111,7 +79,7 @@ export function setFontText(card: Card, newFont: string): Card {
             })
         }
     }
-    const newCard = {
+    const newCard: Card = {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
@@ -123,8 +91,8 @@ export function setFontText(card: Card, newFont: string): Card {
 }
 
 export function setColorText(card: Card, newColor: string): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
+    const oldElement: Element | null = getSelectElement(card)
+    const changeCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -142,7 +110,7 @@ export function setColorText(card: Card, newColor: string): Card {
             })
         }
     }
-    const newCard = {
+    const newCard: Card = {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
@@ -154,8 +122,8 @@ export function setColorText(card: Card, newColor: string): Card {
 }
 
 export function changeText(card: Card, newText: string): Card {
-    const oldElement = getSelectElement(card)
-    const changeCard = {
+    const oldElement: Element | null = getSelectElement(card)
+    const changeCard: Card = {
         ...card,
         canvas: {
             ...card.canvas,
@@ -173,7 +141,7 @@ export function changeText(card: Card, newText: string): Card {
             })
         }
     }
-    const newCard = {
+    const newCard: Card = {
         ...changeCard,
         canvas: {
             ...changeCard.canvas,
@@ -182,16 +150,4 @@ export function changeText(card: Card, newText: string): Card {
     }
     madeChange(newCard, 'Edit Text', 'images/text__hover.png')
     return newCard
-}
-
-export function isText(element: any): element is Text {
-    return (element as Text).sizeText !== undefined && (element as Text).font !== undefined && (element as Text).color !== undefined && (element as Text).str !== undefined && (element as Text).size.width !== undefined && (element as Text).size.height !== undefined
-}
-
-export type Text = {
-    size: Size,
-    sizeText: number,
-    font: string,
-    color: string,
-    str: string
 }

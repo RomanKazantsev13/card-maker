@@ -1,9 +1,8 @@
 import { useEffect, RefObject, MutableRefObject } from 'react'
-import { dispatch } from '../editor'
-import { Element, setSelectElement } from '../model/Canvas/Element/element'
-import { isText } from '../model/Canvas/Element/Text/text'
-
-
+import { setSelectElement } from '../store/actionCreators/ElementsActionCreators'
+import { store } from '../store/store'
+import { isText } from '../utils/typeGuards'
+import { Element } from '../utils/types'
 
 export default function useObjectVisible(
     ref: RefObject<SVGRectElement | SVGEllipseElement | SVGPolygonElement | SVGTextElement | SVGImageElement | null>,
@@ -29,14 +28,14 @@ export default function useObjectVisible(
                 setViewEditor({ view: true, state: 'Graphics' })
             }
             if (!isText(selectElement.object)) {
-                dispatch(setSelectElement, null)
+                store.dispatch(setSelectElement(null))
             } else {
                 if (viewInput) {
                     if (refInputText.current && !refInputText.current.contains(event.target as Node)) {
-                        dispatch(setSelectElement, null)
+                        store.dispatch(setSelectElement(null))
                     }
                 } else {
-                    dispatch(setSelectElement, null)
+                    store.dispatch(setSelectElement(null))
                 }
             }
         }

@@ -1,22 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { dispatch } from '../../../editor';
-import { setSizeCanvas } from '../../../model/Canvas/canvas';
-import { Button as SaveButton } from '../SaveComputer/Button';
-import { Button } from './Button';
-import { fonts } from './fonts';
+import { setSizeCanvas } from '../../../store/actionCreators/CanvasActionCreators'
+import { store } from '../../../store/store'
+import { Button as SaveButton } from '../SaveComputer/Button'
+import { Button } from './Button'
+import { fonts } from './fonts'
 import styles from './ResizeTemplate.module.css'
 
 interface ResizeTemplatePropsType {
     setView: (view: boolean) => void,
-    size: {
-        width: number,
-        height: number
-    },
 }
 
 export function ResizeTemplate(props: ResizeTemplatePropsType) {
-    const [width, setWidth] = useState(props.size.width)
-    const [height, setHeight] = useState(props.size.height)
+    const [width, setWidth] = useState(store.getState().canvas.size.width)
+    const [height, setHeight] = useState(store.getState().canvas.size.height)
     const [viewList, setViewList] = useState(styles.viewOff)
 
     const font = fonts.find(font => (font.size_height == height && font.size_width == width))
@@ -110,7 +106,7 @@ export function ResizeTemplate(props: ResizeTemplatePropsType) {
                 <div className={styles.buttonLayout}>
                     <SaveButton content={"Cancel"} background={["#353948", "#484d61"]} color={"#f1f1f1"} onclick={props.setView} />
                     <SaveButton content={"Resize"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => {
-                        dispatch(setSizeCanvas, { width: width, height: height })
+                        store.dispatch(setSizeCanvas({ width: width, height: height }))
                         props.setView(false)
                     }} />
                 </div>

@@ -1,16 +1,11 @@
 import React, { useState } from 'react'
-import { Canvas } from '../../model/Canvas/canvas'
 import styles from './CanvasTools.module.css'
 import { ToolsButton } from './ToolsButton'
 import { Panel } from './Panel/Panel'
-import { redo, Stack, undo } from '../../model/Card/History/history'
-import { Figure, isFigure } from '../../model/Canvas/Element/Figure/figure'
-import { isTriangle } from '../../model/Canvas/Element/Figure/Triangle/triangle'
-import { isRectangle } from '../../model/Canvas/Element/Figure/Rectangle/rectangle'
-import { isEllipse } from '../../model/Canvas/Element/Figure/Ellipse/ellipse'
-import { isImage } from '../../model/Canvas/Element/Image/image'
-import { isText } from '../../model/Canvas/Element/Text/text'
-import { dispatch } from '../../editor'
+import { Canvas, Figure, Stack } from '../../utils/types'
+import { isEllipse, isFigure, isImage, isRectangle, isText, isTriangle } from '../../utils/typeGuards'
+import { store } from '../../store/store'
+import { redo, undo } from '../../store/actionCreators/HistoryActionCreators'
 
 interface CanvasTools {
     canvas: Canvas,
@@ -114,7 +109,7 @@ export function CanvasTools(props: CanvasTools) {
                 }
                 setViewLayers(styles.viewOff)
             }} />
-            <Panel style={styles.layers} name={'Layers'} elements={layers} view={viewLayers} setView={setViewLayers} />
+            {layers.length && <Panel style={styles.layers} name={'Layers'} elements={layers} view={viewLayers} setView={setViewLayers} />}
             <div className={styles.toolButtons}>
                 <ToolsButton block={false} image={"images/reset.png"} name={"Reset"} onclick={() => { props.setViewReset(true) }} />
                 <ToolsButton
@@ -124,7 +119,7 @@ export function CanvasTools(props: CanvasTools) {
                         }
                         return false
                     })()}
-                    image={"images/undo.png"} name={"Undo"} onclick={() => { dispatch(undo) }} />
+                    image={"images/undo.png"} name={"Undo"} onclick={() => { store.dispatch(undo())  }} />
                 <ToolsButton
                     block={(() => {
                         if (props.history.redo.length == 0) {
@@ -132,7 +127,7 @@ export function CanvasTools(props: CanvasTools) {
                         }
                         return false
                     })()}
-                    image={"images/redo.png"} name={"Redo"} onclick={() => { dispatch(redo) }} />
+                    image={"images/redo.png"} name={"Redo"} onclick={() => { store.dispatch(redo()) }} />
                 <ToolsButton
                     block={(() => {
                         if (history.length == 0) {
