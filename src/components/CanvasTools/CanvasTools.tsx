@@ -109,7 +109,7 @@ export function CanvasTools(props: CanvasTools) {
                 }
                 setViewLayers(styles.viewOff)
             }} />
-            {layers.length && <Panel style={styles.layers} name={'Layers'} elements={layers} view={viewLayers} setView={setViewLayers} />}
+            {layers.length > 0 && <Panel style={styles.layers} name={'Layers'} elements={layers} view={viewLayers} setView={setViewLayers} />}
             <div className={styles.toolButtons}>
                 <ToolsButton block={false} image={"images/reset.png"} name={"Reset"} onclick={() => { props.setViewReset(true) }} />
                 <ToolsButton

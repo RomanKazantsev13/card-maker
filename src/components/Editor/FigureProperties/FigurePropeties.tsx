@@ -34,7 +34,7 @@ export function FigureProperties(props: FigurePropertiesPropsType) {
                             backgroundColor: (() => {
                                 const selectElement: Element | null = store.getState().canvas.selectElement
                                 const figure: unknown = selectElement !== null ? selectElement.object : null
-                                if (isFigure(figure)) {
+                                if (figure !== null && isFigure(figure)) {
                                     return figure.color
                                 }
                                 return '#FFF'
@@ -57,7 +57,7 @@ export function FigureProperties(props: FigurePropertiesPropsType) {
                 {isComponentVisible && <ColorPicker color={(() => {
                     const selectElement: Element | null = store.getState().canvas.selectElement
                     const figure: unknown = selectElement !== null ? selectElement.object : null
-                    if (isFigure(figure)) {
+                    if (figure !== null && isFigure(figure)) {
                         return figure.color
                     }
                     return '#FFF'

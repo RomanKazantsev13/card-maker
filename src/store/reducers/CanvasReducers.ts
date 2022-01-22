@@ -29,9 +29,7 @@ export default function canvasReducers(state = {} as Canvas, action: elementsAct
 const sizeCanvas = (state: Size, action: SetSize | AddImage): Size => {
     switch (action.type) {
         case 'SET_SIZE_CANVAS':
-            return action.size
-        case 'ADD_IMAGE':
-            return action.size
+            return action.size  
         default:
             return state
     }

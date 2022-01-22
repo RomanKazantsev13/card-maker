@@ -39,7 +39,15 @@ export default function cardReducers(state = {} as Card, action: any): Card {
                     elements: []
                 },
                 history: {
-                    undo: [],
+                    undo: [{ 
+                        canvas: {
+                            size: { width: 800, height: 600 },
+                            selectElement: null,
+                            background: '#FFF',
+                            elements: []
+                        }, 
+                        name: 'New Template', 
+                        image: 'images/square.png' }],
                     redo: []
             
                 }

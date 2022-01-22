@@ -59,7 +59,6 @@ export function Canvas(props: CanvasPropsType) {
         }
     })
 
-    function getRefs(): Array<RefObject<HTMLDivElement>> {
         const pointTopLeftRef: RefObject<HTMLDivElement> = useRef(null)
         const pointTopRightRef: RefObject<HTMLDivElement> = useRef(null)
         const pointBottomLeftRef: RefObject<HTMLDivElement> = useRef(null)
@@ -68,8 +67,8 @@ export function Canvas(props: CanvasPropsType) {
         const borderLeftRef: RefObject<HTMLDivElement> = useRef(null)
         const borderRightRef: RefObject<HTMLDivElement> = useRef(null)
         const borderBottomRef: RefObject<HTMLDivElement> = useRef(null)
-        return [pointTopLeftRef, pointTopRightRef, pointBottomLeftRef, pointBottomRightRef, borderTopRef, borderLeftRef, borderRightRef, borderBottomRef]
-    }
+        let refs = [pointTopLeftRef, pointTopRightRef, pointBottomLeftRef, pointBottomRightRef, borderTopRef, borderLeftRef, borderRightRef, borderBottomRef]
+    
 
     return (
         <div style={{
@@ -92,7 +91,7 @@ export function Canvas(props: CanvasPropsType) {
                     statePointsSelectElement={{ positionPoints, setPositionPoints }}
                     stateViewInput={{ viewInput, setViewInput }}
                     stateSizeSelectElement={{ size: props.stateSizeSelectElement.sizeSelectElement, setSize: props.stateSizeSelectElement.setSizeSelectElement }}
-                    refs={getRefs()}
+                    refs={refs}
                 />
                 {props.canvas.selectElement !== null && <SelectElement
                     selectElement={props.canvas.selectElement}
@@ -100,7 +99,7 @@ export function Canvas(props: CanvasPropsType) {
                     setViewInput={setViewInput}
                     statePointsSelectElement={{ positionPoints, setPositionPoints }}
                     size={props.stateSizeSelectElement.sizeSelectElement}
-                    refs={getRefs()}
+                    refs={refs}
                 />}
                 {viewInput && <InputText
                     selectElement={props.canvas.selectElement}
