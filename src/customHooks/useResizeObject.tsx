@@ -30,7 +30,7 @@ export function useResizeObject(
   useEffect(() => {
     if (!isMoving) {
       setSize(initSize)
-      console.log('resize')
+      // console.log('resize')
     }
     if (elementRef.current !== null && element == selectElement) {
       elementRef.current.addEventListener("mousedown", MouseDownListener)
@@ -40,7 +40,7 @@ export function useResizeObject(
         elementRef.current.removeEventListener("mousedown", MouseDownListener)
       }
     }
-  })
+  }, )
 
   function MoveTopLeftPoint(delta: {x: number, y: number}) {
     newPos = {

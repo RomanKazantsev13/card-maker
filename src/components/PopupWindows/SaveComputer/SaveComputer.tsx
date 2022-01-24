@@ -1,7 +1,7 @@
 import React, { createRef, MutableRefObject, RefObject, useCallback, useEffect, useState } from 'react'
 import { store } from '../../../store/store'
 import { isEllipse, isFigure, isImage, isRectangle, isText, isTriangle } from '../../../utils/typeGuards'
-import { Canvas, Element, Point, Triangle } from '../../../utils/types'
+import { Canvas, Element, Ellipse, Image as ImageType, Point, Rectangle, Size, Text, Triangle } from '../../../utils/types'
 import { Button } from './Button'
 import styles from './SaveComputer.module.css'
 
@@ -57,7 +57,7 @@ export function SaveComputer(props: SaveComputerPropsType) {
                 <div className={styles.button_layout}>
                     <Button content={"Cancel"} background={["#353948", "#484d61"]} color={"#f1f1f1"} onclick={props.setView} />
                     <Button content={"Save"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => {
-                        saveCanvas(refCanvas.current, canvasModel.elements)
+                        saveCanvas(refCanvas.current, canvasModel.elements, canvasModel.background, canvasModel.size)
                     }} />
                 </div>
             </div>
@@ -66,8 +66,7 @@ export function SaveComputer(props: SaveComputerPropsType) {
                 width={canvasModel.size.width}
                 height={canvasModel.size.height}
                 style={{
-                    
-                    background: canvasModel.background
+                    display: "none"
                 }}
             >
             </canvas>
@@ -75,10 +74,11 @@ export function SaveComputer(props: SaveComputerPropsType) {
     )
 }
 
-async function saveCanvas(canvas: HTMLCanvasElement | null, elements: Array<Element>) {
+async function saveCanvas(canvas: HTMLCanvasElement | null, elements: Array<Element>, background: string, size: Size) {
     if (canvas !== null) {
-        const ctx = canvas.getContext("2D")
+        const ctx = canvas.getContext("2d")
         if (ctx !== null) {
+            drawBackground(ctx, background, size)
             let element: Element
             for (element of elements) {
                 if (isFigure(element.object)) {
@@ -86,21 +86,31 @@ async function saveCanvas(canvas: HTMLCanvasElement | null, elements: Array<Elem
                         drawTriangle(ctx, element.object.figure, element.object.color)
                     }
                     if (isRectangle(element.object.figure)) {
-                        // drawRectangle(ctx, element.centre, element.object.figure, element.object.color)
+                        drawRectangle(ctx, element.object.figure, element.object.color, element.centre)
                     }
                     if (isEllipse(element.object.figure)) {
-                        // drawEllipse(ctx, element.centre, element.object.figure, element.object.color)
+                        drawEllipse(ctx, element.object.figure, element.object.color, element.centre)
                     }
                 }
                 if (isImage(element.object)) {
-                    //
+                    await drawImage(ctx, element.object, element.centre)
                 }
                 if (isText(element.object)) {
-                    // drawText(ctx, element.centre, element.object)
+                    drawText(ctx, element.centre, element.object)
                 }
             }
+            const url = canvas.toDataURL("text.png")
+            const download = document.createElement("a")
+            download.href = url
+            download.download = "WTF"
+            download.click()
         }
     }
+}
+
+function drawBackground(context: any, background: string, size: Size) {
+    context.fillStyle = background
+    context.fillRect(0, 0, size.width, size.height)
 }
 
 function drawTriangle(context: any, triangle: Triangle, color: string) {
@@ -110,4 +120,29 @@ function drawTriangle(context: any, triangle: Triangle, color: string) {
     context.lineTo(triangle.thirdPoint.x, triangle.thirdPoint.y)
     context.fillStyle = color
     context.fill()
+}
+
+function drawRectangle(context: any, rectangle: Rectangle, color: string, centre: Point) {
+    context.fillStyle = color
+    context.fillRect(centre.x, centre.y, rectangle.size.width, rectangle.size.height)
+}
+
+function drawEllipse(context: any, ellipse: Ellipse, color: string, centre: Point) {
+    context.fillStyle = color
+    context.beginPath()
+    context.ellipse(centre.x + ellipse.rx, centre.y + ellipse.ry, ellipse.rx, ellipse.ry, 0, 0, 2 * Math.PI)
+    context.fill()
+}
+
+async function drawImage(context: any, imageFromModel: ImageType, centre: Point) {
+    const image: HTMLImageElement = new Image()
+    image.src = imageFromModel.url
+    await image.decode()
+    context.drawImage(image, centre.x, centre.y, imageFromModel.size.width, imageFromModel.size.height)
+}
+
+function drawText(context: any, centre: Point, text: Text) {
+    context.font = "" + text.fontSize + "px " + text.font
+    context.fillStyle = text.color
+    context.fillText(text.str, centre.x, centre.y)
 }
