@@ -1,3 +1,4 @@
+import { format } from 'path'
 import React, { createRef, MutableRefObject, RefObject, useCallback, useEffect, useState } from 'react'
 import { store } from '../../../store/store'
 import { isEllipse, isFigure, isImage, isRectangle, isText, isTriangle } from '../../../utils/typeGuards'
@@ -12,11 +13,14 @@ interface SaveComputerPropsType {
 
 export function SaveComputer(props: SaveComputerPropsType) {
     const refCanvas: RefObject<HTMLCanvasElement> = createRef()
+    const refInput: RefObject<HTMLInputElement> = createRef()
     const refButton: RefObject<HTMLAnchorElement> = createRef()
-    const [format, setFormat] = useState('JPG')
+    const [format, setFormat] = useState('JPEG')
+    const [fileName, setFileName] = useState('')
+    const [boxShadow, setBoxShadow] = useState('none')
 
     const isJpg = () => {
-        return format == 'JPG' ? styles.format_selected : ''
+        return format == 'JPEG' ? styles.format_selected : ''
     }
     const isPng = () => {
         return format == 'PNG' ? styles.format_selected : ''
@@ -37,15 +41,39 @@ export function SaveComputer(props: SaveComputerPropsType) {
 
     const canvasModel: Canvas = store.getState().canvas
 
+    const handleSetFileName = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setFileName(event.target.value)
+    }
+
+    const handleFocusInput = () => {
+        setBoxShadow('0 0 0 2px #424284')
+    }
+
+    const handleFocusOutInput = () => {
+        setBoxShadow('none')
+    }
+
     return (
         <div className={styles.modal_window}>
             <div className={styles.content_layout}>
                 <div className={styles.header}>Save to Computer</div>
                 <label className={styles.subHeader}>Filename</label>
-                <input className={styles.input} type="text" maxLength={100} required placeholder="Назови меня!" />
+                <input
+                    ref={refInput}
+                    className={styles.input}
+                    style={{
+                        boxShadow: boxShadow
+                    }}
+                    onFocus={handleFocusInput}
+                    onBlur={handleFocusOutInput}
+                    type="text" maxLength={100}
+                    required
+                    placeholder="Назови меня!"
+                    onChange={handleSetFileName}
+                />
                 <label className={styles.subHeader}>Format</label>
                 <div className={styles.format}>
-                    <div className={styles.format__buttonWrap + ' ' + styles.format__buttonJPG + ' ' + isJpg()} onClick={() => { setFormat('JPG') }}>
+                    <div className={styles.format__buttonWrap + ' ' + styles.format__buttonJPG + ' ' + isJpg()} onClick={() => { setFormat('JPEG') }}>
                         <div>JPG</div>
                     </div>
                     <div className={styles.format__buttonWrap + ' ' + styles.format__buttonPNG + ' ' + isPng()} onClick={() => { setFormat('PNG') }}>
@@ -55,10 +83,19 @@ export function SaveComputer(props: SaveComputerPropsType) {
                 <a ref={refButton} className={styles.subHeader}>Dimensions</a>
                 <div className={styles.canvasSize}>{store.getState().canvas.size.width} × {store.getState().canvas.size.height} px</div>
                 <div className={styles.button_layout}>
-                    <Button content={"Cancel"} background={["#353948", "#484d61"]} color={"#f1f1f1"} onclick={props.setView} />
+                    <Button content={"Close"} background={["#353948", "#484d61"]} color={"#f1f1f1"} onclick={props.setView} />
                     <Button content={"Save"} background={["#8a9dff", "#647dff"]} color={"#000"} onclick={() => {
-                        saveCanvas(refCanvas.current, canvasModel.elements, canvasModel.background, canvasModel.size)
-                    }} />
+                        if (fileName) {
+                            saveCanvas(refCanvas.current, canvasModel.elements, canvasModel.background, canvasModel.size, format, fileName)
+                            setBoxShadow('0 0 0 2px #424284')
+                        } else {
+                            const input = refInput.current
+                            if (input) {
+                                input.focus()
+                                setBoxShadow('0 0 0 2px #FF0000')
+                            }
+                        } 
+                    } }/>
                 </div>
             </div>
             <canvas
@@ -74,7 +111,7 @@ export function SaveComputer(props: SaveComputerPropsType) {
     )
 }
 
-async function saveCanvas(canvas: HTMLCanvasElement | null, elements: Array<Element>, background: string, size: Size) {
+async function saveCanvas(canvas: HTMLCanvasElement | null, elements: Array<Element>, background: string, size: Size, format: string, name: string) {
     if (canvas !== null) {
         const ctx = canvas.getContext("2d")
         if (ctx !== null) {
@@ -99,10 +136,10 @@ async function saveCanvas(canvas: HTMLCanvasElement | null, elements: Array<Elem
                     drawText(ctx, element.centre, element.object)
                 }
             }
-            const url = canvas.toDataURL("text.png")
+            const url = canvas.toDataURL("image/" + format.toLowerCase())
             const download = document.createElement("a")
             download.href = url
-            download.download = "WTF"
+            download.download = name
             download.click()
         }
     }
