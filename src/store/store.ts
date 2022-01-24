@@ -1,4 +1,4 @@
-import { Action, createStore, Store } from "redux";
+import { createStore } from "redux";
 import { initialState } from "./initalState";
 import CardReducers from "./reducers/CardReducers";
 
