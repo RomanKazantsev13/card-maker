@@ -8,7 +8,6 @@ import styles from './SaveComputer.module.css'
 
 interface SaveComputerPropsType {
     setView: (view: boolean) => void,
-    refSvg: MutableRefObject<SVGSVGElement | null>,
 }
 
 export function SaveComputer(props: SaveComputerPropsType) {

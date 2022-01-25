@@ -1,6 +1,10 @@
 import { Canvas, Card, Stack } from "../../utils/types"
 import canvasReducers from "./CanvasReducers"
 
+interface AddJSON {
+    type: string,
+    canvas: Canvas
+}
 
 
 export default function cardReducers(state = {} as Card, action: any): Card {
@@ -52,6 +56,23 @@ export default function cardReducers(state = {} as Card, action: any): Card {
             
                 }
             }
+        }
+        case 'ADD_JSON': {
+            if (isAddJSONAction(action)) {
+                console.log('done')
+                return {
+                    canvas: action.canvas,
+                    history: {
+                        undo: [{ 
+                            canvas: action.canvas, 
+                            name: 'New Template', 
+                            image: 'images/square.png' }],
+                        redo: []
+                
+                    }
+                }
+            }
+            return state
         }
         default: {
             canvas = canvasReducers(state.canvas, action)
@@ -146,4 +167,8 @@ function getNameAndImageAction(actionName: string): { name: string, imageUrl: st
             return { name: 'New Template', imageUrl: 'images/square.png' }
         }
     }
+}
+
+function isAddJSONAction(action: any): action is AddJSON {
+    return action.type !== undefined && action.canvas !== undefined
 }

@@ -25,12 +25,12 @@ export function useResizeObject(
 ) {
   let startPos: { x: number; y: number } = position
   let newPos: { x: number; y: number } = position
-  let newSize = stateSizeSelectElement.size
+  let newSize = initSize
 
   useEffect(() => {
-    if (!isMoving) {
+    if (!isMoving && initSize === newSize) {
       setSize(initSize)
-      // console.log('resize')
+      console.log('resize')
     }
     if (elementRef.current !== null && element == selectElement) {
       elementRef.current.addEventListener("mousedown", MouseDownListener)
@@ -40,7 +40,7 @@ export function useResizeObject(
         elementRef.current.removeEventListener("mousedown", MouseDownListener)
       }
     }
-  }, )
+  })
 
   function MoveTopLeftPoint(delta: {x: number, y: number}) {
     newPos = {

@@ -12,16 +12,17 @@ import { InsertImage } from './PopupWindows/InsertImage/InsertImage'
 import { UnavailableContent } from './PopupWindows/UnavailableContent/UnavailableContent'
 import { store } from '../store/store'
 import { redo, undo } from '../store/actionCreators/HistoryActionCreators'
+import { SaveAsJSON } from './PopupWindows/SaveComputer/SaveAsJSON'
 
 export function Card() {
     const refEditor: MutableRefObject<HTMLDivElement | null> = useRef(null)
-    const refSvg: MutableRefObject<SVGSVGElement | null> = useRef(null)
 
     const [viewSave, setViewSave] = useState(false)
     const [viewResize, setViewResize] = useState(false)
     const [viewReset, setViewReset] = useState(false)
     const [viewNotification, setViewNotification] = useState(false)
     const [viewEditor, setViewEditor] = useState({ view: false, state: '' })
+    const [viewSaveJSON, setViewSaveJSON] = useState(false)
 
     const [sizeInsertImage, setSizeInsertImage] = useState({image: {size: {width: 0, height: 0}, url: ''}, view: false})
     const [sizeSelectElement, setSizeSelectElement] = useState({ width: 0, height: 0 })
@@ -54,6 +55,7 @@ export function Card() {
                 setViewEditor={setViewEditor}
                 setViewSave={setViewSave}
                 setViewReset={setViewReset}
+                setSaveJSON={setViewSaveJSON}
             />
             <div className={styles.card__content}>
                 <PrimaryPanel
@@ -72,7 +74,6 @@ export function Card() {
                         />
                         <Workspace
                             refEditor={refEditor}
-                            refSvg={refSvg}
                             stateViewEditor={{ viewEditor, setViewEditor }}
                             stateSizeSelectElement={{sizeSelectElement, setSizeSelectElement}}
                         />
@@ -80,8 +81,9 @@ export function Card() {
                     <CanvasTools canvas={store.getState().canvas} history={store.getState().history} setViewReset={setViewReset} />
                 </div>
             </div>
-            {(viewSave || viewResize || viewReset || sizeInsertImage.view || viewNotification) && <div className={styles.shadow}></div>}
-            {viewSave && <SaveComputer setView={setViewSave} refSvg={refSvg} /> }
+            {(viewSave || viewSaveJSON || viewResize || viewReset || sizeInsertImage.view || viewNotification) && <div className={styles.shadow}></div>}
+            {viewSave && <SaveComputer setView={setViewSave} /> }
+            {viewSaveJSON && <SaveAsJSON setView={setViewSaveJSON} /> }
             {viewResize && <ResizeTemplate setView={setViewResize} />}
             {viewReset && <ResetCanvas setView={setViewReset} stateViewEditor={{ viewEditor, setViewEditor }} />}
             {sizeInsertImage.view && <InsertImage stateSizeInsertImage={{sizeInsertImage, setSizeInsertImage}} />}

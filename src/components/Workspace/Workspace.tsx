@@ -5,7 +5,6 @@ import { store } from '../../store/store'
 
 interface WorkspacePropsType {
     refEditor: MutableRefObject<HTMLDivElement | null>,
-    refSvg: MutableRefObject<SVGSVGElement | null>,
     stateSizeSelectElement: {
         sizeSelectElement: {width: number, height: number},
         setSizeSelectElement: (size: {width: number, height: number}) => void,
@@ -29,7 +28,6 @@ export function Workspace(props: WorkspacePropsType) {
                     viewEditor: props.stateViewEditor.viewEditor,
                     setViewEditor: props.stateViewEditor.setViewEditor
                 }}
-                refSvg={props.refSvg}
                 refEditor={props.refEditor}
             />
         </div>

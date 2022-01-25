@@ -17,7 +17,6 @@ interface CanvasPropsType {
         viewEditor: { view: boolean, state: string }
         setViewEditor: (viewEditor: { view: boolean, state: string }) => void,
     }
-    refSvg: MutableRefObject<SVGSVGElement | null>,
     refEditor: MutableRefObject<HTMLDivElement | null>,
 }
 
@@ -78,7 +77,7 @@ export function Canvas(props: CanvasPropsType) {
         }}
             className={styles.canvas}
         >
-            <svg style={{ width: props.canvas.size.width, height: props.canvas.size.height, background: props.canvas.background }} ref={props.refSvg}>
+            <svg style={{ width: props.canvas.size.width, height: props.canvas.size.height, background: props.canvas.background }} >
                 <Elements
                     setInputValue={setInputValue}
                     canvas={props.canvas}

@@ -43,8 +43,6 @@ export function Rectangle(props: RectanglePropsType) {
             width={size.width}
             height={size.height}
             fill={props.color}
-            onClick={() => {
-            }}
         />
     )
 }
