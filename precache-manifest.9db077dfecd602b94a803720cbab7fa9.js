@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "6b439c27b948b6c4d9a7",
+    "revision": "51aa93016c7369c964a3",
     "url": "/card-maker/static/css/main.f9abb561.chunk.css"
   },
   {
-    "revision": "6b439c27b948b6c4d9a7",
-    "url": "/card-maker/static/js/main.5d35fe83.chunk.js"
+    "revision": "51aa93016c7369c964a3",
+    "url": "/card-maker/static/js/main.4d2323ed.chunk.js"
   },
   {
     "revision": "ca996e8e03d04bd57217",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/card-maker/static/js/2.e7ea5e0e.chunk.js"
   },
   {
-    "revision": "2ffa3ba91de92ce67e204f7794823776",
+    "revision": "a934453634c3552a9e42da1f01a50ab8",
     "url": "/card-maker/index.html"
   }
 ];

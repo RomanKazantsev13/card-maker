@@ -1,13 +1,13 @@
 {
   "main.css": "/card-maker/static/css/main.f9abb561.chunk.css",
-  "main.js": "/card-maker/static/js/main.5d35fe83.chunk.js",
-  "main.js.map": "/card-maker/static/js/main.5d35fe83.chunk.js.map",
+  "main.js": "/card-maker/static/js/main.4d2323ed.chunk.js",
+  "main.js.map": "/card-maker/static/js/main.4d2323ed.chunk.js.map",
   "runtime~main.js": "/card-maker/static/js/runtime~main.45b245e7.js",
   "runtime~main.js.map": "/card-maker/static/js/runtime~main.45b245e7.js.map",
   "static/js/2.e7ea5e0e.chunk.js": "/card-maker/static/js/2.e7ea5e0e.chunk.js",
   "static/js/2.e7ea5e0e.chunk.js.map": "/card-maker/static/js/2.e7ea5e0e.chunk.js.map",
   "index.html": "/card-maker/index.html",
-  "precache-manifest.e488e7b0e4ad19a686e9029f78b27536.js": "/card-maker/precache-manifest.e488e7b0e4ad19a686e9029f78b27536.js",
+  "precache-manifest.9db077dfecd602b94a803720cbab7fa9.js": "/card-maker/precache-manifest.9db077dfecd602b94a803720cbab7fa9.js",
   "service-worker.js": "/card-maker/service-worker.js",
   "static/css/main.f9abb561.chunk.css.map": "/card-maker/static/css/main.f9abb561.chunk.css.map"
 }
