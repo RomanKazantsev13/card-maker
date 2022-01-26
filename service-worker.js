@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/card-maker/precache-manifest.9db077dfecd602b94a803720cbab7fa9.js"
+  "/card-maker/precache-manifest.66f49ffbf292b800157204d11159c929.js"
 );
 
 workbox.clientsClaim();
