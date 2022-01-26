@@ -86,7 +86,7 @@ export default function cardReducers(state = {} as Card, action: any): Card {
                 canvas: canvas,
                 history: {
                     ...history,
-                    redo: []
+                    redo: [] 
                 }
             }
         }
