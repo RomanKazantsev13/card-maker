@@ -37,8 +37,8 @@ export function Card() {
     })
 
     const escFunction = (event: KeyboardEvent) => {
-        { event.ctrlKey && event.key === 'z' && (store.getState().history.undo.length - 1) && store.dispatch(undo)}
-        { event.ctrlKey && event.key === 'y' && store.getState().history.redo && store.dispatch(redo)}
+        { event.ctrlKey && event.key === 'z' && (store.getState().history.undo.length - 1) && store.dispatch(undo())}
+        { event.ctrlKey && event.key === 'y' && store.getState().history.redo.length && store.dispatch(redo())}
     }
 
     useEffect(() => {

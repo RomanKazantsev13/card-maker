@@ -1,6 +1,7 @@
 import React, { ChangeEvent, RefObject, useRef } from 'react'
 import { addImage } from '../../../store/actionCreators/ImageActionCreators';
 import { store } from '../../../store/store'
+import { Size } from '../../../utils/types';
 import styles from './ImageManager.module.css'
 
 interface ImageManagerPropsType {
@@ -10,19 +11,23 @@ interface ImageManagerPropsType {
 
 export function ImageManager(props: ImageManagerPropsType) {
     const ref: RefObject<HTMLInputElement> = useRef(null)
-    function createImage(url: string): Promise<HTMLImageElement> {
-        return new Promise((resolve, reject) => {
-            let img: HTMLImageElement = new Image();
-            img.onload = () => resolve(img);
-            img.onerror = () => reject();
-            img.src = url;
-        });
+    async function getImage(file: File): Promise<{src: string, size: Size}> {
+        const imgReaderPromise = new Promise((resolve, reject) => {
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = reject
+        })
+    
+        const img = new Image();
+        img.src = await imgReaderPromise as string;
+        await img.decode();
+    
+        return{
+            src: img.src,
+            size: {width: img.width, height: img.height}
+        }
     }
-    async function getSize(imgSrc: string) {
-        const image: HTMLImageElement = await createImage(imgSrc);
-        return { width: image.width, height: image.height }
-    }
-
     return (
         <div>
             <div className={styles.header}>Image Manager</div>
@@ -32,12 +37,11 @@ export function ImageManager(props: ImageManagerPropsType) {
             <input ref={ref} id="fileImage" type="file" className={styles.input} accept="image/png, image/gif, image/jpeg" onChange={
                 (event: ChangeEvent<HTMLInputElement>) => {
                     if (event.currentTarget.files) {
-                        const imgUrl = URL.createObjectURL(event.currentTarget.files[0])
-                        getSize(imgUrl).then(size => { 
-                            if (store.getState().canvas.size.width < size.width || store.getState().canvas.size.height < size.height) {
-                                props.setSizeInsertImage({image: {size: size, url: imgUrl}, view: true})
+                        getImage(event.currentTarget.files[0]).then(image => { 
+                            if (store.getState().canvas.size.width < image.size.width || store.getState().canvas.size.height < image.size.height) {
+                                props.setSizeInsertImage({image: {size: image.size, url: image.src}, view: true})
                             } else {
-                                store.dispatch(addImage(imgUrl, size))
+                                store.dispatch(addImage(image.src, image.size))
                             }
                         })
                         event.target.value = "";

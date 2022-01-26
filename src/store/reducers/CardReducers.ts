@@ -59,7 +59,6 @@ export default function cardReducers(state = {} as Card, action: any): Card {
         }
         case 'ADD_JSON': {
             if (isAddJSONAction(action)) {
-                console.log('done')
                 return {
                     canvas: action.canvas,
                     history: {

@@ -3,7 +3,7 @@ import { pointsSelectElement } from "../components/Workspace/Canvas/Elements/Ele
 import { getCentreAndSizeOfElement } from "../components/Workspace/Canvas/SelectElement/SelectElementFunction"
 import { setCentreElement, setSelectElement } from "../store/actionCreators/ElementsActionCreators"
 import { store } from "../store/store"
-import { isFigure, isText } from "../utils/typeGuards"
+import { isFigure, isImage, isText } from "../utils/typeGuards"
 import { Element } from "../utils/types"
 
 export function useDragAndDrop(
@@ -23,7 +23,6 @@ export function useDragAndDrop(
   useEffect(() => {
     if (!isMoving && position === newPos) {
       setPosition(position)
-      console.log('move')
     }
     if (elementRef.current !== null) {
       elementRef.current.addEventListener("mousedown", MouseDownListener)
@@ -66,6 +65,9 @@ export function useDragAndDrop(
       setSize(getCentreAndSizeOfElement(element, null).size)
       if (element !== null && isFigure(element.object)) {
         setViewEditor({ view: true, state: 'Figure Properties' })
+      }
+      if (element !== null && isImage(element.object)) {
+        setViewEditor({ view: true, state: 'Image Manager' })
       }
     }
     store.dispatch(setSelectElement(element))

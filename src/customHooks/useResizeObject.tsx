@@ -30,7 +30,6 @@ export function useResizeObject(
   useEffect(() => {
     if (!isMoving && initSize === newSize) {
       setSize(initSize)
-      console.log('resize')
     }
     if (elementRef.current !== null && element == selectElement) {
       elementRef.current.addEventListener("mousedown", MouseDownListener)

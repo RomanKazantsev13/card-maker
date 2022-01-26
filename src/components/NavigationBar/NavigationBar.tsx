@@ -65,7 +65,6 @@ export function NavigationBar(props: NavigationBarPropsType) {
                                         let canvas = store.getState().canvas
                                         if (input !== null && input.files !== null) {
                                             let file_to_read = input.files[0]
-                                            console.log(file_to_read)
                                             var fileread = new FileReader()
                                             fileread.onload = function (e) {
                                                 if (e.target !== null) {

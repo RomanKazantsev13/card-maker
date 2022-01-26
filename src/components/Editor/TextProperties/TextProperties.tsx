@@ -56,7 +56,10 @@ export function TextProperties(props: TextPropertiesPropsType) {
                 >
                     <span className={styles.color_triangle}></span>
                 </div>
-                <div className={styles.button_wrap} onClick={() => store.dispatch(deleteSelectElement())}>
+                <div className={styles.button_wrap} onClick={() => {
+                    store.dispatch(deleteSelectElement())
+                    props.setViewEditor({view: true, state: 'Text'})
+                }}>
                     <img className={styles.button} src="images/bin.png" />
                 </div>
             </div>
