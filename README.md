@@ -2,4 +2,4 @@
 
 В данном приложении вы можете добавлять текста, картинки, фигуры. А после просто экспортировать холст в картинку (PNG/JPEG) или скачать его как JSON и продолжить работу с открыткой позже.
 
-[card-maker](https://romankazantsev13.github.io/card-maker/)
+### Переходите и пользуйтесь: [card-maker](https://romankazantsev13.github.io/card-maker/)
