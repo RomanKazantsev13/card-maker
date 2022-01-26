@@ -26,10 +26,10 @@ export function ImageManager(props: ImageManagerPropsType) {
     return (
         <div>
             <div className={styles.header}>Image Manager</div>
-            <label htmlFor="file" className={styles.button}>
+            <label htmlFor="fileImage" className={styles.button}>
                 <div className={styles.text}>Computer</div>
             </label>
-            <input ref={ref} id="file" type="file" className={styles.input} accept="image/png, image/gif, image/jpeg" onChange={
+            <input ref={ref} id="fileImage" type="file" className={styles.input} accept="image/png, image/gif, image/jpeg" onChange={
                 (event: ChangeEvent<HTMLInputElement>) => {
                     if (event.currentTarget.files) {
                         const imgUrl = URL.createObjectURL(event.currentTarget.files[0])

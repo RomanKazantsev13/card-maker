@@ -80,15 +80,6 @@ export function SaveAsJSON(props: SaveComputerPropsType) {
                     } }/>
                 </div>
             </div>
-            <canvas
-                ref={refCanvas}
-                width={canvasModel.size.width}
-                height={canvasModel.size.height}
-                style={{
-                    display: "none"
-                }}
-            >
-            </canvas>
         </div>
     )
 }
